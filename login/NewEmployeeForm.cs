@@ -18,6 +18,8 @@ namespace login
         public NewEmployeeForm()
         {
             InitializeComponent();
+            var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
+            lbl_date.Text = "Today's Date: " + date;
         }
         private void RegisterForm_Load(object sender, EventArgs e)
         {
@@ -87,7 +89,7 @@ namespace login
                 textBoxPassword.Text = "Password";
                 textBoxPassword.UseSystemPasswordChar = false;
                 textBoxPassword.ForeColor = Color.Gray;
-            }
+            } 
         }
 
         private void textBoxPasswordConfirm_Enter(object sender, EventArgs e)
@@ -111,6 +113,10 @@ namespace login
                 textBoxPasswordConfirm.Text = "Confirm Password";
                 textBoxPasswordConfirm.UseSystemPasswordChar = false;
                 textBoxPasswordConfirm.ForeColor = Color.Gray;
+            }
+            else if (textBoxPassword.Text != textBoxPasswordConfirm.Text)
+            {
+                MessageBox.Show("Passwords Do Not Match", "Wrong Password", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

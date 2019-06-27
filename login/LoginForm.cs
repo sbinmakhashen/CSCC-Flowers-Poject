@@ -18,8 +18,10 @@ namespace login
         public LoginForm()
         {
             InitializeComponent();
-            this.textBoxPassword.AutoSize = false;
-            this.textBoxPassword.Size = new Size(this.textBoxPassword.Size.Width, 115);
+            //this.textBoxPassword.AutoSize = false;
+            //this.textBoxPassword.Size = new Size(this.textBoxPassword.Size.Width, 115);
+            var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
+            lbl_date.Text = "Today's Date: " + date;
         }
 
         private void labelClose_MouseEnter(object sender, EventArgs e)

@@ -17,6 +17,9 @@ namespace login
         {
             InitializeComponent();
 
+            var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
+            lbl_date.Text = "Today's Date: " + date;
+
             var data = new DataTable();
             data = SQL.GetEmployee(SQL.GetEmpNum(SQL.Username));
 

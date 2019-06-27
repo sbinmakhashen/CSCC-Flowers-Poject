@@ -18,7 +18,11 @@ namespace login
         int accountNum = 0;
         public UpdateEmployee()
         {
+            
             InitializeComponent();
+            lbl_terminated.Hide();
+            var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
+            lbl_date.Text = "Today's Date: " + date;
         }
 
         private void Btn_Search_Click(object sender, EventArgs e)
@@ -46,14 +50,15 @@ namespace login
                     drpd_State.SelectedIndex = drpd_State.FindStringExact(data.Rows[0]["state"].ToString().ToUpper());
                     drpd_store.SelectedIndex = drpd_store.FindStringExact(data.Rows[0]["location"].ToString());
                     lbl_username.Text = "Username: " + data.Rows[0]["username"].ToString();
-                    lbl_hired.Text = "Hire Date: " + data.Rows[0]["hired"].ToString().Substring(0, 10);
+                    lbl_hired.Text = "Hire Date: " + data.Rows[0]["hired"].ToString();
                     lbl_type.Text = "Type: " + data.Rows[0]["type"].ToString();
                     if (data.Rows[0]["terminated"].ToString().Substring(0,1) == "0")
                     {
-                        lbl_terminated.Text = "";
+                        lbl_terminated.Hide();
                     } else
                     {
-                        lbl_terminated.Text = "Terminated: " + data.Rows[0]["terminated"].ToString().Substring(0, 10);
+                        lbl_terminated.Show();
+                        lbl_terminated.Text = "Terminated: " + data.Rows[0]["terminated"].ToString();
                     }
                     
                     
@@ -380,7 +385,9 @@ namespace login
         private void labelClose_Click(object sender, EventArgs e)
         {
             SQL.Cleanup();
-            Application.Exit();
+            this.Hide();
+            LoginForm LoginForm = new LoginForm();
+            LoginForm.Show();
         }
 
         //text boxes show effect
@@ -558,11 +565,17 @@ namespace login
         private void txt_Pay_Leave(object sender, EventArgs e)
         {
             String street = txt_Pay.Text;
+            double.TryParse(txt_Pay.Text, out double pay);
             if (street.ToLower().Trim().Equals("pay rate") || street.Trim().Equals(""))
             {
                 txt_Pay.Text = "pay rate";
                 txt_Pay.ForeColor = Color.LightSeaGreen;
+            } else if (pay == 0)
+            {
+                MessageBox.Show("Pay must be a proper number.", "Pay Rate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+
         }
     }
 }
