@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbl_ChangeQty = new System.Windows.Forms.Label();
             this.txt_ChangeQty = new System.Windows.Forms.TextBox();
@@ -45,6 +45,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.labelClose = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.lbl_loginInfo = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -53,6 +54,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panel2.Controls.Add(this.lbl_loginInfo);
             this.panel2.Controls.Add(this.lbl_ChangeQty);
             this.panel2.Controls.Add(this.txt_ChangeQty);
             this.panel2.Controls.Add(this.btn_NewItem);
@@ -78,7 +80,7 @@
             // 
             this.lbl_ChangeQty.AutoSize = true;
             this.lbl_ChangeQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ChangeQty.Location = new System.Drawing.Point(1578, 405);
+            this.lbl_ChangeQty.Location = new System.Drawing.Point(15, 381);
             this.lbl_ChangeQty.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbl_ChangeQty.Name = "lbl_ChangeQty";
             this.lbl_ChangeQty.Size = new System.Drawing.Size(253, 36);
@@ -88,7 +90,7 @@
             // txt_ChangeQty
             // 
             this.txt_ChangeQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_ChangeQty.Location = new System.Drawing.Point(1584, 457);
+            this.txt_ChangeQty.Location = new System.Drawing.Point(12, 423);
             this.txt_ChangeQty.Margin = new System.Windows.Forms.Padding(6);
             this.txt_ChangeQty.Multiline = true;
             this.txt_ChangeQty.Name = "txt_ChangeQty";
@@ -98,7 +100,7 @@
             // btn_NewItem
             // 
             this.btn_NewItem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_NewItem.Location = new System.Drawing.Point(15, 936);
+            this.btn_NewItem.Location = new System.Drawing.Point(1584, 936);
             this.btn_NewItem.Margin = new System.Windows.Forms.Padding(6);
             this.btn_NewItem.Name = "btn_NewItem";
             this.btn_NewItem.Size = new System.Drawing.Size(312, 93);
@@ -111,7 +113,7 @@
             // 
             this.lbl_name.AutoSize = true;
             this.lbl_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_name.Location = new System.Drawing.Point(329, 185);
+            this.lbl_name.Location = new System.Drawing.Point(329, 200);
             this.lbl_name.Name = "lbl_name";
             this.lbl_name.Size = new System.Drawing.Size(344, 55);
             this.lbl_name.TabIndex = 19;
@@ -120,7 +122,7 @@
             // textBoxStockQty
             // 
             this.textBoxStockQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStockQty.Location = new System.Drawing.Point(1584, 316);
+            this.textBoxStockQty.Location = new System.Drawing.Point(12, 317);
             this.textBoxStockQty.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxStockQty.Multiline = true;
             this.textBoxStockQty.Name = "textBoxStockQty";
@@ -131,7 +133,7 @@
             // 
             this.lbl_stock.AutoSize = true;
             this.lbl_stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_stock.Location = new System.Drawing.Point(1578, 258);
+            this.lbl_stock.Location = new System.Drawing.Point(6, 275);
             this.lbl_stock.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbl_stock.Name = "lbl_stock";
             this.lbl_stock.Size = new System.Drawing.Size(151, 36);
@@ -142,7 +144,7 @@
             // 
             this.lbl_product.AutoSize = true;
             this.lbl_product.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_product.Location = new System.Drawing.Point(333, 149);
+            this.lbl_product.Location = new System.Drawing.Point(333, 164);
             this.lbl_product.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbl_product.Name = "lbl_product";
             this.lbl_product.Size = new System.Drawing.Size(207, 36);
@@ -167,7 +169,7 @@
             // buttonDisplay
             // 
             this.buttonDisplay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDisplay.Location = new System.Drawing.Point(15, 258);
+            this.buttonDisplay.Location = new System.Drawing.Point(12, 936);
             this.buttonDisplay.Margin = new System.Windows.Forms.Padding(6);
             this.buttonDisplay.Name = "buttonDisplay";
             this.buttonDisplay.Size = new System.Drawing.Size(312, 93);
@@ -179,7 +181,7 @@
             // btn_IncreaseQty
             // 
             this.btn_IncreaseQty.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_IncreaseQty.Location = new System.Drawing.Point(1584, 936);
+            this.btn_IncreaseQty.Location = new System.Drawing.Point(12, 515);
             this.btn_IncreaseQty.Margin = new System.Windows.Forms.Padding(6);
             this.btn_IncreaseQty.Name = "btn_IncreaseQty";
             this.btn_IncreaseQty.Size = new System.Drawing.Size(312, 93);
@@ -192,7 +194,7 @@
             // 
             this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSearch.ForeColor = System.Drawing.Color.MediumBlue;
-            this.textBoxSearch.Location = new System.Drawing.Point(339, 15);
+            this.textBoxSearch.Location = new System.Drawing.Point(339, 6);
             this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
@@ -208,23 +210,23 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.CornflowerBlue;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.CornflowerBlue;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(339, 258);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(6);
@@ -262,6 +264,15 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 4;
             this.pictureBox3.TabStop = false;
+            // 
+            // lbl_loginInfo
+            // 
+            this.lbl_loginInfo.AutoSize = true;
+            this.lbl_loginInfo.Location = new System.Drawing.Point(333, 116);
+            this.lbl_loginInfo.Name = "lbl_loginInfo";
+            this.lbl_loginInfo.Size = new System.Drawing.Size(93, 32);
+            this.lbl_loginInfo.TabIndex = 23;
+            this.lbl_loginInfo.Text = "label1";
             // 
             // InventoryManagement
             // 
@@ -301,5 +312,6 @@
         private System.Windows.Forms.Button btn_NewItem;
         private System.Windows.Forms.Label lbl_ChangeQty;
         private System.Windows.Forms.TextBox txt_ChangeQty;
+        private System.Windows.Forms.Label lbl_loginInfo;
     }
 }

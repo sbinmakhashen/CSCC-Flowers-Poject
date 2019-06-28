@@ -24,11 +24,32 @@ namespace login
         {
             InitializeComponent();
             lbl_name.Text = "";
-            disp_data();
+            DispData();
+
+
+            var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
+            
+
+            var data = new DataTable();
+            data = SQL.GetEmployee(SQL.GetEmpNum(SQL.Username));
+
+            string fname = data.Rows[0]["first_name"].ToString();
+
+            // Check for empty string.  
+            if (string.IsNullOrEmpty(fname))
+            {
+                fname = "User";
+            }
+            else
+            {
+                fname = char.ToUpper(fname[0]) + fname.Substring(1);
+            }
+
             
 
             if(SQL.IsManager)
             {
+                lbl_loginInfo.Text = "Hello "+fname+". You are logged in as " + SQL.Username + ", a Manager. Todays Date is " + date + ".";
                 btn_IncreaseQty.Show();
                 lbl_product.Show();
                 lbl_stock.Show();
@@ -39,6 +60,7 @@ namespace login
                 btn_NewItem.Show();
             } else
             {
+                lbl_loginInfo.Text = "Hello " + fname + ". You are logged in as " + SQL.Username + ", a Employee. Todays Date is " + date + ".";
                 btn_IncreaseQty.Hide();
                 lbl_product.Hide();
                 lbl_stock.Hide();
@@ -51,7 +73,7 @@ namespace login
 
         }
 
-        public void disp_data()
+        public void DispData()
         {
             inventoryData = SQL.GetInventory();
 
@@ -77,7 +99,7 @@ namespace login
 
         private void InventoryManagement_Load(object sender, EventArgs e)
         {
-            disp_data();
+            DispData();
             Clear();
         }
        
@@ -93,7 +115,7 @@ namespace login
 
         private void buttonDisplay_Click(object sender, EventArgs e)
         {
-            disp_data();
+            DispData();
             Clear();
         }
 
@@ -208,18 +230,25 @@ namespace login
             {
                 MessageBox.Show("Please select an item to change first.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (tempQty == changedTotalQty && tempQty+adjustQtyBy >= 0)
+            else if (tempQty == changedTotalQty && tempQty+adjustQtyBy > 0 && adjustQtyBy != 0)
             {
                 /* this part looks to see if the Qty box is still the same as when the item was selected
-                 * and if the adjustment is still above 0 qty (can't have negitive stock)
+                 * and if the adjustment is still above 0 qty (can't have negitive stock). There also needs to be a non
+                 * zero value in the adjustByQty box
                  */
                 try
                 {
-                    SQL.ChangeQty(ProductID, adjustQtyBy);
+                    SQL.ChangeQty(ProductID, tempQty+adjustQtyBy);
                     MessageBox.Show("Changed quantity by " + adjustQtyBy + ". New total quantity is " + (tempQty + adjustQtyBy) + ".", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DispData();
+                    tempQty += adjustQtyBy;
+                    textBoxStockQty.Text = tempQty.ToString();
+                    txt_ChangeQty.Text = "";
                 } catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error in Entry", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    textBoxStockQty.Text = tempQty.ToString();
+                    txt_ChangeQty.Text = "";
                 }
 
             } else if (tempQty != changedTotalQty && changedTotalQty >= 0 && adjustQtyBy == 0)
@@ -229,12 +258,17 @@ namespace login
                  */
                 try
                 {
-                    SQL.ChangeQty(ProductID, changedTotalQty-tempQty);
+                    SQL.ChangeQty(ProductID, (tempQty+(changedTotalQty-tempQty)));
                     MessageBox.Show("Changed quantity by "+ (changedTotalQty - tempQty)+". New total quantity is "+(tempQty+ (changedTotalQty - tempQty))+".", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DispData();
+                    tempQty = changedTotalQty;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error in Entry", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    textBoxStockQty.Text = tempQty.ToString();
+                    txt_ChangeQty.Text = "";
+                    textBoxStockQty.Text = tempQty.ToString();
                 }
             } else if( tempQty == changedTotalQty && adjustQtyBy == 0)
             {
@@ -260,6 +294,8 @@ namespace login
             } else
             {
                 MessageBox.Show("Something went wrong. Quantity not changed.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBoxStockQty.Text = tempQty.ToString();
+                txt_ChangeQty.Text = "";
             }
 
 
