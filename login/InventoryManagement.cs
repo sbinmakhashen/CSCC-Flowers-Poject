@@ -15,8 +15,9 @@ namespace login
 {
     public partial class InventoryManagement : Form
     {
-        
-        int ProductID = 0;
+
+        int ProductID;
+        int tempQty;
         DataTable inventoryData = new DataTable();
 
         public InventoryManagement()
@@ -28,18 +29,24 @@ namespace login
 
             if(SQL.IsManager)
             {
-                buttonInsert.Show();
+                btn_IncreaseQty.Show();
                 lbl_product.Show();
                 lbl_stock.Show();
                 textBoxStockQty.Show();
                 lbl_name.Hide();
+                lbl_ChangeQty.Show();
+                txt_ChangeQty.Show();
+                btn_NewItem.Show();
             } else
             {
-                buttonInsert.Hide();
+                btn_IncreaseQty.Hide();
                 lbl_product.Hide();
                 lbl_stock.Hide();
                 lbl_name.Hide();
                 textBoxStockQty.Hide();
+                lbl_ChangeQty.Hide();
+                txt_ChangeQty.Hide();
+                btn_NewItem.Hide();
             }
 
         }
@@ -93,15 +100,33 @@ namespace login
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Index != -1)
+            try
             {
+                if (dataGridView1.CurrentRow.Index != -1)
+                {
+                    lbl_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                    lbl_name.Show();
+                    textBoxStockQty.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+                    txt_ChangeQty.Text = "";
+                    int.TryParse(textBoxStockQty.Text, out tempQty);
+                    ProductID = SQL.GetItemId(lbl_name.Text);
+
+
+
+                }
+            }catch
+            {
+                //safety catch - will throw an exception if the dataGridView is empty.
+                // this refreshes it tries a second time.
+                dataGridView1.DataSource = inventoryData;
                 lbl_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 lbl_name.Show();
                 textBoxStockQty.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+                txt_ChangeQty.Text = "";
+                int.TryParse(textBoxStockQty.Text, out tempQty);
                 ProductID = SQL.GetItemId(lbl_name.Text);
-              
-
             }
+            
         }
         void Clear()
         {
@@ -112,8 +137,8 @@ namespace login
 
         private void textBoxSearch_Enter(object sender, EventArgs e)
         {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here...."))
+            String searchText = textBoxSearch.Text;
+            if (searchText.ToLower().Trim().Equals("search here...."))
             {
                 textBoxSearch.Text = "";
                 textBoxSearch.ForeColor = Color.Black;
@@ -122,27 +147,30 @@ namespace login
 
        private void textBoxSearch_Leave(object sender, EventArgs e)
         {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here....") || fname.Trim().Equals(""))
+            String searchTxt = textBoxSearch.Text;
+            if (dataGridView1.DataSource == null)
             {
-                textBoxSearch.Text = "search here....";
-                textBoxSearch.ForeColor = Color.MediumBlue;
+                //safety catch. If user is moving to fast, reset the data whent hey leave the searchbox
+                dataGridView1.DataSource = inventoryData;
             }
+            
+            if (searchTxt.ToLower().Trim().Equals("search here....") || searchTxt.Trim().Equals(""))
+            {
+                textBoxSearch.Text = "Search Here....";
+                textBoxSearch.ForeColor = Color.MediumBlue;
+                dataGridView1.DataSource = inventoryData;
+               
+            }
+            
         }
         
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
 
-            // this search string *should* work for linq searching, but need to work on it some
-            var filtered = inventoryData.AsEnumerable()
-    .Where(r => r.Field<String>("item_id").Contains(textBoxSearch.Text)
-           || r.Field<String>("item_name").Contains(textBoxSearch.Text)
-           || r.Field<String>("purchase_cost").Contains(textBoxSearch.Text)
-           || r.Field<String>("sell_cost").Contains(textBoxSearch.Text)
-           || r.Field<String>("category").Contains(textBoxSearch.Text));
+            var dv = new DataView(inventoryData);
+            dv.RowFilter = string.Format("item_name LIKE '%{0}%'", textBoxSearch.Text);
 
-            dataGridView1.DataSource = filtered;
-
+            dataGridView1.DataSource = dv;
 
         }
 
@@ -156,8 +184,85 @@ namespace login
             
         }
 
-        private void ButtonInsert_Click(object sender, EventArgs e)
+        private void btn_IncreseQty(object sender, EventArgs e)
         {
+
+            /* TO DO
+             * 
+             * Write SQL.ChangeQty ... whoops.
+             * 
+             * (ie : nothing is actually changing yet, its just the error checking)
+             * 
+             * update the Data Grid with the new qty
+             * 
+             * update the Stock text box with the new qty
+             * 
+             * clear the AdjustQtyBy text box on successful update
+             */
+
+
+            int.TryParse(textBoxStockQty.Text, out int changedTotalQty);
+            int.TryParse(txt_ChangeQty.Text, out int adjustQtyBy);
+
+            if(textBoxStockQty.Text.Trim().ToLower() == "")
+            {
+                MessageBox.Show("Please select an item to change first.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (tempQty == changedTotalQty && tempQty+adjustQtyBy >= 0)
+            {
+                /* this part looks to see if the Qty box is still the same as when the item was selected
+                 * and if the adjustment is still above 0 qty (can't have negitive stock)
+                 */
+                try
+                {
+                    SQL.ChangeQty(ProductID, adjustQtyBy);
+                    MessageBox.Show("Changed quantity by " + adjustQtyBy + ". New total quantity is " + (tempQty + adjustQtyBy) + ".", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error in Entry", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                }
+
+            } else if (tempQty != changedTotalQty && changedTotalQty >= 0 && adjustQtyBy == 0)
+            {
+                /* this looks to see if the Qty box is different than originally selected, and still greater
+                 * than 0, and that the Adjust Qty box is also 0 (or blank)
+                 */
+                try
+                {
+                    SQL.ChangeQty(ProductID, changedTotalQty-tempQty);
+                    MessageBox.Show("Changed quantity by "+ (changedTotalQty - tempQty)+". New total quantity is "+(tempQty+ (changedTotalQty - tempQty))+".", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error in Entry", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                }
+            } else if( tempQty == changedTotalQty && adjustQtyBy == 0)
+            {
+                /* If the qty hasn't been changed and there is no qty adjustment value, then they need to enter before hitting button
+                 */
+                MessageBox.Show("Please enter either a new total quantity or an amount to change by.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBoxStockQty.Text = tempQty.ToString();
+                txt_ChangeQty.Text = "";
+            } else if(changedTotalQty < 0 || (tempQty + adjustQtyBy) < 0)
+            {
+                /* if they try to enter a - total qty, or adjust by an amount that is more than the total, give an error
+                 */
+                MessageBox.Show("Cannot have a negitive amount of stock.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBoxStockQty.Text = tempQty.ToString();
+                txt_ChangeQty.Text = "";
+            } else if (tempQty != changedTotalQty && adjustQtyBy > 0)
+            {
+                /* if they try to change both the total qty and the adjustQty, ask them to pick one
+                 */
+                MessageBox.Show("Please choose either to adjust the total quantity or an amount to adjust, not both.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBoxStockQty.Text = tempQty.ToString();
+                txt_ChangeQty.Text = "";
+            } else
+            {
+                MessageBox.Show("Something went wrong. Quantity not changed.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
             /* To DO
              * 
              * Display Message Box asking how much to increase the qty by
@@ -166,5 +271,7 @@ namespace login
              * (which still needs to be written)
              */
         }
+
+        
     }
 }

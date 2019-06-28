@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbl_ChangeQty = new System.Windows.Forms.Label();
+            this.txt_ChangeQty = new System.Windows.Forms.TextBox();
             this.btn_NewItem = new System.Windows.Forms.Button();
             this.lbl_name = new System.Windows.Forms.Label();
             this.textBoxStockQty = new System.Windows.Forms.TextBox();
@@ -36,7 +40,7 @@
             this.lbl_product = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonDisplay = new System.Windows.Forms.Button();
-            this.buttonInsert = new System.Windows.Forms.Button();
+            this.btn_IncreaseQty = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.labelClose = new System.Windows.Forms.Label();
@@ -49,6 +53,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panel2.Controls.Add(this.lbl_ChangeQty);
+            this.panel2.Controls.Add(this.txt_ChangeQty);
             this.panel2.Controls.Add(this.btn_NewItem);
             this.panel2.Controls.Add(this.lbl_name);
             this.panel2.Controls.Add(this.textBoxStockQty);
@@ -56,7 +62,7 @@
             this.panel2.Controls.Add(this.lbl_product);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.buttonDisplay);
-            this.panel2.Controls.Add(this.buttonInsert);
+            this.panel2.Controls.Add(this.btn_IncreaseQty);
             this.panel2.Controls.Add(this.textBoxSearch);
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.labelClose);
@@ -67,6 +73,27 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(2534, 1056);
             this.panel2.TabIndex = 1;
+            // 
+            // lbl_ChangeQty
+            // 
+            this.lbl_ChangeQty.AutoSize = true;
+            this.lbl_ChangeQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_ChangeQty.Location = new System.Drawing.Point(1578, 405);
+            this.lbl_ChangeQty.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbl_ChangeQty.Name = "lbl_ChangeQty";
+            this.lbl_ChangeQty.Size = new System.Drawing.Size(253, 36);
+            this.lbl_ChangeQty.TabIndex = 22;
+            this.lbl_ChangeQty.Text = "Change Quantity: ";
+            // 
+            // txt_ChangeQty
+            // 
+            this.txt_ChangeQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_ChangeQty.Location = new System.Drawing.Point(1584, 457);
+            this.txt_ChangeQty.Margin = new System.Windows.Forms.Padding(6);
+            this.txt_ChangeQty.Multiline = true;
+            this.txt_ChangeQty.Name = "txt_ChangeQty";
+            this.txt_ChangeQty.Size = new System.Drawing.Size(312, 58);
+            this.txt_ChangeQty.TabIndex = 21;
             // 
             // btn_NewItem
             // 
@@ -115,7 +142,7 @@
             // 
             this.lbl_product.AutoSize = true;
             this.lbl_product.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_product.Location = new System.Drawing.Point(333, 132);
+            this.lbl_product.Location = new System.Drawing.Point(333, 149);
             this.lbl_product.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbl_product.Name = "lbl_product";
             this.lbl_product.Size = new System.Drawing.Size(207, 36);
@@ -149,17 +176,17 @@
             this.buttonDisplay.UseVisualStyleBackColor = true;
             this.buttonDisplay.Click += new System.EventHandler(this.buttonDisplay_Click);
             // 
-            // buttonInsert
+            // btn_IncreaseQty
             // 
-            this.buttonInsert.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonInsert.Location = new System.Drawing.Point(1584, 936);
-            this.buttonInsert.Margin = new System.Windows.Forms.Padding(6);
-            this.buttonInsert.Name = "buttonInsert";
-            this.buttonInsert.Size = new System.Drawing.Size(312, 93);
-            this.buttonInsert.TabIndex = 11;
-            this.buttonInsert.Text = "Update Quantity";
-            this.buttonInsert.UseVisualStyleBackColor = true;
-            this.buttonInsert.Click += new System.EventHandler(this.ButtonInsert_Click);
+            this.btn_IncreaseQty.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_IncreaseQty.Location = new System.Drawing.Point(1584, 936);
+            this.btn_IncreaseQty.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_IncreaseQty.Name = "btn_IncreaseQty";
+            this.btn_IncreaseQty.Size = new System.Drawing.Size(312, 93);
+            this.btn_IncreaseQty.TabIndex = 11;
+            this.btn_IncreaseQty.Text = "Update Quantity";
+            this.btn_IncreaseQty.UseVisualStyleBackColor = true;
+            this.btn_IncreaseQty.Click += new System.EventHandler(this.btn_IncreseQty);
             // 
             // textBoxSearch
             // 
@@ -178,12 +205,31 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.CornflowerBlue;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(339, 258);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(6);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 102;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(1215, 771);
@@ -245,7 +291,7 @@
         private System.Windows.Forms.Label labelClose;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonDisplay;
-        private System.Windows.Forms.Button buttonInsert;
+        private System.Windows.Forms.Button btn_IncreaseQty;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxStockQty;
@@ -253,5 +299,7 @@
         private System.Windows.Forms.Label lbl_product;
         private System.Windows.Forms.Label lbl_name;
         private System.Windows.Forms.Button btn_NewItem;
+        private System.Windows.Forms.Label lbl_ChangeQty;
+        private System.Windows.Forms.TextBox txt_ChangeQty;
     }
 }
