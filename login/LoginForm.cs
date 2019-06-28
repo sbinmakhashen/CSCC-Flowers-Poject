@@ -83,7 +83,7 @@ namespace login
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Wrong Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Wrong Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 

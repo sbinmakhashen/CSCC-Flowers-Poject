@@ -36,12 +36,12 @@
             this.btn_inventory = new System.Windows.Forms.Label();
             this.btn_employee_setup = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbl_date = new System.Windows.Forms.Label();
             this.lbl_forgotPW = new System.Windows.Forms.Label();
             this.btn_close = new System.Windows.Forms.Label();
             this.lbl_username = new System.Windows.Forms.Label();
             this.icon_Logo = new System.Windows.Forms.PictureBox();
             this.lbl_titlePage = new System.Windows.Forms.Label();
-            this.lbl_date = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.icon_Logo)).BeginInit();
@@ -59,7 +59,7 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.panel1.Margin = new System.Windows.Forms.Padding(8);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(2486, 1211);
             this.panel1.TabIndex = 0;
@@ -176,22 +176,32 @@
             this.panel2.Controls.Add(this.icon_Logo);
             this.panel2.Controls.Add(this.lbl_titlePage);
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.panel2.Margin = new System.Windows.Forms.Padding(8);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(2494, 229);
             this.panel2.TabIndex = 0;
+            // 
+            // lbl_date
+            // 
+            this.lbl_date.AutoSize = true;
+            this.lbl_date.Location = new System.Drawing.Point(247, 197);
+            this.lbl_date.Name = "lbl_date";
+            this.lbl_date.Size = new System.Drawing.Size(195, 32);
+            this.lbl_date.TabIndex = 8;
+            this.lbl_date.Text = "Today\'s Date: ";
             // 
             // lbl_forgotPW
             // 
             this.lbl_forgotPW.AutoSize = true;
             this.lbl_forgotPW.BackColor = System.Drawing.Color.MediumPurple;
             this.lbl_forgotPW.ForeColor = System.Drawing.Color.DarkRed;
-            this.lbl_forgotPW.Location = new System.Drawing.Point(1765, 181);
+            this.lbl_forgotPW.Location = new System.Drawing.Point(247, 45);
             this.lbl_forgotPW.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_forgotPW.Name = "lbl_forgotPW";
-            this.lbl_forgotPW.Size = new System.Drawing.Size(609, 32);
+            this.lbl_forgotPW.Size = new System.Drawing.Size(477, 32);
             this.lbl_forgotPW.TabIndex = 7;
-            this.lbl_forgotPW.Text = "Forgot your Password? Contact HR To Reset It.";
+            this.lbl_forgotPW.Text = "Click here to Change Your Password";
+            this.lbl_forgotPW.Click += new System.EventHandler(this.Lbl_forgotPW_Click);
             // 
             // btn_close
             // 
@@ -243,15 +253,6 @@
             this.lbl_titlePage.Text = "Landing Page";
             this.lbl_titlePage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lbl_date
-            // 
-            this.lbl_date.AutoSize = true;
-            this.lbl_date.Location = new System.Drawing.Point(247, 197);
-            this.lbl_date.Name = "lbl_date";
-            this.lbl_date.Size = new System.Drawing.Size(195, 32);
-            this.lbl_date.TabIndex = 8;
-            this.lbl_date.Text = "Today\'s Date: ";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -259,7 +260,7 @@
             this.ClientSize = new System.Drawing.Size(2486, 1211);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.Margin = new System.Windows.Forms.Padding(8);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";

@@ -29,17 +29,14 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBoxPrice = new System.Windows.Forms.TextBox();
+            this.btn_NewItem = new System.Windows.Forms.Button();
+            this.lbl_name = new System.Windows.Forms.Label();
             this.textBoxStockQty = new System.Windows.Forms.TextBox();
-            this.textBoxProdName = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_stock = new System.Windows.Forms.Label();
+            this.lbl_product = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonDisplay = new System.Windows.Forms.Button();
             this.buttonInsert = new System.Windows.Forms.Button();
-            this.buttonEdit = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.labelClose = new System.Windows.Forms.Label();
@@ -52,84 +49,78 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panel2.Controls.Add(this.textBoxPrice);
+            this.panel2.Controls.Add(this.btn_NewItem);
+            this.panel2.Controls.Add(this.lbl_name);
             this.panel2.Controls.Add(this.textBoxStockQty);
-            this.panel2.Controls.Add(this.textBoxProdName);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.lbl_stock);
+            this.panel2.Controls.Add(this.lbl_product);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.buttonDisplay);
             this.panel2.Controls.Add(this.buttonInsert);
-            this.panel2.Controls.Add(this.buttonEdit);
-            this.panel2.Controls.Add(this.buttonDelete);
             this.panel2.Controls.Add(this.textBoxSearch);
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.labelClose);
             this.panel2.Controls.Add(this.pictureBox3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(8);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1267, 545);
+            this.panel2.Size = new System.Drawing.Size(2534, 1056);
             this.panel2.TabIndex = 1;
             // 
-            // textBoxPrice
+            // btn_NewItem
             // 
-            this.textBoxPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPrice.Location = new System.Drawing.Point(1109, 460);
-            this.textBoxPrice.Multiline = true;
-            this.textBoxPrice.Name = "textBoxPrice";
-            this.textBoxPrice.Size = new System.Drawing.Size(134, 33);
-            this.textBoxPrice.TabIndex = 19;
+            this.btn_NewItem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_NewItem.Location = new System.Drawing.Point(15, 936);
+            this.btn_NewItem.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_NewItem.Name = "btn_NewItem";
+            this.btn_NewItem.Size = new System.Drawing.Size(312, 93);
+            this.btn_NewItem.TabIndex = 20;
+            this.btn_NewItem.Text = "New Item";
+            this.btn_NewItem.UseVisualStyleBackColor = true;
+            this.btn_NewItem.Click += new System.EventHandler(this.Btn_NewItem_Click);
+            // 
+            // lbl_name
+            // 
+            this.lbl_name.AutoSize = true;
+            this.lbl_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_name.Location = new System.Drawing.Point(329, 185);
+            this.lbl_name.Name = "lbl_name";
+            this.lbl_name.Size = new System.Drawing.Size(344, 55);
+            this.lbl_name.TabIndex = 19;
+            this.lbl_name.Text = "Product Name";
             // 
             // textBoxStockQty
             // 
             this.textBoxStockQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxStockQty.Location = new System.Drawing.Point(1109, 303);
+            this.textBoxStockQty.Location = new System.Drawing.Point(1584, 316);
+            this.textBoxStockQty.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxStockQty.Multiline = true;
             this.textBoxStockQty.Name = "textBoxStockQty";
-            this.textBoxStockQty.Size = new System.Drawing.Size(134, 32);
+            this.textBoxStockQty.Size = new System.Drawing.Size(312, 58);
             this.textBoxStockQty.TabIndex = 18;
             // 
-            // textBoxProdName
+            // lbl_stock
             // 
-            this.textBoxProdName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxProdName.Location = new System.Drawing.Point(1109, 153);
-            this.textBoxProdName.Multiline = true;
-            this.textBoxProdName.Name = "textBoxProdName";
-            this.textBoxProdName.Size = new System.Drawing.Size(134, 33);
-            this.textBoxProdName.TabIndex = 17;
+            this.lbl_stock.AutoSize = true;
+            this.lbl_stock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_stock.Location = new System.Drawing.Point(1578, 258);
+            this.lbl_stock.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbl_stock.Name = "lbl_stock";
+            this.lbl_stock.Size = new System.Drawing.Size(151, 36);
+            this.lbl_stock.TabIndex = 16;
+            this.lbl_stock.Text = "Stock Qty:";
             // 
-            // label4
+            // lbl_product
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(998, 317);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(78, 18);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Stock Qty:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(998, 461);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 18);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Price:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(998, 154);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 18);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Product name:";
+            this.lbl_product.AutoSize = true;
+            this.lbl_product.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_product.Location = new System.Drawing.Point(333, 132);
+            this.lbl_product.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbl_product.Name = "lbl_product";
+            this.lbl_product.Size = new System.Drawing.Size(207, 36);
+            this.lbl_product.TabIndex = 14;
+            this.lbl_product.Text = "Product name:";
             // 
             // label2
             // 
@@ -137,10 +128,10 @@
             this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(1090, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(1662, 101);
+            this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 28);
+            this.label2.Size = new System.Drawing.Size(234, 54);
             this.label2.TabIndex = 13;
             this.label2.Text = "Previous";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -149,9 +140,10 @@
             // buttonDisplay
             // 
             this.buttonDisplay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDisplay.Location = new System.Drawing.Point(53, 497);
+            this.buttonDisplay.Location = new System.Drawing.Point(15, 258);
+            this.buttonDisplay.Margin = new System.Windows.Forms.Padding(6);
             this.buttonDisplay.Name = "buttonDisplay";
-            this.buttonDisplay.Size = new System.Drawing.Size(156, 48);
+            this.buttonDisplay.Size = new System.Drawing.Size(312, 93);
             this.buttonDisplay.TabIndex = 12;
             this.buttonDisplay.Text = "Display/Reset";
             this.buttonDisplay.UseVisualStyleBackColor = true;
@@ -160,44 +152,24 @@
             // buttonInsert
             // 
             this.buttonInsert.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonInsert.Location = new System.Drawing.Point(0, 154);
+            this.buttonInsert.Location = new System.Drawing.Point(1584, 936);
+            this.buttonInsert.Margin = new System.Windows.Forms.Padding(6);
             this.buttonInsert.Name = "buttonInsert";
-            this.buttonInsert.Size = new System.Drawing.Size(156, 48);
+            this.buttonInsert.Size = new System.Drawing.Size(312, 93);
             this.buttonInsert.TabIndex = 11;
-            this.buttonInsert.Text = "Insert";
+            this.buttonInsert.Text = "Update Quantity";
             this.buttonInsert.UseVisualStyleBackColor = true;
-            this.buttonInsert.Click += new System.EventHandler(this.buttonInsert_Click);
-            // 
-            // buttonEdit
-            // 
-            this.buttonEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonEdit.Location = new System.Drawing.Point(0, 375);
-            this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(156, 48);
-            this.buttonEdit.TabIndex = 10;
-            this.buttonEdit.Text = "Update";
-            this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDelete.Location = new System.Drawing.Point(0, 263);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(156, 48);
-            this.buttonDelete.TabIndex = 9;
-            this.buttonDelete.Text = "Delete";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            this.buttonInsert.Click += new System.EventHandler(this.ButtonInsert_Click);
             // 
             // textBoxSearch
             // 
             this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSearch.ForeColor = System.Drawing.Color.MediumBlue;
-            this.textBoxSearch.Location = new System.Drawing.Point(215, 30);
+            this.textBoxSearch.Location = new System.Drawing.Point(339, 15);
+            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(434, 52);
+            this.textBoxSearch.Size = new System.Drawing.Size(1124, 97);
             this.textBoxSearch.TabIndex = 7;
             this.textBoxSearch.Text = "Search here....";
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
@@ -209,10 +181,12 @@
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(215, 104);
+            this.dataGridView1.Location = new System.Drawing.Point(339, 258);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(6);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 102;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(777, 441);
+            this.dataGridView1.Size = new System.Drawing.Size(1215, 771);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
@@ -223,10 +197,10 @@
             this.labelClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelClose.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClose.ForeColor = System.Drawing.Color.White;
-            this.labelClose.Location = new System.Drawing.Point(1234, 0);
-            this.labelClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelClose.Location = new System.Drawing.Point(1841, 0);
+            this.labelClose.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.labelClose.Name = "labelClose";
-            this.labelClose.Size = new System.Drawing.Size(27, 27);
+            this.labelClose.Size = new System.Drawing.Size(55, 55);
             this.labelClose.TabIndex = 5;
             this.labelClose.Text = "X";
             this.labelClose.Click += new System.EventHandler(this.labelClose_Click);
@@ -236,20 +210,22 @@
             this.pictureBox3.BackColor = System.Drawing.Color.PapayaWhip;
             this.pictureBox3.Image = global::login.Properties.Resources.logo;
             this.pictureBox3.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(124, 118);
+            this.pictureBox3.Size = new System.Drawing.Size(248, 229);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 4;
             this.pictureBox3.TabStop = false;
             // 
             // InventoryManagement
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(1267, 545);
+            this.ClientSize = new System.Drawing.Size(2534, 1056);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "InventoryManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "InventoryManagement Looby";
@@ -270,15 +246,12 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonDisplay;
         private System.Windows.Forms.Button buttonInsert;
-        private System.Windows.Forms.Button buttonEdit;
-        private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxPrice;
         private System.Windows.Forms.TextBox textBoxStockQty;
-        private System.Windows.Forms.TextBox textBoxProdName;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_stock;
+        private System.Windows.Forms.Label lbl_product;
+        private System.Windows.Forms.Label lbl_name;
+        private System.Windows.Forms.Button btn_NewItem;
     }
 }

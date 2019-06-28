@@ -175,5 +175,12 @@ namespace login
         {
             btn_Update_Employee.ForeColor = Color.White;
         }
+
+        private void Lbl_forgotPW_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ChangePW ChangePW = new ChangePW();
+            ChangePW.Show();
+        }
     }
 }

@@ -78,6 +78,12 @@
     <Compile Include="AccountingInformationForm.Designer.cs">
       <DependentUpon>AccountingInformationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangePW.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePW.Designer.cs">
+      <DependentUpon>ChangePW.cs</DependentUpon>
+    </Compile>
     <Compile Include="Resources\universalFunctions.cs" />
     <Compile Include="UpdateEmployee.cs">
       <SubType>Form</SubType>
@@ -125,6 +131,9 @@
     </Compile>
     <EmbeddedResource Include="AccountingInformationForm.resx">
       <DependentUpon>AccountingInformationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangePW.resx">
+      <DependentUpon>ChangePW.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InventoryManagement.resx">
       <DependentUpon>InventoryManagement.cs</DependentUpon>
