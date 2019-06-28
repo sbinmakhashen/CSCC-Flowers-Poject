@@ -811,6 +811,18 @@ namespace CcnSession
          */
         public static void ChangeQty(int itemNum, int qty)
         {
+            string sql= "UPDATE store_inventory SET qty = '"+qty+"' WHERE item_id='"+itemNum+"' AND location = '"+DefaultStore+"';";
+           
+            try
+            {
+                if(SendQry(new MySqlCommand(sql)))
+                {
+                    Console.WriteLine("Command sent, Qty Updated.");
+                }
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
