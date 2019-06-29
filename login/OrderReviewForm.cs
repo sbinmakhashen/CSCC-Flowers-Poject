@@ -14,19 +14,24 @@ namespace login
 {
     public partial class OrderReviewForm : Form
     {
-        MySqlConnection con = new MySqlConnection(@"server=remotemysql.com;port=3306;username=7903HxBTF8;password=U89DjsTnQO;database=7903HxBTF8");
-        int ProductID = 0;
+
+        DataTable orderHistoryData = new DataTable();
+        int orderNum = 0;
 
         public OrderReviewForm()
         {
             InitializeComponent();
+            DisplayData();
 
         }
 
         private void labelClose_Click(object sender, EventArgs e)
         {
             SQL.Cleanup();
-            Application.Exit();
+            this.Hide();
+            
+            var LoginF = new LoginForm();
+            LoginF.Show();
         }
 
 
@@ -37,37 +42,38 @@ namespace login
             MainForm.Show();
         }
 
-        public void disp_data()
+        public void DisplayData()
         {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from CustOrder";
-            cmd.ExecuteNonQuery();
-            DataTable dt = new DataTable();
-            MySqlDataAdapter dat = new MySqlDataAdapter(cmd);
-            dat.Fill(dt);
-            dataGridView1.DataSource = dt;
-            con.Close();
+           try
+            {
+                orderHistoryData = SQL.GetOrders();
+
+                dataGridView1.DataSource = orderHistoryData;
+
+                dataGridView1.Columns[0].HeaderText = "Account Number";
+                dataGridView1.Columns[0].Visible = false;
+                dataGridView1.Columns[1].HeaderText = "Delivery Address";
+                dataGridView1.Columns[2].HeaderText = "Ordered On";
+                dataGridView1.Columns[3].HeaderText = "Delivery By";
+                dataGridView1.Columns[4].HeaderText = "Total Cost";
+                dataGridView1.Columns[5].HeaderText = "Payment Status";
+                dataGridView1.Columns[6].HeaderText = "Order Status";
+                dataGridView1.Columns[7].HeaderText = "Order Number";
+                dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Descending);
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void buttonViewOrd_Click(object sender, EventArgs e)
-        {
-            disp_data();
-        }
-
-
-        private void buttonCompl_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Order Completed successfully");
-        }
 
     
 
         private void textBoxSearch_Enter(object sender, EventArgs e)
         {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here...."))
+            String searchBox = textBoxSearch.Text;
+            if (searchBox.ToLower().Trim().Equals("Search Here...."))
             {
                 textBoxSearch.Text = "";
                 textBoxSearch.ForeColor = Color.Black;
@@ -76,27 +82,42 @@ namespace login
 
         private void textBoxSearch_Leave(object sender, EventArgs e)
         {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here....") || fname.Trim().Equals(""))
+            string searchTxt = textBoxSearch.Text;
+            if (dataGridView1.DataSource == null)
             {
-                textBoxSearch.Text = "search here....";
+                //safety catch. If user is moving to fast, reset the data when they leave the searchbox
+                dataGridView1.DataSource = orderHistoryData;
+            }
+
+            if (searchTxt.ToLower().Trim().Equals("search here....") || searchTxt.Trim().Equals(""))
+            {
+                textBoxSearch.Text = "Search Here....";
                 textBoxSearch.ForeColor = Color.Maroon;
+                dataGridView1.DataSource = orderHistoryData;
+
             }
         }
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM CustOrder WHERE CONCAT(CustID,Firstname, Lastname, Productname) LIKE '%" + textBoxSearch.Text + "%'";
+            var dv = new DataView(orderHistoryData);
+            dv.RowFilter = string.Format("del_addy LIKE '%{0}%'", textBoxSearch.Text);
 
-            cmd.ExecuteNonQuery();
-            DataTable dt = new DataTable();
-            MySqlDataAdapter dat = new MySqlDataAdapter(cmd);
-            dat.Fill(dt);
-            dataGridView1.DataSource = dt;
-            con.Close();
+            dataGridView1.DataSource = dv;
+        }
+
+        private void ButtonViewOrd_Click(object sender, EventArgs e)
+        {
+            DisplayData();
+        }
+
+        private void DataGridView1_DoubleClick(object sender, EventArgs e)
+        {
+            
+            int.TryParse(dataGridView1.CurrentRow.Cells[7].Value.ToString(), out orderNum);
+            var orderDetails = new OrdersDetails(orderNum);
+            orderDetails.Show();
+            this.Hide();
         }
     }
 }

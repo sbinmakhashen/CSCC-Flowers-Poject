@@ -33,7 +33,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbl_ChangeQty = new System.Windows.Forms.Label();
             this.txt_ChangeQty = new System.Windows.Forms.TextBox();
-            this.btn_NewItem = new System.Windows.Forms.Button();
             this.lbl_name = new System.Windows.Forms.Label();
             this.textBoxStockQty = new System.Windows.Forms.TextBox();
             this.lbl_stock = new System.Windows.Forms.Label();
@@ -44,8 +43,10 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.labelClose = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lbl_loginInfo = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.lbl_storeTitle = new System.Windows.Forms.Label();
+            this.lbl_StoreName = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -54,10 +55,11 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.panel2.Controls.Add(this.lbl_StoreName);
+            this.panel2.Controls.Add(this.lbl_storeTitle);
             this.panel2.Controls.Add(this.lbl_loginInfo);
             this.panel2.Controls.Add(this.lbl_ChangeQty);
             this.panel2.Controls.Add(this.txt_ChangeQty);
-            this.panel2.Controls.Add(this.btn_NewItem);
             this.panel2.Controls.Add(this.lbl_name);
             this.panel2.Controls.Add(this.textBoxStockQty);
             this.panel2.Controls.Add(this.lbl_stock);
@@ -80,7 +82,7 @@
             // 
             this.lbl_ChangeQty.AutoSize = true;
             this.lbl_ChangeQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_ChangeQty.Location = new System.Drawing.Point(15, 381);
+            this.lbl_ChangeQty.Location = new System.Drawing.Point(6, 381);
             this.lbl_ChangeQty.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lbl_ChangeQty.Name = "lbl_ChangeQty";
             this.lbl_ChangeQty.Size = new System.Drawing.Size(253, 36);
@@ -96,18 +98,6 @@
             this.txt_ChangeQty.Name = "txt_ChangeQty";
             this.txt_ChangeQty.Size = new System.Drawing.Size(312, 58);
             this.txt_ChangeQty.TabIndex = 21;
-            // 
-            // btn_NewItem
-            // 
-            this.btn_NewItem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_NewItem.Location = new System.Drawing.Point(1584, 936);
-            this.btn_NewItem.Margin = new System.Windows.Forms.Padding(6);
-            this.btn_NewItem.Name = "btn_NewItem";
-            this.btn_NewItem.Size = new System.Drawing.Size(312, 93);
-            this.btn_NewItem.TabIndex = 20;
-            this.btn_NewItem.Text = "New Item";
-            this.btn_NewItem.UseVisualStyleBackColor = true;
-            this.btn_NewItem.Click += new System.EventHandler(this.Btn_NewItem_Click);
             // 
             // lbl_name
             // 
@@ -157,7 +147,7 @@
             this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(1662, 101);
+            this.label2.Location = new System.Drawing.Point(1416, 49);
             this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(234, 54);
@@ -198,7 +188,7 @@
             this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(1124, 97);
+            this.textBoxSearch.Size = new System.Drawing.Size(963, 97);
             this.textBoxSearch.TabIndex = 7;
             this.textBoxSearch.Text = "Search here....";
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
@@ -234,7 +224,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 102;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1215, 771);
+            this.dataGridView1.Size = new System.Drawing.Size(1348, 771);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
@@ -245,13 +235,22 @@
             this.labelClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelClose.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClose.ForeColor = System.Drawing.Color.White;
-            this.labelClose.Location = new System.Drawing.Point(1841, 0);
+            this.labelClose.Location = new System.Drawing.Point(1632, 0);
             this.labelClose.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.labelClose.Name = "labelClose";
             this.labelClose.Size = new System.Drawing.Size(55, 55);
             this.labelClose.TabIndex = 5;
             this.labelClose.Text = "X";
             this.labelClose.Click += new System.EventHandler(this.labelClose_Click);
+            // 
+            // lbl_loginInfo
+            // 
+            this.lbl_loginInfo.AutoSize = true;
+            this.lbl_loginInfo.Location = new System.Drawing.Point(333, 116);
+            this.lbl_loginInfo.Name = "lbl_loginInfo";
+            this.lbl_loginInfo.Size = new System.Drawing.Size(93, 32);
+            this.lbl_loginInfo.TabIndex = 23;
+            this.lbl_loginInfo.Text = "label1";
             // 
             // pictureBox3
             // 
@@ -265,14 +264,24 @@
             this.pictureBox3.TabIndex = 4;
             this.pictureBox3.TabStop = false;
             // 
-            // lbl_loginInfo
+            // lbl_storeTitle
             // 
-            this.lbl_loginInfo.AutoSize = true;
-            this.lbl_loginInfo.Location = new System.Drawing.Point(333, 116);
-            this.lbl_loginInfo.Name = "lbl_loginInfo";
-            this.lbl_loginInfo.Size = new System.Drawing.Size(93, 32);
-            this.lbl_loginInfo.TabIndex = 23;
-            this.lbl_loginInfo.Text = "label1";
+            this.lbl_storeTitle.AutoSize = true;
+            this.lbl_storeTitle.Location = new System.Drawing.Point(12, 629);
+            this.lbl_storeTitle.Name = "lbl_storeTitle";
+            this.lbl_storeTitle.Size = new System.Drawing.Size(186, 32);
+            this.lbl_storeTitle.TabIndex = 24;
+            this.lbl_storeTitle.Text = "Your Store Is:";
+            // 
+            // lbl_StoreName
+            // 
+            this.lbl_StoreName.AutoSize = true;
+            this.lbl_StoreName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_StoreName.Location = new System.Drawing.Point(12, 681);
+            this.lbl_StoreName.Name = "lbl_StoreName";
+            this.lbl_StoreName.Size = new System.Drawing.Size(267, 63);
+            this.lbl_StoreName.TabIndex = 25;
+            this.lbl_StoreName.Text = "4000-Indy";
             // 
             // InventoryManagement
             // 
@@ -309,9 +318,10 @@
         private System.Windows.Forms.Label lbl_stock;
         private System.Windows.Forms.Label lbl_product;
         private System.Windows.Forms.Label lbl_name;
-        private System.Windows.Forms.Button btn_NewItem;
         private System.Windows.Forms.Label lbl_ChangeQty;
         private System.Windows.Forms.TextBox txt_ChangeQty;
         private System.Windows.Forms.Label lbl_loginInfo;
+        private System.Windows.Forms.Label lbl_StoreName;
+        private System.Windows.Forms.Label lbl_storeTitle;
     }
 }

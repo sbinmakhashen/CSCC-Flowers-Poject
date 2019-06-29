@@ -25,6 +25,7 @@ namespace login
             InitializeComponent();
             lbl_name.Text = "";
             DispData();
+            lbl_StoreName.Text = SQL.DefaultStore;
 
 
             var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
@@ -45,9 +46,9 @@ namespace login
                 fname = char.ToUpper(fname[0]) + fname.Substring(1);
             }
 
-            
+            btn_IncreaseQty.Hide();
 
-            if(SQL.IsManager)
+            if (SQL.IsManager)
             {
                 lbl_loginInfo.Text = "Hello "+fname+". You are logged in as " + SQL.Username + ", a Manager. Todays Date is " + date + ".";
                 btn_IncreaseQty.Show();
@@ -57,7 +58,6 @@ namespace login
                 lbl_name.Hide();
                 lbl_ChangeQty.Show();
                 txt_ChangeQty.Show();
-                btn_NewItem.Show();
             } else
             {
                 lbl_loginInfo.Text = "Hello " + fname + ". You are logged in as " + SQL.Username + ", a Employee. Todays Date is " + date + ".";
@@ -68,7 +68,6 @@ namespace login
                 textBoxStockQty.Hide();
                 lbl_ChangeQty.Hide();
                 txt_ChangeQty.Hide();
-                btn_NewItem.Hide();
             }
 
         }
@@ -132,6 +131,7 @@ namespace login
                     txt_ChangeQty.Text = "";
                     int.TryParse(textBoxStockQty.Text, out tempQty);
                     ProductID = SQL.GetItemId(lbl_name.Text);
+                    btn_IncreaseQty.Show();
 
 
 
@@ -140,6 +140,11 @@ namespace login
             {
                 //safety catch - will throw an exception if the dataGridView is empty.
                 // this refreshes it tries a second time.
+
+                // we can do this because there should ALWAYS be inventory for each store, so
+                // yeah. we're cheating. Sorry.
+
+
                 dataGridView1.DataSource = inventoryData;
                 lbl_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 lbl_name.Show();
@@ -147,6 +152,7 @@ namespace login
                 txt_ChangeQty.Text = "";
                 int.TryParse(textBoxStockQty.Text, out tempQty);
                 ProductID = SQL.GetItemId(lbl_name.Text);
+                btn_IncreaseQty.Show();
             }
             
         }
@@ -203,24 +209,15 @@ namespace login
              * go to new form for inputing a new item into the items database
              * 
              */
+
+
             
         }
 
         private void btn_IncreseQty(object sender, EventArgs e)
         {
 
-            /* TO DO
-             * 
-             * Write SQL.ChangeQty ... whoops.
-             * 
-             * (ie : nothing is actually changing yet, its just the error checking)
-             * 
-             * update the Data Grid with the new qty
-             * 
-             * update the Stock text box with the new qty
-             * 
-             * clear the AdjustQtyBy text box on successful update
-             */
+            
 
 
             int.TryParse(textBoxStockQty.Text, out int changedTotalQty);
@@ -239,11 +236,16 @@ namespace login
                 try
                 {
                     SQL.ChangeQty(ProductID, tempQty+adjustQtyBy);
-                    MessageBox.Show("Changed quantity by " + adjustQtyBy + ". New total quantity is " + (tempQty + adjustQtyBy) + ".", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Changed quantity by " + adjustQtyBy + ". New total quantity is " + (tempQty + adjustQtyBy) + ".", "Quantity Updated!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DispData();
                     tempQty += adjustQtyBy;
                     textBoxStockQty.Text = tempQty.ToString();
                     txt_ChangeQty.Text = "";
+                    btn_IncreaseQty.Hide();
+                    textBoxStockQty.Text = "";
+                    txt_ChangeQty.Text = "";
+                    lbl_name.Text = "";
+                
                 } catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error in Entry", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
@@ -259,9 +261,13 @@ namespace login
                 try
                 {
                     SQL.ChangeQty(ProductID, (tempQty+(changedTotalQty-tempQty)));
-                    MessageBox.Show("Changed quantity by "+ (changedTotalQty - tempQty)+". New total quantity is "+(tempQty+ (changedTotalQty - tempQty))+".", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Changed quantity by "+ (changedTotalQty - tempQty)+". New total quantity is "+(tempQty+ (changedTotalQty - tempQty))+".", "Quantity Updated!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DispData();
                     tempQty = changedTotalQty;
+                    btn_IncreaseQty.Hide();
+                    textBoxStockQty.Text = "";
+                    txt_ChangeQty.Text = "";
+                    lbl_name.Text = "";
                 }
                 catch (Exception ex)
                 {
@@ -269,6 +275,7 @@ namespace login
                     textBoxStockQty.Text = tempQty.ToString();
                     txt_ChangeQty.Text = "";
                     textBoxStockQty.Text = tempQty.ToString();
+
                 }
             } else if( tempQty == changedTotalQty && adjustQtyBy == 0)
             {
@@ -299,13 +306,7 @@ namespace login
             }
 
 
-            /* To DO
-             * 
-             * Display Message Box asking how much to increase the qty by
-             * 
-             * then increase the qty in store_inventory table using SQL.IncreaseQty
-             * (which still needs to be written)
-             */
+            
         }
 
         

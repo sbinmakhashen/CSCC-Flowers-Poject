@@ -38,6 +38,8 @@
             this.lbl_username = new System.Windows.Forms.Label();
             this.btn_ChgPW = new System.Windows.Forms.Button();
             this.btn_NotYou = new System.Windows.Forms.Button();
+            this.lbl_logout = new System.Windows.Forms.Label();
+            this.lbl_Previous = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl_DisplayUsername
@@ -127,11 +129,33 @@
             this.btn_NotYou.UseVisualStyleBackColor = true;
             this.btn_NotYou.Click += new System.EventHandler(this.Btn_NotYou_Click);
             // 
+            // lbl_logout
+            // 
+            this.lbl_logout.AutoSize = true;
+            this.lbl_logout.Location = new System.Drawing.Point(1096, 28);
+            this.lbl_logout.Name = "lbl_logout";
+            this.lbl_logout.Size = new System.Drawing.Size(34, 32);
+            this.lbl_logout.TabIndex = 10;
+            this.lbl_logout.Text = "X";
+            this.lbl_logout.Click += new System.EventHandler(this.Lbl_logout_Click);
+            // 
+            // lbl_Previous
+            // 
+            this.lbl_Previous.AutoSize = true;
+            this.lbl_Previous.Location = new System.Drawing.Point(1054, 88);
+            this.lbl_Previous.Name = "lbl_Previous";
+            this.lbl_Previous.Size = new System.Drawing.Size(126, 32);
+            this.lbl_Previous.TabIndex = 11;
+            this.lbl_Previous.Text = "Previous";
+            this.lbl_Previous.Click += new System.EventHandler(this.Lbl_Previous_Click);
+            // 
             // ChangePW
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1337, 820);
+            this.Controls.Add(this.lbl_Previous);
+            this.Controls.Add(this.lbl_logout);
             this.Controls.Add(this.btn_NotYou);
             this.Controls.Add(this.btn_ChgPW);
             this.Controls.Add(this.lbl_username);
@@ -161,5 +185,7 @@
         private System.Windows.Forms.Label lbl_username;
         private System.Windows.Forms.Button btn_ChgPW;
         private System.Windows.Forms.Button btn_NotYou;
+        private System.Windows.Forms.Label lbl_logout;
+        private System.Windows.Forms.Label lbl_Previous;
     }
 }

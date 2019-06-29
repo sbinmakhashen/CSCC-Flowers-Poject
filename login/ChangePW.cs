@@ -71,5 +71,20 @@ namespace login
             LoginForm login = new LoginForm();
             login.Show();
         }
+
+        private void Lbl_logout_Click(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+            this.Hide();
+            var login = new LoginForm();
+            login.Show();
+        }
+
+        private void Lbl_Previous_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var main = new MainForm();
+            main.Show();
+        }
     }
 }
