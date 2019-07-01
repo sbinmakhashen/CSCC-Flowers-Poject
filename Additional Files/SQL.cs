@@ -50,6 +50,8 @@ namespace CcnSession
         public static string Username { get; set; }
         public static bool CurEmp { get; set; }
 
+        public static int LoggedInEmpNum { get; set; }
+
 
         //Private properties, variables
 
@@ -103,6 +105,8 @@ namespace CcnSession
                 }
                 
                 
+
+                
                 
 
 
@@ -111,12 +115,14 @@ namespace CcnSession
                     PwCorrect = true;
                     Permission();
                     DefaultStore = GetStore();
+                    LoggedInEmpNum = GetEmpNum(Username);
                 }
                 else
                 {
                     IsManager = false;
                     CurEmp = false;
                     PwCorrect = false;
+                    LoggedInEmpNum = 0;
                     throw new Exception("Those records do not match our database.");
                 }
             }
@@ -143,6 +149,7 @@ namespace CcnSession
             IsManager = false;
             DefaultStore = null;
             CurEmp = false;
+            LoggedInEmpNum = 0;
         }
 
         /* User (Employee Database) functions
@@ -209,8 +216,7 @@ namespace CcnSession
         public static string CreateUser(string fName, string lName, string pw)
         {
 
-            // outputs the date in format equal to the rest of the table
-            var today = DateTime.Today.ToString("yyyy-MM-dd hh:mm tt");
+            
 
             // automatically create the username as first initial, last name - all lowercase
             string username = fName[0] + lName;
@@ -259,9 +265,23 @@ namespace CcnSession
 
             try
             {
-                string sql = "INSERT INTO employee (first_name, last_name, username, password, salt, hired, location) VALUES ('" + fName + "','" + lName + "','" + username + "','" + hashString + "','" + saltString + "','" + today + "', '" + DefaultStore + "')";
+                var cmd = new MySqlCommand
+                {
+                    CommandText = "INSERT INTO employee (first_name, last_name, username, password, salt, hired, location) VALUES(@first_name, @last_name, @username, @password, @salt, @hired, @location)"
+                };
+                cmd.Parameters.AddWithValue("@first_name", fName);
+                cmd.Parameters.AddWithValue("@last_name", lName);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", hashString);
+                cmd.Parameters.AddWithValue("@salt", saltString);
+                //cmd.Parameters.AddWithValue("@hired", today);
+                cmd.Parameters.Add("@hired", MySqlDbType.Timestamp).Value = DateTime.Now;
+                cmd.Parameters.AddWithValue("@location", DefaultStore);
 
-                if (SendQry(new MySqlCommand(sql)))
+
+                //string sql = "INSERT INTO employee (first_name, last_name, username, password, salt, hired, location) VALUES ('" + fName + "','" + lName + "','" + username + "','" + hashString + "','" + saltString + "','" + today + "', '" + DefaultStore + "')";
+
+                if (SendQry(cmd))
                 {
                     return username;
                 }
@@ -525,8 +545,22 @@ namespace CcnSession
             
             try
             {
-                var today = DateTime.Today.ToString("yyyy-MM-dd hh:mm tt");
-                string sql = "UPDATE `employee` SET `type` = 'Terminated', `terminated` = '" + today + "' WHERE (`emp_num` = '" + empNum + "');";
+                /*
+                var cmd = new MySqlCommand
+                {
+                    CommandText = "UPDATE `employee` SET `type` = 'Terminated', `terminated` = NOW() WHERE (`emp_num` = @empNum);"
+                };
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+                */
+
+                /* This is ... not proper, but not to bad.
+                 * we are not taking directly the empNum from a user.  empNumber is derived from other commands, and therefore can't be altered by
+                 * an SQL injection attack.
+                 * 
+                 * Given that I was having trouble getting NOW() to work with the MySqlCommand paramaters, this seemed to work just fine.
+                 */
+
+                string sql = "UPDATE `employee` SET `type` = 'Terminated', `terminated` = NOW() WHERE(`emp_num` = " + empNum + ");";
                 SendQry(new MySqlCommand(sql));
             }
             catch (Exception ex)
@@ -567,7 +601,7 @@ namespace CcnSession
         {
             try
             {
-                string sql = "SELECT * FROM order_history WHERE location = '" + DefaultStore + "';";
+                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num  FROM order_history WHERE location = '" + DefaultStore + "' ORDER BY del_date DESC;";
                 return SelectQry(sql);
             } catch (Exception ex)
             {
@@ -581,7 +615,8 @@ namespace CcnSession
         {
             try
             {
-                string sql = "SELECT * FROM order_history WHERE location = '" + store + "';";
+                
+                string sql = "SELECT acct_num, del_addy, trans_date, del_date, pay_rec, total, order_status, order_num FROM order_history WHERE location = '" + store + "' ORDER BY del_date DESC;";
                 return SelectQry(sql);
             }
             catch (Exception ex)
@@ -598,7 +633,7 @@ namespace CcnSession
             try
             {
                 string acctNum = GetAcctNum(email).ToString();
-                string sql = "SELECT * FROM order_history WHERE location = '" + store + "' AND email = '"+acctNum+"';";
+                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE location = '" + store + "' AND email = '"+acctNum+ "'ORDER BY del_date DESC;";
                 return SelectQry(sql);
             }
             catch (Exception ex)
@@ -615,7 +650,7 @@ namespace CcnSession
 
             try
             {
-                string sql = "SELECT * FROM order_history WHERE acct_num = '" + custNum + "';";
+                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE acct_num = '" + custNum + "'ORDER BY del_date DESC;";
                 return SelectQry(sql);
             }
             catch (Exception ex)
@@ -629,7 +664,7 @@ namespace CcnSession
         {
             try
             {
-                string sql = "SELECT * FROM order_history WHERE location = '" + store + "' AND acct_num = '"+custNum+"';";
+                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE location = '" + store + "' AND acct_num = '"+custNum+ "'ORDER BY del_date DESC;";
                 return SelectQry(sql);
             }
             catch (Exception ex)
@@ -637,6 +672,45 @@ namespace CcnSession
                 throw ex;
             }
 
+        }
+
+        public static DataTable GetOrders(string store, int custNum, DateTime date)
+        {
+            try
+            {
+
+                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE location = '" + store + "' AND acct_num = '" + custNum + "' ORDER BY del_date DESC;";
+                return SelectQry(sql);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        /* GetOrderItems(ordernum) - no overloads - for pulling up the items from an order to the new window.
+         * 
+         * for retrieving the line items out of the order_items database.
+         * 
+         * only used in the GetOrder functions - no use for just the line items without the additional
+         * order information in the order_history database
+         * 
+         */
+
+        public static DataTable GetOrderItems(int orderNum)
+        {
+
+            try
+            {
+                string sql = "SELECT h.order_num, v.item_name, i.qty, h.total, h.pay_rec, h.del_date, h.order_status, h.del_addy FROM order_history h JOIN order_items i ON i.order_num = h.order_num AND h.order_num = "+orderNum+" JOIN items v ON v.item_id = i.item_id ORDER by h.order_num";
+
+                return SelectQry(sql);
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         /*
@@ -1051,7 +1125,7 @@ namespace CcnSession
 
             /* I acknowledge this is a dirty way to do this. There is no error checking to make sure that the
              * file is in the correct order, nor is it a deliniated list. This is fast and effective for the moment
-             * mostly being used as a current method until I figure out how to encrypt that plain text resource file :/
+             * mostly being used as a current method until I figure out how to use the config file properly.:/
              */
             address = rows[0];
             database = rows[1];
@@ -1152,21 +1226,7 @@ namespace CcnSession
 
         }
 
-        /* GetOrderItems(ordernum) - no overloads - private - internal use only
-         * 
-         * for retrieving the line items out of the order_items database.
-         * 
-         * only used in the GetOrder functions - no use for just the line items without the additional
-         * order information in the order_history database
-         * 
-         */
-
-        private static DataTable GetOrderItems(int orderNum)
-        {
-            var data = new DataTable();
-
-            return data;
-        }
+        
 
 
 
@@ -1344,7 +1404,7 @@ namespace CcnSession
 
                     //logging
                     Console.WriteLine("Connection:  {0}", cnn.State);
-                    Console.WriteLine("Sending Command: {0}", cmd);
+                    Console.WriteLine("Sending Command: {0}", cmd.ToString()) ;
 
                     //Sends the command, as defined by the string builder externally.
                     if (cmd.ExecuteNonQuery() >= 1)
@@ -1420,7 +1480,7 @@ namespace CcnSession
         }
 
 
-        /* SelectQry(string), no overloads
+        /* SelectQry( ... 2 overloads
          * 
          * this is the most basic function here, returns a datatable from a Select string.
          * 
@@ -1428,6 +1488,47 @@ namespace CcnSession
          * 
          * this is public in case need something that doesn't fit in the GetTable, GetColumn overloads
          */
+
+
+        static public DataTable SelectQry(MySqlCommand cmd)
+        {
+            var tableData = new DataTable();
+            using (var cnn = new MySqlConnection(cnnStr.ConnectionString))
+            {
+
+                try
+                {
+
+
+                    //logging
+                    Console.WriteLine("Connecting... ");
+
+                    cmd.Connection = cnn;
+                    cnn.Open();
+                    //logging
+                    Console.WriteLine("Connection:  {0}", cnn.State);
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
+
+                    using (MySqlDataAdapter data = new MySqlDataAdapter(cmd))
+                    {
+                        data.Fill(tableData);
+                    }
+
+                    return tableData;
+                }
+                catch (Exception ex)
+                {
+                    //mostly for debugging at this point.
+                    Console.WriteLine("Error: {0}", ex.Message);
+                    throw ex;
+                }
+                finally
+                {
+                    if (cnn != null) cnn.Close();
+                }
+
+            }
+        }
 
         static public DataTable SelectQry(string sql)
         {
