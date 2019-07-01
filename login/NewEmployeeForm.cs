@@ -260,6 +260,7 @@ namespace login
                     // retrieve the emp_num from the newly created row
                     int empNumber = SQL.GetEmpNum(username);
 
+                    zCode = uF.ZipHyphen(zCode);
                     int.TryParse(zCode, out int zip);
 
                     //set the remaining columns of the emp_table

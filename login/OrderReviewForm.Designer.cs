@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.labelClose = new System.Windows.Forms.Label();
             this.buttonViewOrd = new System.Windows.Forms.Button();
@@ -71,7 +71,7 @@
             // buttonViewOrd
             // 
             this.buttonViewOrd.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonViewOrd.Location = new System.Drawing.Point(15, 868);
+            this.buttonViewOrd.Location = new System.Drawing.Point(1164, 21);
             this.buttonViewOrd.Margin = new System.Windows.Forms.Padding(6);
             this.buttonViewOrd.Name = "buttonViewOrd";
             this.buttonViewOrd.Size = new System.Drawing.Size(233, 85);
@@ -85,23 +85,23 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.dataGridView1.ColumnHeadersHeight = 58;
-            this.dataGridView1.Location = new System.Drawing.Point(269, 170);
+            this.dataGridView1.Location = new System.Drawing.Point(269, 178);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(6);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 102;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1594, 783);
+            this.dataGridView1.Size = new System.Drawing.Size(1594, 704);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.DoubleClick += new System.EventHandler(this.DataGridView1_DoubleClick);
             // 
@@ -138,22 +138,23 @@
             // btn_viewOrders
             // 
             this.btn_viewOrders.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_viewOrders.Location = new System.Drawing.Point(15, 281);
+            this.btn_viewOrders.Location = new System.Drawing.Point(15, 894);
             this.btn_viewOrders.Margin = new System.Windows.Forms.Padding(6);
             this.btn_viewOrders.Name = "btn_viewOrders";
-            this.btn_viewOrders.Size = new System.Drawing.Size(233, 85);
+            this.btn_viewOrders.Size = new System.Drawing.Size(233, 59);
             this.btn_viewOrders.TabIndex = 19;
             this.btn_viewOrders.Text = "View Orders";
             this.btn_viewOrders.UseVisualStyleBackColor = true;
+            this.btn_viewOrders.Click += new System.EventHandler(this.Btn_viewOrders_Click);
             // 
             // dateTimePicker_orders
             // 
             this.dateTimePicker_orders.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 11.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker_orders.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker_orders.Location = new System.Drawing.Point(12, 189);
-            this.dateTimePicker_orders.MinDate = new System.DateTime(2019, 6, 28, 0, 0, 0, 0);
+            this.dateTimePicker_orders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker_orders.Location = new System.Drawing.Point(269, 915);
+            this.dateTimePicker_orders.MinDate = new System.DateTime(1975, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker_orders.Name = "dateTimePicker_orders";
-            this.dateTimePicker_orders.Size = new System.Drawing.Size(236, 53);
+            this.dateTimePicker_orders.Size = new System.Drawing.Size(498, 38);
             this.dateTimePicker_orders.TabIndex = 20;
             // 
             // OrderReviewForm

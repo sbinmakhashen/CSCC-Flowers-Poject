@@ -119,5 +119,14 @@ namespace login
             orderDetails.Show();
             this.Hide();
         }
+
+        private void Btn_viewOrders_Click(object sender, EventArgs e)
+        {
+            var filterDate = new DateTime();
+
+            filterDate = Convert.ToDateTime(dateTimePicker_orders.Text);
+
+
+        }
     }
 }

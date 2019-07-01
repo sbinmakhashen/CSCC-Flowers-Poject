@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CcnSession;
+using login.Resources;
 
 namespace login
 {
@@ -25,11 +26,16 @@ namespace login
             {
                 if (SQL.ChkPassword(txt_CurrentPW.Text))
                 {
+                    
                     if(txt_NewPW.Text == txt_CurrentPW.Text)
                     {
                         throw new Exception("New Password must be different than current.");
                     }
-                    if(txt_NewPW.Text == txt_ConfirmNewPW.Text)
+                    if (!uF.CheckPWValid(txt_NewPW.Text))
+                    {
+                        throw new Exception("New Password must be between 8 and 15 characters, and containe a number, a special character, and both lower and upper case characters.");
+                    }
+                    if (txt_NewPW.Text == txt_ConfirmNewPW.Text)
                     {
                         SQL.ChangePassword(txt_NewPW.Text);
                         DialogResult result = MessageBox.Show("Your password has been succesfully changed", "Password Changed", MessageBoxButtons.OK, MessageBoxIcon.Information);

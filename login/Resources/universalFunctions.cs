@@ -2,13 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace login.Resources
 {
     public static class uF
     {
-       public static bool ZipValidate(string zip)
+
+       public static bool CheckPWValid(string pw)
+        {
+            var regex = new Regex(@"^(?=.*[a - z])(?=.*[A - Z])(?=.*\d)(?=.*[^\da - zA - Z]).{ 8, 15 }$");
+
+            /* 
+             * This regex expression checks to make sure that the PW is between 8 and 15 characters,
+             * has both Upper and Lower case, a number, and a special character
+             * 
+             * this check is done BEFORE we store any new passwords in the system.
+             * string regex = @"^(?=.*[a - z])(?=.*[A - Z])(?=.*\d)(?=.*[^\da - zA - Z]).{ 8,15}$";
+             * 
+             *
+             */
+
+            regex.Match(pw.Trim());
+            if (regex.Match(pw.Trim()).Success)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        internal static bool CheckPWValid(object text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool ZipValidate(string zip)
         {
             //first checks to make sure it is only Alpha Numberic Arabic Numerals (can't use
             // isDigits because that returns a LOT of other things)

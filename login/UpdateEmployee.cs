@@ -58,6 +58,7 @@ namespace login
                     } else
                     {
                         lbl_terminated.Show();
+                        lbl_terminated.ForeColor = Color.Red;
                         lbl_terminated.Text = "Terminated: " + data.Rows[0]["terminated"].ToString();
                     }
                     
@@ -344,11 +345,16 @@ namespace login
             try
             {
                 accountNum = SQL.GetEmpNum(text_Username.Text);
+                
 
                 var data = new DataTable();
                 data = SQL.GetEmployee(accountNum);
 
-                if (data.Rows[0]["terminated"].ToString().Substring(0, 1) == "0")
+                if(accountNum == SQL.LoggedInEmpNum )
+                {
+                    MessageBox.Show("You Cannot terminate yourself", "Illegal Action", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    
+                }else if (data.Rows[0]["terminated"].ToString().Substring(0, 1) == "0")
                 {
                     DialogResult result = MessageBox.Show("Are you sure you wish to terminate employee " + data.Rows[0]["username"].ToString() + ": " + data.Rows[0]["first_name"].ToString() + " " + data.Rows[0]["last_name"].ToString() + "? Only HR can reverse this.", "Terminate Employee", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
