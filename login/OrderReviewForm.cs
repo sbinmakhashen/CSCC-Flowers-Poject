@@ -22,6 +22,8 @@ namespace login
         {
             InitializeComponent();
             DisplayData();
+            lbl_store.Text = SQL.DefaultStore;
+
 
         }
 

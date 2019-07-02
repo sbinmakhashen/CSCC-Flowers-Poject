@@ -26,6 +26,7 @@ namespace login
             lbl_name.Text = "";
             DispData();
             lbl_StoreName.Text = SQL.DefaultStore;
+            
 
 
             var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
@@ -46,7 +47,7 @@ namespace login
                 fname = char.ToUpper(fname[0]) + fname.Substring(1);
             }
 
-            btn_IncreaseQty.Hide();
+            
 
             if (SQL.IsManager)
             {
