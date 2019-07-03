@@ -844,7 +844,7 @@ namespace CcnSession
             try
             {
                 var cmd = new MySqlCommand()
-                { CommandText = "SELECT h.order_num, v.item_name, i.qty, h.total, h.pay_rec, h.del_date, h.order_status, h.del_addy FROM order_history h JOIN order_items i ON i.order_num = h.order_num AND h.order_num = @orderNum JOIN items v ON v.item_id = i.item_id ORDER by h.order_num"
+                { CommandText = "SELECT h.order_num, v.item_name, i.qty, h.total, h.pay_rec, h.del_date, h.order_status, h.del_addy, h.emp_num FROM order_history h JOIN order_items i ON i.order_num = h.order_num AND h.order_num = @orderNum JOIN items v ON v.item_id = i.item_id ORDER by h.order_num"
                  };
 
                 cmd.Parameters.AddWithValue("@orderNum", orderNum);
@@ -867,7 +867,47 @@ namespace CcnSession
          */
         public static void ChangeStatus(int orderNum, string status)
         {
+            try
+            {
+                
+                
+                    var cmd = new MySqlCommand()
+                    {
+                        CommandText = "UPDATE order_history SET order_status = @status, emp_num=@empNum WHERE order_num = @orderNum;"
+                    };
 
+                    cmd.Parameters.AddWithValue("@status", status);
+                    cmd.Parameters.AddWithValue("@orderNum", orderNum);
+                    cmd.Parameters.AddWithValue("@empNum", LoggedInEmpNum);
+
+                    SendQry(cmd);
+                
+                
+
+            } catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+
+        }
+
+        public static void ChangeStatus(int orderNum, int empNum)
+        {
+            if(empNum == 0)
+            {
+                //order number is not user inputed on the top app, so this is a safe string.
+                //this is if a user is unclaiming the order, so emp_num is set back to 0.
+                string sql = "UPDATE order_history SET order_status = 'Received', emp_num='0' WHERE order_num = " + orderNum + ";";
+                SendQry(sql);
+            } else
+            {
+                //order number is not user inputed on the top app, so this is a safe string.
+                // the empNum is generated from a username or firstname, and not directly entered by the user so not a problem for SQL injection attacks either.
+                string sql = "UPDATE order_history SET order_status = 'Received', emp_num="+empNum+" WHERE order_num = " + orderNum + ";";
+                SendQry(sql);
+            }
+            
         }
 
         public static void ChangeDate(int orderNum, string date)
