@@ -23,6 +23,7 @@ namespace login
             InitializeComponent();
             DisplayData();
             lbl_store.Text = SQL.DefaultStore;
+            lbl_date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
 
 
         }

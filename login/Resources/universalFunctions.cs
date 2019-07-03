@@ -12,7 +12,7 @@ namespace login.Resources
 
        public static bool CheckPWValid(string pw)
         {
-            var regex = new Regex(@"^(?=.*[a - z])(?=.*[A - Z])(?=.*\d)(?=.*[^\da - zA - Z]).{ 8, 15 }$");
+            var regex = new Regex(@"/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/");
 
             /* 
              * This regex expression checks to make sure that the PW is between 8 and 15 characters,

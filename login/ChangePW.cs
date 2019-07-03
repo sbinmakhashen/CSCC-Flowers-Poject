@@ -18,6 +18,7 @@ namespace login
         {
             InitializeComponent();
             lbl_username.Text = SQL.Username;
+            lbl_date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
         }
 
         private void Btn_ChgPW_Click(object sender, EventArgs e)

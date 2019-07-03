@@ -39,6 +39,7 @@
             this.dateTimePicker_orders = new System.Windows.Forms.DateTimePicker();
             this.lbl_StoreIs = new System.Windows.Forms.Label();
             this.lbl_store = new System.Windows.Forms.Label();
+            this.lbl_date = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +49,7 @@
             this.pictureBox3.BackColor = System.Drawing.Color.PapayaWhip;
             this.pictureBox3.Image = global::login.Properties.Resources.logo;
             this.pictureBox3.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(299, 180);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -74,7 +75,7 @@
             // 
             this.buttonViewOrd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonViewOrd.Location = new System.Drawing.Point(1164, 21);
-            this.buttonViewOrd.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.buttonViewOrd.Margin = new System.Windows.Forms.Padding(6);
             this.buttonViewOrd.Name = "buttonViewOrd";
             this.buttonViewOrd.Size = new System.Drawing.Size(233, 85);
             this.buttonViewOrd.TabIndex = 15;
@@ -97,7 +98,7 @@
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.dataGridView1.ColumnHeadersHeight = 58;
             this.dataGridView1.Location = new System.Drawing.Point(311, 178);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(6);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 102;
@@ -127,7 +128,7 @@
             this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSearch.ForeColor = System.Drawing.Color.Maroon;
             this.textBoxSearch.Location = new System.Drawing.Point(311, 9);
-            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(822, 97);
@@ -141,7 +142,7 @@
             // 
             this.btn_viewOrders.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_viewOrders.Location = new System.Drawing.Point(18, 900);
-            this.btn_viewOrders.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btn_viewOrders.Margin = new System.Windows.Forms.Padding(6);
             this.btn_viewOrders.Name = "btn_viewOrders";
             this.btn_viewOrders.Size = new System.Drawing.Size(281, 59);
             this.btn_viewOrders.TabIndex = 19;
@@ -174,9 +175,18 @@
             this.lbl_store.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_store.Location = new System.Drawing.Point(7, 243);
             this.lbl_store.Name = "lbl_store";
-            this.lbl_store.Size = new System.Drawing.Size(303, 63);
+            this.lbl_store.Size = new System.Drawing.Size(296, 61);
             this.lbl_store.TabIndex = 22;
             this.lbl_store.Text = "4001-INDY";
+            // 
+            // lbl_date
+            // 
+            this.lbl_date.AutoSize = true;
+            this.lbl_date.Location = new System.Drawing.Point(308, 140);
+            this.lbl_date.Name = "lbl_date";
+            this.lbl_date.Size = new System.Drawing.Size(223, 32);
+            this.lbl_date.TabIndex = 23;
+            this.lbl_date.Text = "Today\'s Date Is: ";
             // 
             // OrderReviewForm
             // 
@@ -184,6 +194,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1930, 976);
+            this.Controls.Add(this.lbl_date);
             this.Controls.Add(this.lbl_store);
             this.Controls.Add(this.lbl_StoreIs);
             this.Controls.Add(this.dateTimePicker_orders);
@@ -195,7 +206,7 @@
             this.Controls.Add(this.labelClose);
             this.Controls.Add(this.pictureBox3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "OrderReviewForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Order Review Lobby";
@@ -217,5 +228,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker_orders;
         private System.Windows.Forms.Label lbl_StoreIs;
         private System.Windows.Forms.Label lbl_store;
+        private System.Windows.Forms.Label lbl_date;
     }
 }

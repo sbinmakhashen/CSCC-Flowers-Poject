@@ -40,12 +40,13 @@
             this.btn_NotYou = new System.Windows.Forms.Button();
             this.lbl_logout = new System.Windows.Forms.Label();
             this.lbl_Previous = new System.Windows.Forms.Label();
+            this.lbl_date = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl_DisplayUsername
             // 
             this.lbl_DisplayUsername.AutoSize = true;
-            this.lbl_DisplayUsername.Location = new System.Drawing.Point(155, 167);
+            this.lbl_DisplayUsername.Location = new System.Drawing.Point(155, 257);
             this.lbl_DisplayUsername.Name = "lbl_DisplayUsername";
             this.lbl_DisplayUsername.Size = new System.Drawing.Size(255, 32);
             this.lbl_DisplayUsername.TabIndex = 0;
@@ -54,7 +55,7 @@
             // lbl_currentPW
             // 
             this.lbl_currentPW.AutoSize = true;
-            this.lbl_currentPW.Location = new System.Drawing.Point(155, 222);
+            this.lbl_currentPW.Location = new System.Drawing.Point(155, 312);
             this.lbl_currentPW.Name = "lbl_currentPW";
             this.lbl_currentPW.Size = new System.Drawing.Size(248, 32);
             this.lbl_currentPW.TabIndex = 1;
@@ -63,7 +64,7 @@
             // lbl_NewPW
             // 
             this.lbl_NewPW.AutoSize = true;
-            this.lbl_NewPW.Location = new System.Drawing.Point(155, 277);
+            this.lbl_NewPW.Location = new System.Drawing.Point(155, 367);
             this.lbl_NewPW.Name = "lbl_NewPW";
             this.lbl_NewPW.Size = new System.Drawing.Size(217, 32);
             this.lbl_NewPW.TabIndex = 2;
@@ -72,7 +73,7 @@
             // lbl_ConfirmNewPW
             // 
             this.lbl_ConfirmNewPW.AutoSize = true;
-            this.lbl_ConfirmNewPW.Location = new System.Drawing.Point(155, 328);
+            this.lbl_ConfirmNewPW.Location = new System.Drawing.Point(155, 418);
             this.lbl_ConfirmNewPW.Name = "lbl_ConfirmNewPW";
             this.lbl_ConfirmNewPW.Size = new System.Drawing.Size(323, 32);
             this.lbl_ConfirmNewPW.TabIndex = 3;
@@ -80,21 +81,21 @@
             // 
             // txt_CurrentPW
             // 
-            this.txt_CurrentPW.Location = new System.Drawing.Point(565, 222);
+            this.txt_CurrentPW.Location = new System.Drawing.Point(565, 312);
             this.txt_CurrentPW.Name = "txt_CurrentPW";
             this.txt_CurrentPW.Size = new System.Drawing.Size(479, 38);
             this.txt_CurrentPW.TabIndex = 4;
             // 
             // txt_NewPW
             // 
-            this.txt_NewPW.Location = new System.Drawing.Point(565, 277);
+            this.txt_NewPW.Location = new System.Drawing.Point(565, 367);
             this.txt_NewPW.Name = "txt_NewPW";
             this.txt_NewPW.Size = new System.Drawing.Size(479, 38);
             this.txt_NewPW.TabIndex = 5;
             // 
             // txt_ConfirmNewPW
             // 
-            this.txt_ConfirmNewPW.Location = new System.Drawing.Point(565, 328);
+            this.txt_ConfirmNewPW.Location = new System.Drawing.Point(565, 418);
             this.txt_ConfirmNewPW.Name = "txt_ConfirmNewPW";
             this.txt_ConfirmNewPW.Size = new System.Drawing.Size(479, 38);
             this.txt_ConfirmNewPW.TabIndex = 6;
@@ -103,7 +104,7 @@
             // lbl_username
             // 
             this.lbl_username.AutoSize = true;
-            this.lbl_username.Location = new System.Drawing.Point(559, 167);
+            this.lbl_username.Location = new System.Drawing.Point(559, 257);
             this.lbl_username.Name = "lbl_username";
             this.lbl_username.Size = new System.Drawing.Size(93, 32);
             this.lbl_username.TabIndex = 7;
@@ -111,7 +112,7 @@
             // 
             // btn_ChgPW
             // 
-            this.btn_ChgPW.Location = new System.Drawing.Point(783, 411);
+            this.btn_ChgPW.Location = new System.Drawing.Point(783, 501);
             this.btn_ChgPW.Name = "btn_ChgPW";
             this.btn_ChgPW.Size = new System.Drawing.Size(261, 95);
             this.btn_ChgPW.TabIndex = 8;
@@ -149,11 +150,21 @@
             this.lbl_Previous.Text = "Previous";
             this.lbl_Previous.Click += new System.EventHandler(this.Lbl_Previous_Click);
             // 
+            // lbl_date
+            // 
+            this.lbl_date.AutoSize = true;
+            this.lbl_date.Location = new System.Drawing.Point(155, 119);
+            this.lbl_date.Name = "lbl_date";
+            this.lbl_date.Size = new System.Drawing.Size(223, 32);
+            this.lbl_date.TabIndex = 12;
+            this.lbl_date.Text = "Today\'s Date is: ";
+            // 
             // ChangePW
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1337, 820);
+            this.Controls.Add(this.lbl_date);
             this.Controls.Add(this.lbl_Previous);
             this.Controls.Add(this.lbl_logout);
             this.Controls.Add(this.btn_NotYou);
@@ -187,5 +198,6 @@
         private System.Windows.Forms.Button btn_NotYou;
         private System.Windows.Forms.Label lbl_logout;
         private System.Windows.Forms.Label lbl_Previous;
+        private System.Windows.Forms.Label lbl_date;
     }
 }
