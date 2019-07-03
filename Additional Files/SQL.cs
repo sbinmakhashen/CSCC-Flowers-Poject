@@ -96,25 +96,30 @@ namespace CcnSession
             try
             {
                 SetupConnection();
-                if(CheckUsername(user))
+
+                Console.WriteLine("CallingCheckUsername");
+                if (CheckUsername(user))
                 {
                     Username = user;
                 } else
                 {
                     throw new Exception("Those records do not match our database.");
                 }
-                
-                
-
-                
-                
 
 
+
+
+
+
+                Console.WriteLine("Calling ChkPassword");
                 if (ChkPassword(password))
                 {
                     PwCorrect = true;
+                    Console.WriteLine("Calling Permission");
                     Permission();
+                    Console.WriteLine("Calling GetStore");
                     DefaultStore = GetStore();
+                    Console.WriteLine("Calling GetEmpNum");
                     LoggedInEmpNum = GetEmpNum(Username);
                 }
                 else
@@ -176,7 +181,10 @@ namespace CcnSession
                 string hash;
                 var saltData = new DataTable();
                 var hashData = new DataTable();
+                Console.WriteLine("Getting Salt.");
                 saltData = GetColumn("employee", "salt", "username", Username);
+
+                Console.WriteLine("Getting Hash.");
                 hashData = GetColumn("employee", "password", "username", Username);
 
                 salt = Convert.FromBase64String(saltData.Rows[0]["salt"].ToString());
@@ -349,11 +357,20 @@ namespace CcnSession
             if (ChkPassword(newPW))
             { return false; }
 
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "UPDATE employee SET password = @hash, salt = @salt WHERE username = @username;"
+            }  ;
+
+            cmd.Parameters.AddWithValue("@hash", hashString);
+            cmd.Parameters.AddWithValue("@salt", saltString);
+            cmd.Parameters.AddWithValue("@username", Username);
 
 
-            string sql = "UPDATE employee SET password = '" + hashString + "', salt = '" + saltString + "' WHERE username = '" + Username + "';";
 
-            if (SendQry(new MySqlCommand(sql)))
+            //string sql = "UPDATE employee SET password = '" + hashString + "', salt = '" + saltString + "' WHERE username = '" + Username + "';";
+
+            if (SendQry(cmd))
             {
                 return true;
             }
@@ -405,8 +422,17 @@ namespace CcnSession
             
             try
             {
-                string sql = "UPDATE employee SET first_name = '" + fname + "' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE employee SET first_name = @fname WHERE emp_num = @empNum;"
+                };
+                cmd.Parameters.AddWithValue("@fname", fname);
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+
+                //string sql = "UPDATE employee SET first_name = '" + fname + "' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -418,8 +444,16 @@ namespace CcnSession
             
             try
             {
-                string sql = "UPDATE employee SET last_name = '" + lname + "' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE employee SET last_name = @lname WHERE emp_num = @empNum;"
+                };
+                cmd.Parameters.AddWithValue("@lname", lname);
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+
+                //string sql = "UPDATE employee SET last_name = '" + lname + "' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -432,8 +466,16 @@ namespace CcnSession
             
             try
             {
-                string sql = "UPDATE employee SET street = '" + street + "' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE employee SET street = @street WHERE emp_num = @empNum;"
+                };
+
+                cmd.Parameters.AddWithValue("@street", street);
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+                //string sql = "UPDATE employee SET street = '" + street + "' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -446,8 +488,16 @@ namespace CcnSession
             
             try
             {
-                string sql = "UPDATE employee SET city = '" + city + "' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE employee SET city = @city WHERE emp_num = @empNum;"
+                };
+
+                cmd.Parameters.AddWithValue("@city", city);
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+                //string sql = "UPDATE employee SET city = '" + city + "' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -460,8 +510,15 @@ namespace CcnSession
             
             try
             {
-                string sql = "UPDATE employee SET state = '" + st + "' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+                var cmd = new MySqlCommand()
+                { CommandText= "UPDATE employee SET state = @state WHERE emp_num = @empNum; "
+
+                };
+                cmd.Parameters.AddWithValue("@state", st);
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+                //string sql = "UPDATE employee SET state = '" + st + "' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -474,8 +531,15 @@ namespace CcnSession
            
             try
             {
-                string sql = "UPDATE employee SET zip = '" + zip + "' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE employee SET zip = @zip WHERE emp_num = @empNum;"
+                };
+                cmd.Parameters.AddWithValue("@zip", zip);
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+                //string sql = "UPDATE employee SET zip = '" + zip + "' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -488,8 +552,14 @@ namespace CcnSession
             
             try
             {
-                string sql = "UPDATE employee SET type = 'Manager' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE employee SET type = 'Manager' WHERE emp_num = @empNum;"
+                };
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+               // string sql = "UPDATE employee SET type = 'Manager' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -502,8 +572,13 @@ namespace CcnSession
             
             try
             {
-                string sql = "UPDATE employee SET type = 'Employee' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+                var cmd = new MySqlCommand()
+                { CommandText = "UPDATE employee SET type = 'Employee' WHERE emp_num = @empNum;" };
+
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+                //string sql = "UPDATE employee SET type = 'Employee' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -516,8 +591,14 @@ namespace CcnSession
             
             try
             {
-                string sql = "UPDATE employee SET location = '" + store + "' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+                var cmd = new MySqlCommand()
+                { CommandText = "UPDATE employee SET location = @store WHERE emp_num = @empNum;" };
+
+                cmd.Parameters.AddWithValue("@store", store);
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+                   
+                //string sql = "UPDATE employee SET location = '" + store + "' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -530,8 +611,15 @@ namespace CcnSession
             
             try
             {
-                string sql = "UPDATE employee SET pay = '" + newPay + "' WHERE emp_num = '" + empNum + "';";
-                SendQry(new MySqlCommand(sql));
+                var cmd = new MySqlCommand()
+                { CommandText= "UPDATE employee SET pay = @newPay WHERE emp_num = @empNum;"
+            };
+                cmd.Parameters.AddWithValue("@newPay", newPay);
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+
+                //string sql = "UPDATE employee SET pay = '" + newPay + "' WHERE emp_num = '" + empNum + "';";
+                SendQry(cmd);
             }
             catch (Exception ex)
             {
@@ -597,12 +685,23 @@ namespace CcnSession
          * overloads can return for a different store, or for specific customers, or even specific orders
          */
 
+
+            /*Default version - defaults to ALL orders from USERS DEFAULT STORE
+             * 
+             */
         public static DataTable GetOrders()
         {
             try
             {
-                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num  FROM order_history WHERE location = '" + DefaultStore + "' ORDER BY del_date DESC;";
-                return SelectQry(sql);
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num  FROM order_history WHERE location = @store ORDER BY del_date DESC;"
+                };
+
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
+
+                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num  FROM order_history WHERE location = '" + DefaultStore + "' ORDER BY del_date DESC;";
+                return SelectQry(cmd);
             } catch (Exception ex)
             {
                 throw ex;
@@ -611,13 +710,22 @@ namespace CcnSession
 
         }
 
+        /* Overload 1 - Allows to select ALL orders from a SPECIFIC STORE
+         */
         public static DataTable GetOrders(string store)
         {
             try
             {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT acct_num, del_addy, trans_date, del_date, pay_rec, total, order_status, order_num FROM order_history WHERE location = @store ORDER BY del_date DESC;"
+                };
+
+                cmd.Parameters.AddWithValue("@store", store);
+
                 
-                string sql = "SELECT acct_num, del_addy, trans_date, del_date, pay_rec, total, order_status, order_num FROM order_history WHERE location = '" + store + "' ORDER BY del_date DESC;";
-                return SelectQry(sql);
+                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, pay_rec, total, order_status, order_num FROM order_history WHERE location = '" + store + "' ORDER BY del_date DESC;";
+                return SelectQry(cmd);
             }
             catch (Exception ex)
             {
@@ -628,13 +736,16 @@ namespace CcnSession
 
         }
 
+        /* Overload 2 - All of a single users orders (by email address) from a specific store
+         */
         public static DataTable GetOrders(string store, string email)
         {
             try
             {
                 string acctNum = GetAcctNum(email).ToString();
-                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE location = '" + store + "' AND email = '"+acctNum+ "'ORDER BY del_date DESC;";
-                return SelectQry(sql);
+                int.TryParse(acctNum, out int custNum);
+
+                return GetOrders(store, custNum);
             }
             catch (Exception ex)
             {
@@ -645,13 +756,22 @@ namespace CcnSession
 
         }
 
+        /* Overload 3 ALL of a users orders (by acct_num) in ANY store
+         */
         public static DataTable GetOrders(int custNum)
         {
 
             try
             {
-                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE acct_num = '" + custNum + "'ORDER BY del_date DESC;";
-                return SelectQry(sql);
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE acct_num = @acctNum ORDER BY del_date DESC;"
+                };
+
+                cmd.Parameters.AddWithValue("@acctNum", custNum);
+
+                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE acct_num = '" + custNum + "'ORDER BY del_date DESC;";
+                return SelectQry(cmd);
             }
             catch (Exception ex)
             {
@@ -660,12 +780,22 @@ namespace CcnSession
 
         }
 
+        /* Overload 4 - returns all of a customers orders at a specific store, searched by cust num (called in the one searched by email)
+         */
         public static DataTable GetOrders(string store, int custNum)
         {
             try
             {
-                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE location = '" + store + "' AND acct_num = '"+custNum+ "'ORDER BY del_date DESC;";
-                return SelectQry(sql);
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE location = @store AND acct_num = @custNum ORDER BY del_date DESC;"
+                };
+
+                cmd.Parameters.AddWithValue("@store", store);
+                cmd.Parameters.AddWithValue("@custNum", custNum);
+                
+                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE location = '" + store + "' AND acct_num = '"+custNum+ "'ORDER BY del_date DESC;";
+                return SelectQry(cmd);
             }
             catch (Exception ex)
             {
@@ -674,13 +804,23 @@ namespace CcnSession
 
         }
 
+        /* Overload 5  - all of a customers order, for a specific store, after a certain date
+         */
         public static DataTable GetOrders(string store, int custNum, DateTime date)
         {
             try
             {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE DATE(trans_date) > @date AND  location = @store AND acct_num = @custNum ORDER BY del_date DESC;"
+                };
+                cmd.Parameters.AddWithValue("@custNum", custNum);
+                cmd.Parameters.AddWithValue("@store", store);
+                cmd.Parameters.Add("@date", MySqlDbType.Timestamp).Value = date;
 
-                string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE location = '" + store + "' AND acct_num = '" + custNum + "' ORDER BY del_date DESC;";
-                return SelectQry(sql);
+                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE DATE(trans_date) > '@date' AND  location = '" + store + "' AND acct_num = '" + custNum + "' ORDER BY del_date DESC;";
+
+                return SelectQry(cmd);
             }
             catch (Exception ex)
             {
@@ -703,9 +843,14 @@ namespace CcnSession
 
             try
             {
-                string sql = "SELECT h.order_num, v.item_name, i.qty, h.total, h.pay_rec, h.del_date, h.order_status, h.del_addy FROM order_history h JOIN order_items i ON i.order_num = h.order_num AND h.order_num = "+orderNum+" JOIN items v ON v.item_id = i.item_id ORDER by h.order_num";
+                var cmd = new MySqlCommand()
+                { CommandText = "SELECT h.order_num, v.item_name, i.qty, h.total, h.pay_rec, h.del_date, h.order_status, h.del_addy FROM order_history h JOIN order_items i ON i.order_num = h.order_num AND h.order_num = @orderNum JOIN items v ON v.item_id = i.item_id ORDER by h.order_num"
+                 };
 
-                return SelectQry(sql);
+                cmd.Parameters.AddWithValue("@orderNum", orderNum);
+                //string sql = "SELECT h.order_num, v.item_name, i.qty, h.total, h.pay_rec, h.del_date, h.order_status, h.del_addy FROM order_history h JOIN order_items i ON i.order_num = h.order_num AND h.order_num = "+orderNum+" JOIN items v ON v.item_id = i.item_id ORDER by h.order_num";
+
+                return SelectQry(cmd);
             } catch (Exception ex)
             {
                 throw ex;
@@ -770,8 +915,16 @@ namespace CcnSession
         {
             try
             {
-                string sql = "SELECT acct_num FROM customer WHERE first_name ='" + fName + "' AND last_name = '" + lName + "';";
-                int.TryParse(SelectQry(sql).Rows[0]["acct_num"].ToString(), out int acctNum);
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT acct_num FROM customer WHERE first_name =@name AND last_name = @lname;"
+                };
+
+                cmd.Parameters.AddWithValue("@fname", fName);
+                cmd.Parameters.AddWithValue("@lname", lName);
+
+                //string sql = "SELECT acct_num FROM customer WHERE first_name ='" + fName + "' AND last_name = '" + lName + "';";
+                int.TryParse(SelectQry(cmd).Rows[0]["acct_num"].ToString(), out int acctNum);
 
 
                 if (acctNum == 0)
@@ -809,7 +962,13 @@ namespace CcnSession
         {
             try
             {
-                return SelectQry("SELECT items.item, items.item_name, items.purchase_cost, items.sell_cost, items.category, store_inventory.qty FROM items  INNER JOIN store_inventory WHERE store_inventory.item_id = items.item_id AND location = '" + DefaultStore + "'; ");
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT items.item, items.item_name, items.purchase_cost, items.sell_cost, items.category, store_inventory.qty FROM items  INNER JOIN store_inventory WHERE store_inventory.item_id = items.item_id AND location = @store; "
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
+
+                return SelectQry(cmd);
             }
             catch(Exception ex)
             {
@@ -826,7 +985,14 @@ namespace CcnSession
         {
             try
             {
-                return SelectQry("SELECT items.item, items.item_name, items.purchase_cost, items.sell_cost, items.category, store_inventory.qty FROM items  INNER JOIN store_inventory WHERE store_inventory.item_id = items.item_id AND location = '" + store + "'; ");
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT items.item, items.item_name, items.purchase_cost, items.sell_cost, items.category, store_inventory.qty FROM items  INNER JOIN store_inventory WHERE store_inventory.item_id = items.item_id AND location = @store; "
+                };
+
+                cmd.Parameters.AddWithValue("@store", store);
+
+                return SelectQry(cmd);
             }
             catch (Exception ex)
             {
@@ -841,8 +1007,14 @@ namespace CcnSession
         {
             try
             {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT items.item, items.item_name, items.purchase_cost, items.sell_cost, items.category, store_inventory.qty FROM items  INNER JOIN store_inventory WHERE store_inventory.item_id = items.item_id AND location = @store AND items.item_id = @itemNum; "
+                };
+                cmd.Parameters.AddWithValue("@store", store);
+                cmd.Parameters.AddWithValue("@itemNum", itemNum);
                 
-                return SelectQry("SELECT items.item, items.item_name, items.purchase_cost, items.sell_cost, items.category, store_inventory.qty FROM items  INNER JOIN store_inventory WHERE store_inventory.item_id = items.item_id AND location = '" + store + "' AND items.item_id = '"+itemNum+"'; ");
+                return SelectQry(cmd);
             }
             catch (Exception ex)
             {
@@ -858,10 +1030,18 @@ namespace CcnSession
             try
             {
                 var data = new DataTable();
-                string sql = "SELECT item_id FROM items WHERE item_name ='" + itemName + "';";
+
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT item_id FROM items WHERE item_name =@itemName;"
+                };
+
+                cmd.Parameters.AddWithValue("@itemName", itemName);
+
+                //string sql = "SELECT item_id FROM items WHERE item_name ='" + itemName + "';";
                 try
                 {
-                    data = SelectQry(sql);
+                    data = SelectQry(cmd);
                 }
                 catch 
                 {
@@ -885,11 +1065,22 @@ namespace CcnSession
          */
         public static void ChangeQty(int itemNum, int qty)
         {
-            string sql= "UPDATE store_inventory SET qty = '"+qty+"' WHERE item_id='"+itemNum+"' AND location = '"+DefaultStore+"';";
+
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "UPDATE store_inventory SET qty = @qty WHERE item_id=@itemNum AND location = @store;"
+            };
+
+            cmd.Parameters.AddWithValue("@qty", qty);
+            cmd.Parameters.AddWithValue("@itemNum", itemNum);
+            cmd.Parameters.AddWithValue("@store", DefaultStore);
+
+
+           //string sql= "UPDATE store_inventory SET qty = '"+qty+"' WHERE item_id='"+itemNum+"' AND location = '"+DefaultStore+"';";
            
             try
             {
-                if(SendQry(new MySqlCommand(sql)))
+                if (SendQry(cmd))
                 {
                     Console.WriteLine("Command sent, Qty Updated.");
                 }
@@ -1164,7 +1355,14 @@ namespace CcnSession
         private static void Permission()
         {
 
-            string sql = "SELECT type FROM employee WHERE username = '" + Username + "';";
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "SELECT type FROM employee WHERE username = @user;"
+            };
+
+            cmd.Parameters.AddWithValue("@user", Username);
+
+            //string sql = "SELECT type FROM employee WHERE username = '" + Username + "';";
             MySqlDataReader rdr = null;
             int i = 0;
 
@@ -1172,8 +1370,12 @@ namespace CcnSession
             {
                 try
                 {
+                    cmd.Connection = cnn;
                     cnn.Open();
-                    var cmd = new MySqlCommand(sql, cnn);
+
+                    Console.WriteLine("Connection:  {0}", cnn.State);
+                    Console.WriteLine("Sending Command: {0}", cmd);
+
                     rdr = cmd.ExecuteReader();
 
                     while (rdr.Read())
@@ -1226,7 +1428,7 @@ namespace CcnSession
 
         }
 
-        
+
 
 
 
@@ -1256,6 +1458,10 @@ namespace CcnSession
          * in live, check for Null when using these functions, if return null then throw an error.
          * 
          * does where val does not currently work with BETWEEN
+         * 
+         * some of these  use what appears to be vulnerable to an SQL Injection attack. Due to the nature in which we
+         * are using them in the app, they are actually secure - for most only the "Search" value (where = value)" is
+         * entered by the user. Everything else is predetermined.
          */
         static public DataTable GetTable(string tableName)
         {
@@ -1288,8 +1494,16 @@ namespace CcnSession
         {
             try
             {
-                string sql = "SELECT * FROM " + tableName + " WHERE " + whCol + "=" + whVal + ";";
-                return SelectQry(sql);
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT * FROM "+tableName+" WHERE "+whCol+" = @value;"
+                };
+
+                
+                cmd.Parameters.AddWithValue("@value", whVal);
+
+                //string sql = "SELECT * FROM " + tableName + " WHERE " + whCol + "=" + whVal + ";";
+                return SelectQry(cmd);
             }
             catch (Exception ex)
             {
@@ -1311,6 +1525,10 @@ namespace CcnSession
          * FROM table BETWEEN value=start, value=end; as one string in the tableName.
          * 
          * don't do this. just use sendqry instead.
+         * 
+         * some of these  use what appears to be vulnerable to an SQL Injection attack. Due to the nature in which we
+         * are using them in the app, they are actually secure - for most only the "Search" value (where = value)" is
+         * entered by the user. Everything else is predetermined.
          */
         static public DataTable GetColumn(string tableName, string colName)
         {
@@ -1331,8 +1549,15 @@ namespace CcnSession
         {
             try
             {
-                string sql = "SELECT " + colName + " FROM " + tableName + " WHERE " + colName + "= '" + whereVal + "' ;";
-                return SelectQry(sql);
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT "+colName+" FROM "+tableName+" WHERE "+colName+"= @value ;"
+                };
+
+                
+                cmd.Parameters.AddWithValue("@value", whereVal);
+                //string sql = "SELECT " + colName + " FROM " + tableName + " WHERE " + colName + "= '" + whereVal + "' ;";
+                return SelectQry(cmd);
             }
             catch (Exception ex)
             {
@@ -1347,8 +1572,15 @@ namespace CcnSession
         {
             try
             {
-                string sql = "SELECT " + colName + " FROM " + tableName + " WHERE " + whereCol + "= '" + whereVal + "' ;";
-                return SelectQry(sql);
+                string sql = "SELECT " + colName + " FROM " + tableName + " WHERE " + whereCol + "=@value ;";
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = sql
+                };
+
+                cmd.Parameters.AddWithValue("@value", whereVal);
+                
+                return SelectQry(cmd);
             }
             catch (Exception ex)
             {
