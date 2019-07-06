@@ -1156,10 +1156,20 @@ namespace CcnSession
          */
         public static DataTable GetAcRec()
         {
-            var data = new DataTable();
+            try
+            {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT * FROM acct_rec WHERE location =@store;"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
 
-
-            return data;
+                return SelectQry(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
@@ -1201,10 +1211,20 @@ namespace CcnSession
 
         public static DataTable AcctPay()
         {
-            var data = new DataTable();
+            try
+            {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT * FROM acct_pay WHERE location =@store;"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
 
-
-            return data;
+                return SelectQry(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
