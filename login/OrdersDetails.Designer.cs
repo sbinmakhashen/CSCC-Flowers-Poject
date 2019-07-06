@@ -173,7 +173,8 @@
             // lbl_previous
             // 
             this.lbl_previous.AutoSize = true;
-            this.lbl_previous.Location = new System.Drawing.Point(1346, 85);
+            this.lbl_previous.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_previous.Location = new System.Drawing.Point(1284, 24);
             this.lbl_previous.Name = "lbl_previous";
             this.lbl_previous.Size = new System.Drawing.Size(126, 32);
             this.lbl_previous.TabIndex = 12;

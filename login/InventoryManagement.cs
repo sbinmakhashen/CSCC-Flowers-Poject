@@ -115,6 +115,7 @@ namespace login
 
         private void buttonDisplay_Click(object sender, EventArgs e)
         {
+            dataGridView1.DataSource = null;
             DispData();
             Clear();
         }

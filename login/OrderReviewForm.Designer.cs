@@ -40,6 +40,7 @@
             this.lbl_StoreIs = new System.Windows.Forms.Label();
             this.lbl_store = new System.Windows.Forms.Label();
             this.lbl_date = new System.Windows.Forms.Label();
+            this.btn_ViewToday = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -74,10 +75,10 @@
             // buttonViewOrd
             // 
             this.buttonViewOrd.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonViewOrd.Location = new System.Drawing.Point(1164, 21);
+            this.buttonViewOrd.Location = new System.Drawing.Point(1145, 9);
             this.buttonViewOrd.Margin = new System.Windows.Forms.Padding(6);
             this.buttonViewOrd.Name = "buttonViewOrd";
-            this.buttonViewOrd.Size = new System.Drawing.Size(233, 85);
+            this.buttonViewOrd.Size = new System.Drawing.Size(233, 97);
             this.buttonViewOrd.TabIndex = 15;
             this.buttonViewOrd.Text = "Reset Table";
             this.buttonViewOrd.UseVisualStyleBackColor = true;
@@ -104,7 +105,7 @@
             this.dataGridView1.RowHeadersWidth = 102;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1552, 704);
+            this.dataGridView1.Size = new System.Drawing.Size(1552, 686);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.DoubleClick += new System.EventHandler(this.DataGridView1_DoubleClick);
             // 
@@ -114,7 +115,7 @@
             this.label4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label4.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(1649, 95);
+            this.label4.Location = new System.Drawing.Point(1578, 9);
             this.label4.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(214, 54);
@@ -133,7 +134,7 @@
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(822, 97);
             this.textBoxSearch.TabIndex = 18;
-            this.textBoxSearch.Text = "Search here....";
+            this.textBoxSearch.Text = "Search Address Here....";
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             this.textBoxSearch.Enter += new System.EventHandler(this.textBoxSearch_Enter);
             this.textBoxSearch.Leave += new System.EventHandler(this.textBoxSearch_Leave);
@@ -141,23 +142,23 @@
             // btn_viewOrders
             // 
             this.btn_viewOrders.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_viewOrders.Location = new System.Drawing.Point(18, 900);
+            this.btn_viewOrders.Location = new System.Drawing.Point(18, 893);
             this.btn_viewOrders.Margin = new System.Windows.Forms.Padding(6);
             this.btn_viewOrders.Name = "btn_viewOrders";
-            this.btn_viewOrders.Size = new System.Drawing.Size(281, 59);
+            this.btn_viewOrders.Size = new System.Drawing.Size(342, 66);
             this.btn_viewOrders.TabIndex = 19;
-            this.btn_viewOrders.Text = "View Orders";
+            this.btn_viewOrders.Text = "View Orders Due After:";
             this.btn_viewOrders.UseVisualStyleBackColor = true;
             this.btn_viewOrders.Click += new System.EventHandler(this.Btn_viewOrders_Click);
             // 
             // dateTimePicker_orders
             // 
             this.dateTimePicker_orders.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 11.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker_orders.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker_orders.Location = new System.Drawing.Point(311, 906);
+            this.dateTimePicker_orders.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker_orders.Location = new System.Drawing.Point(369, 895);
             this.dateTimePicker_orders.MinDate = new System.DateTime(1975, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker_orders.Name = "dateTimePicker_orders";
-            this.dateTimePicker_orders.Size = new System.Drawing.Size(699, 53);
+            this.dateTimePicker_orders.Size = new System.Drawing.Size(740, 61);
             this.dateTimePicker_orders.TabIndex = 20;
             // 
             // lbl_StoreIs
@@ -188,12 +189,25 @@
             this.lbl_date.TabIndex = 23;
             this.lbl_date.Text = "Today\'s Date Is: ";
             // 
+            // btn_ViewToday
+            // 
+            this.btn_ViewToday.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_ViewToday.Location = new System.Drawing.Point(1521, 890);
+            this.btn_ViewToday.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_ViewToday.Name = "btn_ViewToday";
+            this.btn_ViewToday.Size = new System.Drawing.Size(342, 66);
+            this.btn_ViewToday.TabIndex = 24;
+            this.btn_ViewToday.Text = "View Orders For Today";
+            this.btn_ViewToday.UseVisualStyleBackColor = true;
+            this.btn_ViewToday.Click += new System.EventHandler(this.Btn_ViewToday_Click);
+            // 
             // OrderReviewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1930, 976);
+            this.Controls.Add(this.btn_ViewToday);
             this.Controls.Add(this.lbl_date);
             this.Controls.Add(this.lbl_store);
             this.Controls.Add(this.lbl_StoreIs);
@@ -229,5 +243,6 @@
         private System.Windows.Forms.Label lbl_StoreIs;
         private System.Windows.Forms.Label lbl_store;
         private System.Windows.Forms.Label lbl_date;
+        private System.Windows.Forms.Button btn_ViewToday;
     }
 }

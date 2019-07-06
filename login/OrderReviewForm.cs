@@ -76,7 +76,7 @@ namespace login
         private void textBoxSearch_Enter(object sender, EventArgs e)
         {
             String searchBox = textBoxSearch.Text;
-            if (searchBox.ToLower().Trim().Equals("Search Here...."))
+            if (searchBox.ToLower().Trim().Equals("Search Address Here...."))
             {
                 textBoxSearch.Text = "";
                 textBoxSearch.ForeColor = Color.Black;
@@ -92,9 +92,9 @@ namespace login
                 dataGridView1.DataSource = orderHistoryData;
             }
 
-            if (searchTxt.ToLower().Trim().Equals("search here....") || searchTxt.Trim().Equals(""))
+            if (searchTxt.ToLower().Trim().Equals("search address here....") || searchTxt.Trim().Equals(""))
             {
-                textBoxSearch.Text = "Search Here....";
+                textBoxSearch.Text = "Search Address Here....";
                 textBoxSearch.ForeColor = Color.Maroon;
                 dataGridView1.DataSource = orderHistoryData;
 
@@ -111,6 +111,7 @@ namespace login
 
         private void ButtonViewOrd_Click(object sender, EventArgs e)
         {
+            dataGridView1.DataSource = null;
             DisplayData();
         }
 
@@ -125,11 +126,26 @@ namespace login
 
         private void Btn_viewOrders_Click(object sender, EventArgs e)
         {
-            var filterDate = new DateTime();
+            
+           
 
-            filterDate = Convert.ToDateTime(dateTimePicker_orders.Text);
+            DateTime.TryParseExact(dateTimePicker_orders.Value.ToString("yyyy-MM-dd HH:mm:ss"), "yyyy-MM-dd HH:mm:ss", null,0, out DateTime filterDate);
 
+            var dv = new DataView(orderHistoryData);
+            dv.RowFilter = " (CONVERT(del_date,System.DateTime) >= #"+filterDate+"#)";
 
+            dataGridView1.DataSource = dv;
+
+        }
+
+        private void Btn_ViewToday_Click(object sender, EventArgs e)
+        {
+            DateTime.TryParseExact(DateTime.Today.ToString("yyyy-MM-dd HH:mm:ss"), "yyyy-MM-dd HH:mm:ss", null, 0, out DateTime filterDate);
+
+            var dv = new DataView(orderHistoryData);
+            dv.RowFilter = " (CONVERT(del_date,System.DateTime) = #" + filterDate + "#)";
+
+            dataGridView1.DataSource = dv;
         }
     }
 }

@@ -133,7 +133,7 @@
             // lbl_logout
             // 
             this.lbl_logout.AutoSize = true;
-            this.lbl_logout.Location = new System.Drawing.Point(1096, 28);
+            this.lbl_logout.Location = new System.Drawing.Point(1128, 27);
             this.lbl_logout.Name = "lbl_logout";
             this.lbl_logout.Size = new System.Drawing.Size(34, 32);
             this.lbl_logout.TabIndex = 10;
@@ -143,7 +143,8 @@
             // lbl_Previous
             // 
             this.lbl_Previous.AutoSize = true;
-            this.lbl_Previous.Location = new System.Drawing.Point(1054, 88);
+            this.lbl_Previous.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Previous.Location = new System.Drawing.Point(980, 27);
             this.lbl_Previous.Name = "lbl_Previous";
             this.lbl_Previous.Size = new System.Drawing.Size(126, 32);
             this.lbl_Previous.TabIndex = 11;

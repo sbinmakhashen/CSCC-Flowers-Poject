@@ -12,16 +12,21 @@ namespace login.Resources
 
        public static bool CheckPWValid(string pw)
         {
-            var regex = new Regex(@"/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$/");
+            var regex = new Regex(@"((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&!^*()|{}]).{8,15})");
 
             /* 
              * This regex expression checks to make sure that the PW is between 8 and 15 characters,
              * has both Upper and Lower case, a number, and a special character
              * 
              * this check is done BEFORE we store any new passwords in the system.
-             * string regex = @"^(?=.*[a - z])(?=.*[A - Z])(?=.*\d)(?=.*[^\da - zA - Z]).{ 8,15}$";
              * 
-             *
+             * 
+             * (?=.*\d) - contain a digit
+             * (?=.*[a-z]) - contain a lower case letter
+             * (?=.*[A-Z]) - contain an upper case character
+             * (?=.*[@#$%&!^*()|{}] - contain any of these special characters
+             * . - match anything in the preceding
+             * {8,15} between 8 and 15 characters
              */
 
             regex.Match(pw.Trim());

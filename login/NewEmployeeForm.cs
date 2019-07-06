@@ -235,9 +235,13 @@ namespace login
             try
             {
                 double.TryParse(textBoxPay_Rate.Text, out double pay);
-                
 
-                if (checkTextBoxesValues()) //if default values in boxes, throw exception
+                if (!uF.CheckPWValid(textBoxPasswordConfirm.Text))
+                {
+                    throw new Exception("Password must contain between 8-15 characters, one capital, one lowercase, a number, and a special character.");
+                }
+
+                else if (checkTextBoxesValues()) //if default values in boxes, throw exception
                 {
                     throw new Exception("Please complete all fields.");
 

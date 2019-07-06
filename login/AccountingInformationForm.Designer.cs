@@ -28,32 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.labelClose = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.buttonInsert = new System.Windows.Forms.Button();
-            this.buttonEdit = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.textBoxLoca = new System.Windows.Forms.TextBox();
-            this.textBoxQty = new System.Windows.Forms.TextBox();
+            this.dgv_accounting = new System.Windows.Forms.DataGridView();
             this.buttonReset = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.btn_AcctPay = new System.Windows.Forms.Button();
+            this.btn_AcctRec = new System.Windows.Forms.Button();
+            this.lbl_store = new System.Windows.Forms.Label();
+            this.lbl_StoreName = new System.Windows.Forms.Label();
+            this.lbl_view = new System.Windows.Forms.Label();
+            this.lbl_TableViewing = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_accounting)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox3
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.PapayaWhip;
             this.pictureBox3.Image = global::login.Properties.Resources.logo;
-            this.pictureBox3.Location = new System.Drawing.Point(1, 0);
+            this.pictureBox3.Location = new System.Drawing.Point(2, 0);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(124, 118);
+            this.pictureBox3.Size = new System.Drawing.Size(248, 229);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 6;
             this.pictureBox3.TabStop = false;
@@ -65,10 +64,10 @@
             this.labelClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelClose.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClose.ForeColor = System.Drawing.Color.Black;
-            this.labelClose.Location = new System.Drawing.Point(902, 0);
-            this.labelClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelClose.Location = new System.Drawing.Point(1851, 3);
+            this.labelClose.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.labelClose.Name = "labelClose";
-            this.labelClose.Size = new System.Drawing.Size(27, 27);
+            this.labelClose.Size = new System.Drawing.Size(55, 55);
             this.labelClose.TabIndex = 7;
             this.labelClose.Text = "X";
             this.labelClose.Click += new System.EventHandler(this.labelClose_Click);
@@ -79,114 +78,44 @@
             this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(765, -1);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(1601, 4);
+            this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 28);
+            this.label2.Size = new System.Drawing.Size(234, 54);
             this.label2.TabIndex = 14;
             this.label2.Text = "Previous";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // dataGridView1
+            // dgv_accounting
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.Tan;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(204, 69);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(715, 357);
-            this.dataGridView1.TabIndex = 17;
-            this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
-            // 
-            // buttonInsert
-            // 
-            this.buttonInsert.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonInsert.Location = new System.Drawing.Point(260, 447);
-            this.buttonInsert.Name = "buttonInsert";
-            this.buttonInsert.Size = new System.Drawing.Size(156, 48);
-            this.buttonInsert.TabIndex = 20;
-            this.buttonInsert.Text = "Insert";
-            this.buttonInsert.UseVisualStyleBackColor = true;
-            this.buttonInsert.Click += new System.EventHandler(this.buttonInsert_Click);
-            // 
-            // buttonEdit
-            // 
-            this.buttonEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonEdit.Location = new System.Drawing.Point(710, 447);
-            this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(156, 48);
-            this.buttonEdit.TabIndex = 19;
-            this.buttonEdit.Text = "Update";
-            this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDelete.Location = new System.Drawing.Point(486, 446);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(156, 48);
-            this.buttonDelete.TabIndex = 18;
-            this.buttonDelete.Text = "Delete";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 159);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 17);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Name:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 245);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 17);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Location:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 328);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(34, 17);
-            this.label4.TabIndex = 24;
-            this.label4.Text = "Qty:";
-            // 
-            // textBoxName
-            // 
-            this.textBoxName.Location = new System.Drawing.Point(79, 154);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(100, 22);
-            this.textBoxName.TabIndex = 25;
-            // 
-            // textBoxLoca
-            // 
-            this.textBoxLoca.Location = new System.Drawing.Point(79, 245);
-            this.textBoxLoca.Name = "textBoxLoca";
-            this.textBoxLoca.Size = new System.Drawing.Size(100, 22);
-            this.textBoxLoca.TabIndex = 26;
-            // 
-            // textBoxQty
-            // 
-            this.textBoxQty.Location = new System.Drawing.Point(79, 328);
-            this.textBoxQty.Name = "textBoxQty";
-            this.textBoxQty.Size = new System.Drawing.Size(100, 22);
-            this.textBoxQty.TabIndex = 27;
+            this.dgv_accounting.AllowUserToAddRows = false;
+            this.dgv_accounting.AllowUserToDeleteRows = false;
+            this.dgv_accounting.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+            this.dgv_accounting.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_accounting.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgv_accounting.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgv_accounting.BackgroundColor = System.Drawing.Color.Tan;
+            this.dgv_accounting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_accounting.Location = new System.Drawing.Point(339, 134);
+            this.dgv_accounting.Margin = new System.Windows.Forms.Padding(6);
+            this.dgv_accounting.Name = "dgv_accounting";
+            this.dgv_accounting.ReadOnly = true;
+            this.dgv_accounting.RowHeadersWidth = 102;
+            this.dgv_accounting.RowTemplate.Height = 24;
+            this.dgv_accounting.Size = new System.Drawing.Size(1567, 692);
+            this.dgv_accounting.TabIndex = 17;
+            this.dgv_accounting.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
             // buttonReset
             // 
             this.buttonReset.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonReset.Location = new System.Drawing.Point(23, 418);
+            this.buttonReset.Location = new System.Drawing.Point(15, 864);
+            this.buttonReset.Margin = new System.Windows.Forms.Padding(6);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(156, 48);
+            this.buttonReset.Size = new System.Drawing.Size(312, 93);
             this.buttonReset.TabIndex = 28;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = true;
@@ -196,44 +125,105 @@
             // 
             this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSearch.ForeColor = System.Drawing.Color.IndianRed;
-            this.textBoxSearch.Location = new System.Drawing.Point(239, 12);
+            this.textBoxSearch.Location = new System.Drawing.Point(339, 33);
+            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(400, 48);
+            this.textBoxSearch.Size = new System.Drawing.Size(796, 89);
             this.textBoxSearch.TabIndex = 29;
             this.textBoxSearch.Text = "Search here....";
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             this.textBoxSearch.Enter += new System.EventHandler(this.textBoxSearch_Enter);
             this.textBoxSearch.Leave += new System.EventHandler(this.textBoxSearch_Leave);
             // 
+            // btn_AcctPay
+            // 
+            this.btn_AcctPay.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_AcctPay.Location = new System.Drawing.Point(15, 280);
+            this.btn_AcctPay.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_AcctPay.Name = "btn_AcctPay";
+            this.btn_AcctPay.Size = new System.Drawing.Size(312, 93);
+            this.btn_AcctPay.TabIndex = 30;
+            this.btn_AcctPay.Text = "Accounts Payable";
+            this.btn_AcctPay.UseVisualStyleBackColor = true;
+            this.btn_AcctPay.Click += new System.EventHandler(this.Btn_AcctPay_Click);
+            // 
+            // btn_AcctRec
+            // 
+            this.btn_AcctRec.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_AcctRec.Location = new System.Drawing.Point(15, 385);
+            this.btn_AcctRec.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_AcctRec.Name = "btn_AcctRec";
+            this.btn_AcctRec.Size = new System.Drawing.Size(312, 93);
+            this.btn_AcctRec.TabIndex = 31;
+            this.btn_AcctRec.Text = "Accounts Recievable";
+            this.btn_AcctRec.UseVisualStyleBackColor = true;
+            this.btn_AcctRec.Click += new System.EventHandler(this.Btn_AcctRec_Click);
+            // 
+            // lbl_store
+            // 
+            this.lbl_store.AutoSize = true;
+            this.lbl_store.Location = new System.Drawing.Point(12, 498);
+            this.lbl_store.Name = "lbl_store";
+            this.lbl_store.Size = new System.Drawing.Size(186, 32);
+            this.lbl_store.TabIndex = 32;
+            this.lbl_store.Text = "Your Store Is:";
+            // 
+            // lbl_StoreName
+            // 
+            this.lbl_StoreName.AutoSize = true;
+            this.lbl_StoreName.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_StoreName.Location = new System.Drawing.Point(12, 541);
+            this.lbl_StoreName.Name = "lbl_StoreName";
+            this.lbl_StoreName.Size = new System.Drawing.Size(295, 69);
+            this.lbl_StoreName.TabIndex = 33;
+            this.lbl_StoreName.Text = "4001-Indy";
+            // 
+            // lbl_view
+            // 
+            this.lbl_view.AutoSize = true;
+            this.lbl_view.Location = new System.Drawing.Point(366, 864);
+            this.lbl_view.Name = "lbl_view";
+            this.lbl_view.Size = new System.Drawing.Size(246, 32);
+            this.lbl_view.TabIndex = 34;
+            this.lbl_view.Text = "Currently Viewing:";
+            // 
+            // lbl_TableViewing
+            // 
+            this.lbl_TableViewing.AutoSize = true;
+            this.lbl_TableViewing.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_TableViewing.Location = new System.Drawing.Point(364, 911);
+            this.lbl_TableViewing.Name = "lbl_TableViewing";
+            this.lbl_TableViewing.Size = new System.Drawing.Size(414, 46);
+            this.lbl_TableViewing.TabIndex = 35;
+            this.lbl_TableViewing.Text = "Accounts Receivable";
+            // 
             // AccountingInformationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(932, 507);
+            this.ClientSize = new System.Drawing.Size(1947, 982);
+            this.Controls.Add(this.lbl_TableViewing);
+            this.Controls.Add(this.lbl_view);
+            this.Controls.Add(this.lbl_StoreName);
+            this.Controls.Add(this.lbl_store);
+            this.Controls.Add(this.btn_AcctRec);
+            this.Controls.Add(this.btn_AcctPay);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonReset);
-            this.Controls.Add(this.textBoxQty);
-            this.Controls.Add(this.textBoxLoca);
-            this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonInsert);
-            this.Controls.Add(this.buttonEdit);
-            this.Controls.Add(this.buttonDelete);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgv_accounting);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.labelClose);
             this.Controls.Add(this.pictureBox3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "AccountingInformationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AccountingInformationForm";
             this.Load += new System.EventHandler(this.AccountingInformationForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_accounting)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,17 +233,14 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label labelClose;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button buttonInsert;
-        private System.Windows.Forms.Button buttonEdit;
-        private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.TextBox textBoxLoca;
-        private System.Windows.Forms.TextBox textBoxQty;
+        private System.Windows.Forms.DataGridView dgv_accounting;
         private System.Windows.Forms.Button buttonReset;
         private System.Windows.Forms.TextBox textBoxSearch;
+        private System.Windows.Forms.Button btn_AcctPay;
+        private System.Windows.Forms.Button btn_AcctRec;
+        private System.Windows.Forms.Label lbl_store;
+        private System.Windows.Forms.Label lbl_StoreName;
+        private System.Windows.Forms.Label lbl_view;
+        private System.Windows.Forms.Label lbl_TableViewing;
     }
 }

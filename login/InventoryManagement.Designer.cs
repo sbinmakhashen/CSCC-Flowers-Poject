@@ -31,6 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbl_StoreName = new System.Windows.Forms.Label();
+            this.lbl_storeTitle = new System.Windows.Forms.Label();
+            this.lbl_loginInfo = new System.Windows.Forms.Label();
             this.lbl_ChangeQty = new System.Windows.Forms.Label();
             this.txt_ChangeQty = new System.Windows.Forms.TextBox();
             this.lbl_name = new System.Windows.Forms.Label();
@@ -43,10 +46,7 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.labelClose = new System.Windows.Forms.Label();
-            this.lbl_loginInfo = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.lbl_storeTitle = new System.Windows.Forms.Label();
-            this.lbl_StoreName = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -77,6 +77,34 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(2534, 1056);
             this.panel2.TabIndex = 1;
+            // 
+            // lbl_StoreName
+            // 
+            this.lbl_StoreName.AutoSize = true;
+            this.lbl_StoreName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_StoreName.Location = new System.Drawing.Point(12, 681);
+            this.lbl_StoreName.Name = "lbl_StoreName";
+            this.lbl_StoreName.Size = new System.Drawing.Size(261, 61);
+            this.lbl_StoreName.TabIndex = 25;
+            this.lbl_StoreName.Text = "4000-Indy";
+            // 
+            // lbl_storeTitle
+            // 
+            this.lbl_storeTitle.AutoSize = true;
+            this.lbl_storeTitle.Location = new System.Drawing.Point(12, 629);
+            this.lbl_storeTitle.Name = "lbl_storeTitle";
+            this.lbl_storeTitle.Size = new System.Drawing.Size(186, 32);
+            this.lbl_storeTitle.TabIndex = 24;
+            this.lbl_storeTitle.Text = "Your Store Is:";
+            // 
+            // lbl_loginInfo
+            // 
+            this.lbl_loginInfo.AutoSize = true;
+            this.lbl_loginInfo.Location = new System.Drawing.Point(333, 116);
+            this.lbl_loginInfo.Name = "lbl_loginInfo";
+            this.lbl_loginInfo.Size = new System.Drawing.Size(93, 32);
+            this.lbl_loginInfo.TabIndex = 23;
+            this.lbl_loginInfo.Text = "label1";
             // 
             // lbl_ChangeQty
             // 
@@ -147,7 +175,7 @@
             this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(1416, 49);
+            this.label2.Location = new System.Drawing.Point(1382, 1);
             this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(234, 54);
@@ -243,15 +271,6 @@
             this.labelClose.Text = "X";
             this.labelClose.Click += new System.EventHandler(this.labelClose_Click);
             // 
-            // lbl_loginInfo
-            // 
-            this.lbl_loginInfo.AutoSize = true;
-            this.lbl_loginInfo.Location = new System.Drawing.Point(333, 116);
-            this.lbl_loginInfo.Name = "lbl_loginInfo";
-            this.lbl_loginInfo.Size = new System.Drawing.Size(93, 32);
-            this.lbl_loginInfo.TabIndex = 23;
-            this.lbl_loginInfo.Text = "label1";
-            // 
             // pictureBox3
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.PapayaWhip;
@@ -263,25 +282,6 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 4;
             this.pictureBox3.TabStop = false;
-            // 
-            // lbl_storeTitle
-            // 
-            this.lbl_storeTitle.AutoSize = true;
-            this.lbl_storeTitle.Location = new System.Drawing.Point(12, 629);
-            this.lbl_storeTitle.Name = "lbl_storeTitle";
-            this.lbl_storeTitle.Size = new System.Drawing.Size(186, 32);
-            this.lbl_storeTitle.TabIndex = 24;
-            this.lbl_storeTitle.Text = "Your Store Is:";
-            // 
-            // lbl_StoreName
-            // 
-            this.lbl_StoreName.AutoSize = true;
-            this.lbl_StoreName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_StoreName.Location = new System.Drawing.Point(12, 681);
-            this.lbl_StoreName.Name = "lbl_StoreName";
-            this.lbl_StoreName.Size = new System.Drawing.Size(267, 63);
-            this.lbl_StoreName.TabIndex = 25;
-            this.lbl_StoreName.Text = "4000-Indy";
             // 
             // InventoryManagement
             // 

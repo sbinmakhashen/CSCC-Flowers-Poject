@@ -15,33 +15,26 @@ namespace login
 {
     public partial class AccountingInformationForm : Form
     {
-        MySqlConnection con = new MySqlConnection(@"server=remotemysql.com;port=3306;username=7903HxBTF8;password=U89DjsTnQO;database=7903HxBTF8");
-        int ProductID = 0;
+
+        bool receiving = false, payable=false;
 
         public AccountingInformationForm()
         {
             InitializeComponent();
-            disp_data();
+            lbl_StoreName.Text = SQL.DefaultStore;
+            lbl_TableViewing.Text = "";
+            
         }
 
-        public void disp_data()
-        {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from AcctsPay";
-            cmd.ExecuteNonQuery();
-            DataTable dt = new DataTable();
-            MySqlDataAdapter dat = new MySqlDataAdapter(cmd);
-            dat.Fill(dt);
-            dataGridView1.DataSource = dt;
-            con.Close();
-        }
 
 
         private void labelClose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            SQL.Cleanup();
+            var login = new LoginForm();
+            this.Hide();
+            login.Show();
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -51,94 +44,35 @@ namespace login
             MainForm.Show();
         }
 
-        private void buttonInsert_Click(object sender, EventArgs e)
-        {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "insert into AcctsPay(name,location,Quantity) values('" + this.textBoxName.Text + "','" + this.textBoxLoca.Text + "','" + this.textBoxQty.Text + "');";
-            cmd.ExecuteNonQuery();
-            con.Close();
-            textBoxName.Text = "";
-            textBoxLoca.Text = "";
-            textBoxQty.Text = "";
-            disp_data();
-            Clear();
-            MessageBox.Show("record inserted successfully");
-        }
-
-        private void buttonDelete_Click(object sender, EventArgs e)
-        {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "DELETE FROM AcctsPay WHERE location = '" + textBoxLoca.Text + "' AND name = '" + textBoxName.Text + "'";
-            //cmd.Parameters.AddWithValue("@stock_qty", textBoxStockQty.Text);
-            //cmd.Parameters.AddWithValue("@prod_name", textBoxProdName.Text);
-            cmd.ExecuteNonQuery();
-            textBoxName.Text = "";
-            textBoxLoca.Text = "";
-            textBoxQty.Text = "";
-            con.Close();
-            disp_data();
-            Clear();
-
-
-            MessageBox.Show("record deleted successfully");
-        }
-
-        private void buttonEdit_Click(object sender, EventArgs e)
-        {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "UPDATE `AcctsPay` SET `name`='" + textBoxName.Text + "',`location`='" + textBoxLoca.Text + "' WHERE Quantity = '" + textBoxQty.Text + "'";
-            cmd.ExecuteNonQuery();
-            textBoxName.Text = "";
-            textBoxLoca.Text = "";
-            textBoxQty.Text = "";
-            con.Close();
-            disp_data();
-            MessageBox.Show("record updated successfully");
-        }
+        
 
        
-        void Clear()
-        {
-            textBoxName.Text = textBoxLoca.Text = textBoxQty.Text = "";
-            ProductID = 0;
-            buttonInsert.Text = "Insert";
-            buttonDelete.Enabled = true;
-            
-        }
+        
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Index != -1)
-            {
-                textBoxName.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                textBoxLoca.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-                textBoxQty.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-               // ProductID = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
-                buttonEdit.Text = "Update";
-                buttonDelete.Enabled = Enabled;
-                buttonEdit.Enabled = Enabled;
-                buttonInsert.Enabled = Enabled;
-
-            }
+           
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
         {
-            Clear();
-            disp_data();
+            if(receiving)
+            {
+                dgv_accounting.DataSource = null;
+                DisplayRecievableData();
+            } else if(payable)
+            {
+                dgv_accounting.DataSource = null;
+                DisplayPayableData();
+            }
+            
 
         }
 
         private void AccountingInformationForm_Load(object sender, EventArgs e)
         {
-            disp_data();
-            Clear();
+            
+           
         }
 
         private void textBoxSearch_Enter(object sender, EventArgs e)
@@ -156,27 +90,78 @@ namespace login
             String fname = textBoxSearch.Text;
             if (fname.ToLower().Trim().Equals("search here....") || fname.Trim().Equals(""))
             {
-                textBoxSearch.Text = "search here....";
+                textBoxSearch.Text = "Search Here....";
                 textBoxSearch.ForeColor = Color.IndianRed;
             }
         }
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM AcctsPay WHERE CONCAT(id,name,location,Quantity) LIKE '%" + textBoxSearch.Text + "%'";
 
-            // cmd.Parameters.AddWithValue("@stock_qty", textBoxStockQty.Text);
-            // cmd.Parameters.AddWithValue("@prod_name", textBoxProdName.Text);
+        }
 
-            cmd.ExecuteNonQuery();
-            DataTable dt = new DataTable();
-            MySqlDataAdapter dat = new MySqlDataAdapter(cmd);
-            dat.Fill(dt);
-            dataGridView1.DataSource = dt;
-            con.Close();
+        private void Btn_AcctPay_Click(object sender, EventArgs e)
+        {
+            DisplayPayableData();
+        }
+
+
+
+        public void DisplayPayableData()
+        {
+            var data = new DataTable();
+
+            data = SQL.AcctPay();
+            dgv_accounting.DataSource = data;
+            lbl_TableViewing.Text = "Accounts Payable";
+
+            dgv_accounting.Columns[0].HeaderText = "ID Number";
+            dgv_accounting.Columns[0].Visible = false;
+            dgv_accounting.Columns[1].HeaderText = "Invoice #";
+            dgv_accounting.Columns[2].HeaderText = "Vendor";
+            dgv_accounting.Columns[3].HeaderText = "Total";
+            dgv_accounting.Columns[4].HeaderText = "Amt Paid";
+            dgv_accounting.Columns[5].HeaderText = "Remaining";
+            dgv_accounting.Columns[6].HeaderText = "Location";
+            dgv_accounting.Columns[6].Visible = false;
+            dgv_accounting.Columns[7].HeaderText = "Due By";
+            dgv_accounting.Columns[8].HeaderText = "Paid On";
+            dgv_accounting.Sort(dgv_accounting.Columns[7], ListSortDirection.Descending);
+
+            //flags for knowing what table we are in for the buttons to work with either.
+            payable = true;
+            receiving = false;
+        }
+
+        private void Btn_AcctRec_Click(object sender, EventArgs e)
+        {
+            DisplayRecievableData();
+        }
+
+        public void DisplayRecievableData()
+        {
+            var data = new DataTable();
+
+            data = SQL.GetAcRec();
+            dgv_accounting.DataSource = data;
+            lbl_TableViewing.Text = "Accounts Receivable";
+
+            dgv_accounting.Columns[0].HeaderText = "Invoice #";
+            dgv_accounting.Columns[1].HeaderText = "Order #";
+            dgv_accounting.Columns[2].HeaderText = "Customer #";
+            dgv_accounting.Columns[3].HeaderText = "Total";
+            dgv_accounting.Columns[4].HeaderText = "Amt Paid";
+            dgv_accounting.Columns[5].HeaderText = "Remaining";
+            dgv_accounting.Columns[6].HeaderText = "Location";
+            dgv_accounting.Columns[6].Visible = false;
+            dgv_accounting.Columns[7].HeaderText = "Due By";
+            dgv_accounting.Columns[8].HeaderText = "Paid On";
+            dgv_accounting.Sort(dgv_accounting.Columns[7], ListSortDirection.Descending);
+
+
+            //flags for what table we are in to know what the buttons should do.
+            receiving = true;
+            payable = false;
         }
     }
 }

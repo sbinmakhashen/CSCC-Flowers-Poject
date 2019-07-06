@@ -194,8 +194,9 @@
             // 
             this.lbl_forgotPW.AutoSize = true;
             this.lbl_forgotPW.BackColor = System.Drawing.Color.MediumPurple;
-            this.lbl_forgotPW.ForeColor = System.Drawing.Color.DarkRed;
-            this.lbl_forgotPW.Location = new System.Drawing.Point(247, 45);
+            this.lbl_forgotPW.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_forgotPW.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lbl_forgotPW.Location = new System.Drawing.Point(247, 44);
             this.lbl_forgotPW.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_forgotPW.Name = "lbl_forgotPW";
             this.lbl_forgotPW.Size = new System.Drawing.Size(477, 32);

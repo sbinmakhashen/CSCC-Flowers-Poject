@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using CcnSession;
 
 namespace login
 {
@@ -38,7 +39,10 @@ namespace login
 
         private void labelClose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            SQL.Cleanup();
+            var login = new LoginForm();
+            this.Hide();
+            login.Show();
         }
 
         private void label2_Click(object sender, EventArgs e)
