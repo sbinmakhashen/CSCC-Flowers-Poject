@@ -6,7 +6,7 @@
 * ~~Make the OrderDetails form (double click on any order in the OrderHistory page to get there) look good~~
 
 ## Medium Priority
-* Make it so that any changes in the Update Empoyee fields are highlighted in red.
+* ~~Make it so that any changes in the Update Empoyee fields are highlighted in red.~~
 
 ## Low Priority
 * Help Oussama write up something for the website for the document
