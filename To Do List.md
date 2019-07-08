@@ -1,9 +1,9 @@
 # TO DO for Salem
 
 ## High Priority
-* Make the Change Password link on the main screen clearer, better
-* Make the ChangePW form look good
-* Make the OrderDetails form (double click on any order in the OrderHistory page to get there) look good
+* ~~Make the Change Password link on the main screen clearer, better~~
+* ~~Make the ChangePW form look good~~
+* ~~Make the OrderDetails form (double click on any order in the OrderHistory page to get there) look good~~
 
 
 ## Medium Priority
