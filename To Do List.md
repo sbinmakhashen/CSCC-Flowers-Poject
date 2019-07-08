@@ -26,10 +26,13 @@
 * Accounting - ~~Acct Rec and Acct Payable~~ - Can view
 + CRUD operations for Managers
 * Reports - Ledgers and what not.
+* View - but not adjust - other stores Inventory (related to The Problem)
+* Send Inventory to another store if Managers
 
 ## Medium Priority
 * Additional employee level. HR
 + Change other employees PWs, update employee information.
+* Prevent Managers from changing their own store location.
 
 * Table design for PW changes 
 + Time Changed
