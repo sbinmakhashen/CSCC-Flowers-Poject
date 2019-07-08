@@ -13,10 +13,10 @@
 * Get Screenshots of all the windows (clean, no other stuff in the background) so we can make training documentation
 
 ## VERY low Priority
-* ~~See what Error Message Boxes we can move into the form itself (maybe as a hover box of some sort?) rather than as a click button error.
+* ~~See what Error Message Boxes we can move into the form itself (maybe as a hover box of some sort?) rather than as a click button error.~~
 ~~+ for example: bad zip code - does it have to be a click through MessageBox.Show? Can we do something else? (maybe a label pop up in red saying its a bad zip?)~~
 
-**To answer your question the only other error method we can use instead of an error message box is the "Error Provider" method this will show an error icon next to the problem and you'd have to point the mouse to the red flag or icon to read the error, if your interested lemme know!!! **
+**To answer your question the only other error method we can use instead of an error message box is the "Error Provider" method this will show an error icon next to the problem and you'd have to point the mouse to the red flag or icon to read the error, if your interested lemme know!!!**
 
 
 # TO DO for Anthony
