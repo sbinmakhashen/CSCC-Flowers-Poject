@@ -583,5 +583,45 @@ namespace login
 
 
         }
+
+        private void txt_FName_Click(object sender, EventArgs e)
+        {
+            txt_FName.ForeColor = Color.Red;
+        }
+
+        private void txt_LName_Click(object sender, EventArgs e)
+        {
+            txt_LName.ForeColor = Color.Red;
+        }
+
+        private void txt_Street_Click(object sender, EventArgs e)
+        {
+            txt_Street.ForeColor = Color.Red;
+        }
+
+        private void txt_city_Click(object sender, EventArgs e)
+        {
+            txt_city.ForeColor = Color.Red;
+        }
+
+        private void drpd_State_Click(object sender, EventArgs e)
+        {
+            drpd_State.ForeColor = Color.Red;
+        }
+
+        private void txt_Zip_Click(object sender, EventArgs e)
+        {
+            txt_Zip.ForeColor = Color.Red;
+        }
+
+        private void drpd_store_Click(object sender, EventArgs e)
+        {
+            drpd_store.ForeColor = Color.Red;
+        }
+
+        private void txt_Pay_Click(object sender, EventArgs e)
+        {
+            txt_Pay.ForeColor = Color.Red;
+        }
     }
 }

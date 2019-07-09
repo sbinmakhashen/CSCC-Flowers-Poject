@@ -162,5 +162,45 @@ namespace login
             dataGridView1.DataSource = dt;
             con.Close();
         }
+
+        private void textBoxGL_Enter(object sender, EventArgs e)
+        {
+            String GL = textBoxGL.Text;
+            if (GL.ToLower().Trim().Equals("general ledger"))
+            {
+                textBoxGL.Text = "";
+                textBoxGL.ForeColor = Color.Black;
+            }
+        }
+
+        private void textBoxGL_Leave(object sender, EventArgs e)
+        {
+            String GL = textBoxGL.Text;
+            if (GL.ToLower().Trim().Equals("general ledger") || GL.Trim().Equals(""))
+            {
+                textBoxGL.Text = "general ledger";
+                textBoxGL.ForeColor = Color.MediumBlue;
+            }
+        }
+
+        private void textBoxGJ_Enter(object sender, EventArgs e)
+        {
+            String GJ = textBoxGJ.Text;
+            if (GJ.ToLower().Trim().Equals("general journal"))
+            {
+                textBoxGJ.Text = "";
+                textBoxGJ.ForeColor = Color.Black;
+            }
+        }
+
+        private void textBoxGJ_Leave(object sender, EventArgs e)
+        {
+            String GJ = textBoxGJ.Text;
+            if (GJ.ToLower().Trim().Equals("general journal") || GJ.Trim().Equals(""))
+            {
+                textBoxGJ.Text = "general journal";
+                textBoxGJ.ForeColor = Color.MediumBlue;
+            }
+        }
     }
 }

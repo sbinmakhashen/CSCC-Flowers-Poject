@@ -10,7 +10,7 @@
 
 ## Low Priority
 * Help Oussama write up something for the website for the document
-* Get Screenshots of all the windows (clean, no other stuff in the background) so we can make training documentation
+* ~~Get Screenshots of all the windows (clean, no other stuff in the background) so we can make training documentation~~
 
 ## VERY low Priority
 * ~~See what Error Message Boxes we can move into the form itself (maybe as a hover box of some sort?) rather than as a click button error.~~
