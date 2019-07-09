@@ -41,6 +41,7 @@
             this.lbl_StoreName = new System.Windows.Forms.Label();
             this.lbl_view = new System.Windows.Forms.Label();
             this.lbl_TableViewing = new System.Windows.Forms.Label();
+            this.lbl_titlePage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_accounting)).BeginInit();
             this.SuspendLayout();
@@ -49,10 +50,9 @@
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.PapayaWhip;
             this.pictureBox3.Image = global::login.Properties.Resources.logo;
-            this.pictureBox3.Location = new System.Drawing.Point(2, 0);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
+            this.pictureBox3.Location = new System.Drawing.Point(1, 0);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(248, 229);
+            this.pictureBox3.Size = new System.Drawing.Size(124, 86);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 6;
             this.pictureBox3.TabStop = false;
@@ -60,28 +60,28 @@
             // labelClose
             // 
             this.labelClose.AutoSize = true;
-            this.labelClose.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.labelClose.BackColor = System.Drawing.Color.DarkKhaki;
             this.labelClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelClose.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClose.ForeColor = System.Drawing.Color.Black;
-            this.labelClose.Location = new System.Drawing.Point(1851, 3);
-            this.labelClose.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.labelClose.Location = new System.Drawing.Point(944, 0);
+            this.labelClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelClose.Name = "labelClose";
-            this.labelClose.Size = new System.Drawing.Size(55, 55);
+            this.labelClose.Size = new System.Drawing.Size(27, 27);
             this.labelClose.TabIndex = 7;
             this.labelClose.Text = "X";
             this.labelClose.Click += new System.EventHandler(this.labelClose_Click);
             // 
             // label2
             // 
-            this.label2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label2.BackColor = System.Drawing.Color.DarkKhaki;
             this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(1601, 4);
-            this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label2.Location = new System.Drawing.Point(818, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(234, 54);
+            this.label2.Size = new System.Drawing.Size(117, 28);
             this.label2.TabIndex = 14;
             this.label2.Text = "Previous";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -99,37 +99,36 @@
             this.dgv_accounting.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv_accounting.BackgroundColor = System.Drawing.Color.Tan;
             this.dgv_accounting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_accounting.Location = new System.Drawing.Point(339, 134);
-            this.dgv_accounting.Margin = new System.Windows.Forms.Padding(6);
+            this.dgv_accounting.Location = new System.Drawing.Point(165, 153);
             this.dgv_accounting.Name = "dgv_accounting";
             this.dgv_accounting.ReadOnly = true;
             this.dgv_accounting.RowHeadersWidth = 102;
             this.dgv_accounting.RowTemplate.Height = 24;
-            this.dgv_accounting.Size = new System.Drawing.Size(1567, 692);
+            this.dgv_accounting.Size = new System.Drawing.Size(794, 385);
             this.dgv_accounting.TabIndex = 17;
             this.dgv_accounting.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
             // buttonReset
             // 
+            this.buttonReset.BackColor = System.Drawing.Color.Tomato;
             this.buttonReset.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonReset.Location = new System.Drawing.Point(15, 864);
-            this.buttonReset.Margin = new System.Windows.Forms.Padding(6);
+            this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReset.Location = new System.Drawing.Point(8, 499);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(312, 93);
+            this.buttonReset.Size = new System.Drawing.Size(156, 48);
             this.buttonReset.TabIndex = 28;
             this.buttonReset.Text = "Reset";
-            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.UseVisualStyleBackColor = false;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
             // textBoxSearch
             // 
             this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSearch.ForeColor = System.Drawing.Color.IndianRed;
-            this.textBoxSearch.Location = new System.Drawing.Point(339, 33);
-            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6);
+            this.textBoxSearch.Location = new System.Drawing.Point(165, 99);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(796, 89);
+            this.textBoxSearch.Size = new System.Drawing.Size(432, 48);
             this.textBoxSearch.TabIndex = 29;
             this.textBoxSearch.Text = "Search here....";
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
@@ -138,34 +137,39 @@
             // 
             // btn_AcctPay
             // 
+            this.btn_AcctPay.BackColor = System.Drawing.Color.Turquoise;
             this.btn_AcctPay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_AcctPay.Location = new System.Drawing.Point(15, 280);
-            this.btn_AcctPay.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_AcctPay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_AcctPay.Location = new System.Drawing.Point(1, 238);
             this.btn_AcctPay.Name = "btn_AcctPay";
-            this.btn_AcctPay.Size = new System.Drawing.Size(312, 93);
+            this.btn_AcctPay.Size = new System.Drawing.Size(156, 48);
             this.btn_AcctPay.TabIndex = 30;
             this.btn_AcctPay.Text = "Accounts Payable";
-            this.btn_AcctPay.UseVisualStyleBackColor = true;
+            this.btn_AcctPay.UseVisualStyleBackColor = false;
             this.btn_AcctPay.Click += new System.EventHandler(this.Btn_AcctPay_Click);
             // 
             // btn_AcctRec
             // 
+            this.btn_AcctRec.BackColor = System.Drawing.Color.Wheat;
             this.btn_AcctRec.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_AcctRec.Location = new System.Drawing.Point(15, 385);
-            this.btn_AcctRec.Margin = new System.Windows.Forms.Padding(6);
+            this.btn_AcctRec.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_AcctRec.Location = new System.Drawing.Point(1, 368);
             this.btn_AcctRec.Name = "btn_AcctRec";
-            this.btn_AcctRec.Size = new System.Drawing.Size(312, 93);
+            this.btn_AcctRec.Size = new System.Drawing.Size(156, 48);
             this.btn_AcctRec.TabIndex = 31;
             this.btn_AcctRec.Text = "Accounts Recievable";
-            this.btn_AcctRec.UseVisualStyleBackColor = true;
+            this.btn_AcctRec.UseVisualStyleBackColor = false;
             this.btn_AcctRec.Click += new System.EventHandler(this.Btn_AcctRec_Click);
             // 
             // lbl_store
             // 
             this.lbl_store.AutoSize = true;
-            this.lbl_store.Location = new System.Drawing.Point(12, 498);
+            this.lbl_store.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_store.ForeColor = System.Drawing.Color.Teal;
+            this.lbl_store.Location = new System.Drawing.Point(11, 110);
+            this.lbl_store.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_store.Name = "lbl_store";
-            this.lbl_store.Size = new System.Drawing.Size(186, 32);
+            this.lbl_store.Size = new System.Drawing.Size(98, 18);
             this.lbl_store.TabIndex = 32;
             this.lbl_store.Text = "Your Store Is:";
             // 
@@ -173,18 +177,22 @@
             // 
             this.lbl_StoreName.AutoSize = true;
             this.lbl_StoreName.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_StoreName.Location = new System.Drawing.Point(12, 541);
+            this.lbl_StoreName.ForeColor = System.Drawing.Color.Teal;
+            this.lbl_StoreName.Location = new System.Drawing.Point(8, 148);
+            this.lbl_StoreName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_StoreName.Name = "lbl_StoreName";
-            this.lbl_StoreName.Size = new System.Drawing.Size(295, 69);
+            this.lbl_StoreName.Size = new System.Drawing.Size(150, 36);
             this.lbl_StoreName.TabIndex = 33;
             this.lbl_StoreName.Text = "4001-Indy";
             // 
             // lbl_view
             // 
             this.lbl_view.AutoSize = true;
-            this.lbl_view.Location = new System.Drawing.Point(366, 864);
+            this.lbl_view.ForeColor = System.Drawing.Color.Brown;
+            this.lbl_view.Location = new System.Drawing.Point(670, 98);
+            this.lbl_view.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_view.Name = "lbl_view";
-            this.lbl_view.Size = new System.Drawing.Size(246, 32);
+            this.lbl_view.Size = new System.Drawing.Size(121, 17);
             this.lbl_view.TabIndex = 34;
             this.lbl_view.Text = "Currently Viewing:";
             // 
@@ -192,18 +200,34 @@
             // 
             this.lbl_TableViewing.AutoSize = true;
             this.lbl_TableViewing.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_TableViewing.Location = new System.Drawing.Point(364, 911);
+            this.lbl_TableViewing.ForeColor = System.Drawing.Color.Brown;
+            this.lbl_TableViewing.Location = new System.Drawing.Point(669, 122);
+            this.lbl_TableViewing.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_TableViewing.Name = "lbl_TableViewing";
-            this.lbl_TableViewing.Size = new System.Drawing.Size(414, 46);
+            this.lbl_TableViewing.Size = new System.Drawing.Size(214, 25);
             this.lbl_TableViewing.TabIndex = 35;
             this.lbl_TableViewing.Text = "Accounts Receivable";
             // 
+            // lbl_titlePage
+            // 
+            this.lbl_titlePage.BackColor = System.Drawing.Color.DarkKhaki;
+            this.lbl_titlePage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lbl_titlePage.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_titlePage.ForeColor = System.Drawing.Color.DarkCyan;
+            this.lbl_titlePage.Location = new System.Drawing.Point(0, 0);
+            this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_titlePage.Name = "lbl_titlePage";
+            this.lbl_titlePage.Size = new System.Drawing.Size(971, 86);
+            this.lbl_titlePage.TabIndex = 36;
+            this.lbl_titlePage.Text = "Accounting Information";
+            this.lbl_titlePage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // AccountingInformationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1947, 982);
+            this.ClientSize = new System.Drawing.Size(971, 550);
             this.Controls.Add(this.lbl_TableViewing);
             this.Controls.Add(this.lbl_view);
             this.Controls.Add(this.lbl_StoreName);
@@ -216,8 +240,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.labelClose);
             this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.lbl_titlePage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "AccountingInformationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AccountingInformationForm";
@@ -242,5 +266,6 @@
         private System.Windows.Forms.Label lbl_StoreName;
         private System.Windows.Forms.Label lbl_view;
         private System.Windows.Forms.Label lbl_TableViewing;
+        private System.Windows.Forms.Label lbl_titlePage;
     }
 }

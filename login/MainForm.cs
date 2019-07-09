@@ -133,6 +133,39 @@ namespace login
         {
             btn_orders.ForeColor = Color.White;
         }
+        private void lbl_forgotPW_MouseEnter(object sender, EventArgs e)
+        {
+            lbl_forgotPW.ForeColor = Color.Red;
+            
+        }
+
+        private void lbl_forgotPW_MouseLeave(object sender, EventArgs e)
+        {
+            lbl_forgotPW.ForeColor = Color.White;
+        }
+
+        private void lbl_username_MouseEnter(object sender, EventArgs e)
+        {
+            lbl_username.ForeColor = Color.Orange;
+        }
+        private void lbl_username_MouseLeave(object sender, EventArgs e)
+        {
+            lbl_username.ForeColor = Color.White;
+        }
+
+        private void lbl_date_MouseEnter(object sender, EventArgs e)
+        {
+            lbl_date.ForeColor = Color.Orange;
+        }
+
+        private void lbl_date_MouseLeave(object sender, EventArgs e)
+        {
+            lbl_date.ForeColor = Color.White;
+        }
+
+        //Landing Page Go To Labels ends here
+
+
         private void Btn_Accounting_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -182,5 +215,9 @@ namespace login
             ChangePW ChangePW = new ChangePW();
             ChangePW.Show();
         }
+
+       
+
+       
     }
 }

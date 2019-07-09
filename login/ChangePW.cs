@@ -69,6 +69,14 @@ namespace login
             {
                 MessageBox.Show("Passwords Do Not Match", "Wrong Password", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+           String CNP = txt_ConfirmNewPW.Text;
+            if (CNP.ToLower().Trim().Equals("confirm new password") || CNP.Trim().Equals(""))
+            {
+                txt_ConfirmNewPW.Text = "confirm new password";
+                txt_ConfirmNewPW.ForeColor = Color.LightSeaGreen;
+            }
+
         }
 
         private void Btn_NotYou_Click(object sender, EventArgs e)
@@ -93,5 +101,78 @@ namespace login
             var main = new MainForm();
             main.Show();
         }
+
+        private void txt_CurrentPW_Enter(object sender, EventArgs e)
+        {
+            String CP = txt_CurrentPW.Text;
+            if (CP.ToLower().Trim().Equals("current password"))
+            {
+                txt_CurrentPW.Text = "";
+                txt_CurrentPW.ForeColor = Color.Black;
+            }
+        }
+
+        private void txt_CurrentPW_Leave(object sender, EventArgs e)
+        {
+            String CP = txt_CurrentPW.Text;
+            if (CP.ToLower().Trim().Equals("current password") || CP.Trim().Equals(""))
+            {
+                txt_CurrentPW.Text = "current password";
+                txt_CurrentPW.ForeColor = Color.LightSeaGreen;
+            }
+        }
+
+        private void txt_NewPW_Enter(object sender, EventArgs e)
+        {
+            String NP = txt_NewPW.Text;
+            if (NP.ToLower().Trim().Equals("new password"))
+            {
+                txt_NewPW.Text = "";
+                txt_NewPW.ForeColor = Color.Black;
+            }
+        }
+
+        private void txt_NewPW_Leave(object sender, EventArgs e)
+        {
+            String NP = txt_NewPW.Text;
+            if (NP.ToLower().Trim().Equals("new password") || NP.Trim().Equals(""))
+            {
+                txt_NewPW.Text = "new password";
+                txt_NewPW.ForeColor = Color.LightSeaGreen;
+            }
+        }
+
+        private void txt_ConfirmNewPW_Enter(object sender, EventArgs e)
+        {
+            String CNP = txt_ConfirmNewPW.Text;
+            if (CNP.ToLower().Trim().Equals("confirm new password"))
+            {
+                txt_ConfirmNewPW.Text = "";
+                txt_ConfirmNewPW.ForeColor = Color.Black;
+            }
+        }
+
+        private void checkBox_show_hide_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_show_hide.Checked)
+            {
+
+                txt_CurrentPW.UseSystemPasswordChar = false;
+                txt_NewPW.UseSystemPasswordChar = false;
+                txt_ConfirmNewPW.UseSystemPasswordChar = false;
+
+            }
+            else
+            {
+                  txt_CurrentPW.UseSystemPasswordChar = true;
+                  txt_NewPW.UseSystemPasswordChar = true;
+                  txt_ConfirmNewPW.UseSystemPasswordChar = true;
+              
+            }
+        }
+
+
     }
 }
+    
+
