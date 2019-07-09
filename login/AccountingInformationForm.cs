@@ -108,35 +108,34 @@ namespace login
 
 
 
-        public void DisplayPayableData()
-        {
-            var data = new DataTable();
-
-            data = SQL.AcctPay();
-            dgv_accounting.DataSource = data;
-            lbl_TableViewing.Text = "Accounts Payable";
-
-            dgv_accounting.Columns[0].HeaderText = "ID Number";
-            dgv_accounting.Columns[0].Visible = false;
-            dgv_accounting.Columns[1].HeaderText = "Invoice #";
-            dgv_accounting.Columns[2].HeaderText = "Vendor";
-            dgv_accounting.Columns[3].HeaderText = "Total";
-            dgv_accounting.Columns[4].HeaderText = "Amt Paid";
-            dgv_accounting.Columns[5].HeaderText = "Remaining";
-            dgv_accounting.Columns[6].HeaderText = "Location";
-            dgv_accounting.Columns[6].Visible = false;
-            dgv_accounting.Columns[7].HeaderText = "Due By";
-            dgv_accounting.Columns[8].HeaderText = "Paid On";
-            dgv_accounting.Sort(dgv_accounting.Columns[7], ListSortDirection.Descending);
-
-            //flags for knowing what table we are in for the buttons to work with either.
-            payable = true;
-            receiving = false;
-        }
+       
 
         private void Btn_AcctRec_Click(object sender, EventArgs e)
         {
             DisplayRecievableData();
+        }
+
+        private void Dgv_accounting_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (payable)
+            {
+                int.TryParse(dgv_accounting.CurrentRow.Cells[0].Value.ToString(), out int payID);
+                var acctDetails = new AcctDetails(payID, true);
+                acctDetails.Show();
+                this.Hide();
+
+            } else if (receiving)
+            {
+                int.TryParse(dgv_accounting.CurrentRow.Cells[0].Value.ToString(), out int recID);
+                var acctDetails = new AcctDetails(recID, false);
+                acctDetails.Show();
+                this.Hide();
+
+            } else
+            {
+                MessageBox.Show("Select Accounts Payable or Accounts Receivable before attempting to view items.", "No Data Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
         }
 
         public void DisplayRecievableData()
@@ -163,6 +162,32 @@ namespace login
             //flags for what table we are in to know what the buttons should do.
             receiving = true;
             payable = false;
+        }
+
+        public void DisplayPayableData()
+        {
+            var data = new DataTable();
+
+            data = SQL.AcctPay();
+            dgv_accounting.DataSource = data;
+            lbl_TableViewing.Text = "Accounts Payable";
+
+            dgv_accounting.Columns[0].HeaderText = "ID Number";
+            dgv_accounting.Columns[0].Visible = false;
+            dgv_accounting.Columns[1].HeaderText = "Invoice #";
+            dgv_accounting.Columns[2].HeaderText = "Vendor";
+            dgv_accounting.Columns[3].HeaderText = "Total";
+            dgv_accounting.Columns[4].HeaderText = "Amt Paid";
+            dgv_accounting.Columns[5].HeaderText = "Remaining";
+            dgv_accounting.Columns[6].HeaderText = "Location";
+            dgv_accounting.Columns[6].Visible = false;
+            dgv_accounting.Columns[7].HeaderText = "Due By";
+            dgv_accounting.Columns[8].HeaderText = "Paid On";
+            dgv_accounting.Sort(dgv_accounting.Columns[7], ListSortDirection.Descending);
+
+            //flags for knowing what table we are in for the buttons to work with either.
+            payable = true;
+            receiving = false;
         }
     }
 }

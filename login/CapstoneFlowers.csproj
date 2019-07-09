@@ -78,6 +78,12 @@
     <Compile Include="AccountingInformationForm.Designer.cs">
       <DependentUpon>AccountingInformationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AcctDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AcctDetails.Designer.cs">
+      <DependentUpon>AcctDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChangePW.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +144,9 @@
     <EmbeddedResource Include="AccountingInformationForm.resx">
       <DependentUpon>AccountingInformationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AcctDetails.resx">
+      <DependentUpon>AcctDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChangePW.resx">
       <DependentUpon>ChangePW.cs</DependentUpon>
     </EmbeddedResource>
@@ -191,9 +200,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BouncyCastle.Crypto.dll" />
-    <Content Include="CcnSession.dll" />
-    <Content Include="Google.Protobuf.dll" />
     <Content Include="images\lock.png" />
     <Content Include="images\user.png" />
     <Content Include="MySql.Data.dll" />

@@ -9,8 +9,15 @@ namespace login.Resources
 {
     public static class uF
     {
+        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
+        }
 
-       public static bool CheckPWValid(string pw)
+        public static bool CheckPWValid(string pw)
         {
             var regex = new Regex(@"((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&!^*()|{}]).{8,15})");
 

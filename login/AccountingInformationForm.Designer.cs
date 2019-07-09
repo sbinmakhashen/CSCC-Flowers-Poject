@@ -109,6 +109,7 @@
             this.dgv_accounting.RowTemplate.Height = 24;
             this.dgv_accounting.Size = new System.Drawing.Size(1588, 746);
             this.dgv_accounting.TabIndex = 17;
+            this.dgv_accounting.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_accounting_CellContentClick);
             this.dgv_accounting.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
             // buttonReset

@@ -43,6 +43,7 @@ namespace login
             this.Hide();
             MainForm MainForm = new MainForm();
             MainForm.Show();
+            
         }
 
         public void DisplayData()
