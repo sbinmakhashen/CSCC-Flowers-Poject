@@ -49,8 +49,9 @@
             this.pictureBox3.BackColor = System.Drawing.Color.PapayaWhip;
             this.pictureBox3.Image = global::login.Properties.Resources.logo;
             this.pictureBox3.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(130, 79);
+            this.pictureBox3.Size = new System.Drawing.Size(260, 153);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 7;
             this.pictureBox3.TabStop = false;
@@ -62,10 +63,10 @@
             this.labelClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelClose.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelClose.ForeColor = System.Drawing.Color.Black;
-            this.labelClose.Location = new System.Drawing.Point(978, 0);
-            this.labelClose.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelClose.Location = new System.Drawing.Point(1956, 0);
+            this.labelClose.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.labelClose.Name = "labelClose";
-            this.labelClose.Size = new System.Drawing.Size(27, 27);
+            this.labelClose.Size = new System.Drawing.Size(55, 55);
             this.labelClose.TabIndex = 8;
             this.labelClose.Text = "X";
             this.labelClose.Click += new System.EventHandler(this.labelClose_Click);
@@ -76,10 +77,10 @@
             this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(850, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(1700, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 28);
+            this.label2.Size = new System.Drawing.Size(240, 54);
             this.label2.TabIndex = 16;
             this.label2.Text = "Previous";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -90,10 +91,12 @@
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(249, 171);
+            this.dataGridView1.Location = new System.Drawing.Point(498, 331);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 102;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(661, 340);
+            this.dataGridView1.Size = new System.Drawing.Size(1322, 659);
             this.dataGridView1.TabIndex = 17;
             this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
@@ -102,9 +105,10 @@
             this.buttonInsert.BackColor = System.Drawing.Color.DarkGoldenrod;
             this.buttonInsert.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonInsert.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.buttonInsert.Location = new System.Drawing.Point(317, 521);
+            this.buttonInsert.Location = new System.Drawing.Point(860, 1002);
+            this.buttonInsert.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonInsert.Name = "buttonInsert";
-            this.buttonInsert.Size = new System.Drawing.Size(156, 48);
+            this.buttonInsert.Size = new System.Drawing.Size(312, 93);
             this.buttonInsert.TabIndex = 20;
             this.buttonInsert.Text = "Insert";
             this.buttonInsert.UseVisualStyleBackColor = false;
@@ -115,9 +119,10 @@
             this.buttonEdit.BackColor = System.Drawing.SystemColors.ControlDark;
             this.buttonEdit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.buttonEdit.Location = new System.Drawing.Point(754, 523);
+            this.buttonEdit.Location = new System.Drawing.Point(1508, 1002);
+            this.buttonEdit.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(156, 48);
+            this.buttonEdit.Size = new System.Drawing.Size(312, 93);
             this.buttonEdit.TabIndex = 19;
             this.buttonEdit.Text = "Update";
             this.buttonEdit.UseVisualStyleBackColor = false;
@@ -128,9 +133,10 @@
             this.buttonDelete.BackColor = System.Drawing.Color.Crimson;
             this.buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.buttonDelete.Location = new System.Drawing.Point(552, 523);
+            this.buttonDelete.Location = new System.Drawing.Point(1184, 1002);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(156, 48);
+            this.buttonDelete.Size = new System.Drawing.Size(312, 93);
             this.buttonDelete.TabIndex = 18;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = false;
@@ -140,9 +146,10 @@
             // 
             this.textBoxGL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxGL.ForeColor = System.Drawing.Color.MediumBlue;
-            this.textBoxGL.Location = new System.Drawing.Point(26, 171);
+            this.textBoxGL.Location = new System.Drawing.Point(52, 331);
+            this.textBoxGL.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBoxGL.Name = "textBoxGL";
-            this.textBoxGL.Size = new System.Drawing.Size(174, 30);
+            this.textBoxGL.Size = new System.Drawing.Size(344, 53);
             this.textBoxGL.TabIndex = 25;
             this.textBoxGL.Text = "General Ledger";
             this.textBoxGL.Enter += new System.EventHandler(this.textBoxGL_Enter);
@@ -152,9 +159,10 @@
             // 
             this.textBoxGJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxGJ.ForeColor = System.Drawing.Color.MediumBlue;
-            this.textBoxGJ.Location = new System.Drawing.Point(26, 378);
+            this.textBoxGJ.Location = new System.Drawing.Point(52, 732);
+            this.textBoxGJ.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBoxGJ.Name = "textBoxGJ";
-            this.textBoxGJ.Size = new System.Drawing.Size(174, 30);
+            this.textBoxGJ.Size = new System.Drawing.Size(344, 53);
             this.textBoxGJ.TabIndex = 26;
             this.textBoxGJ.Text = "General Journal";
             this.textBoxGJ.Enter += new System.EventHandler(this.textBoxGJ_Enter);
@@ -166,9 +174,10 @@
             this.buttonReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonReset.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.buttonReset.Location = new System.Drawing.Point(26, 526);
+            this.buttonReset.Location = new System.Drawing.Point(52, 1002);
+            this.buttonReset.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(156, 45);
+            this.buttonReset.Size = new System.Drawing.Size(312, 87);
             this.buttonReset.TabIndex = 30;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = false;
@@ -178,10 +187,11 @@
             // 
             this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSearch.ForeColor = System.Drawing.Color.MediumBlue;
-            this.textBoxSearch.Location = new System.Drawing.Point(249, 103);
+            this.textBoxSearch.Location = new System.Drawing.Point(498, 200);
+            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(508, 52);
+            this.textBoxSearch.Size = new System.Drawing.Size(1012, 97);
             this.textBoxSearch.TabIndex = 31;
             this.textBoxSearch.Text = "Search here....";
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
@@ -195,19 +205,19 @@
             this.lbl_titlePage.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_titlePage.ForeColor = System.Drawing.Color.DarkOliveGreen;
             this.lbl_titlePage.Location = new System.Drawing.Point(0, 0);
-            this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.lbl_titlePage.Name = "lbl_titlePage";
-            this.lbl_titlePage.Size = new System.Drawing.Size(1005, 79);
+            this.lbl_titlePage.Size = new System.Drawing.Size(2010, 153);
             this.lbl_titlePage.TabIndex = 32;
             this.lbl_titlePage.Text = "Reports";
             this.lbl_titlePage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
-            this.ClientSize = new System.Drawing.Size(1005, 580);
+            this.ClientSize = new System.Drawing.Size(2010, 1124);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.textBoxGJ);
@@ -221,6 +231,7 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.lbl_titlePage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "ReportsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reports Lobby";

@@ -226,8 +226,16 @@ namespace login
                         }
                         else if (drpd_store.SelectedIndex != drpd_store.FindStringExact(data.Rows[0]["location"].ToString()))
                         {
-                            SQL.Changestore(accountNum, drpd_store.Text);
-                            storeFlag = true;
+                            if(text_Username.Text == SQL.Username)
+                            {
+                                throw new Exception("You cannot change your own store. Please contact HR to do so");
+                            }
+                            else
+                            {
+                                SQL.Changestore(accountNum, drpd_store.Text);
+                                storeFlag = true;
+                            }
+                            
                         }
                         else
                         {

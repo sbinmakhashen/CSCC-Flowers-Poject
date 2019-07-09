@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_OrderItems = new System.Windows.Forms.DataGridView();
             this.lbl_OrderNumber = new System.Windows.Forms.Label();
             this.lbl_Paid = new System.Windows.Forms.Label();
@@ -60,19 +60,19 @@
             this.dgv_OrderItems.AllowUserToAddRows = false;
             this.dgv_OrderItems.AllowUserToDeleteRows = false;
             this.dgv_OrderItems.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.dgv_OrderItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.dgv_OrderItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_OrderItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgv_OrderItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv_OrderItems.BackgroundColor = System.Drawing.Color.RosyBrown;
             this.dgv_OrderItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_OrderItems.Location = new System.Drawing.Point(9, 101);
-            this.dgv_OrderItems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgv_OrderItems.Location = new System.Drawing.Point(18, 196);
+            this.dgv_OrderItems.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_OrderItems.Name = "dgv_OrderItems";
             this.dgv_OrderItems.ReadOnly = true;
             this.dgv_OrderItems.RowHeadersWidth = 102;
             this.dgv_OrderItems.RowTemplate.Height = 40;
-            this.dgv_OrderItems.Size = new System.Drawing.Size(283, 294);
+            this.dgv_OrderItems.Size = new System.Drawing.Size(566, 622);
             this.dgv_OrderItems.TabIndex = 0;
             // 
             // lbl_OrderNumber
@@ -80,10 +80,10 @@
             this.lbl_OrderNumber.AutoSize = true;
             this.lbl_OrderNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_OrderNumber.ForeColor = System.Drawing.Color.SandyBrown;
-            this.lbl_OrderNumber.Location = new System.Drawing.Point(5, 18);
-            this.lbl_OrderNumber.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_OrderNumber.Location = new System.Drawing.Point(10, 95);
+            this.lbl_OrderNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_OrderNumber.Name = "lbl_OrderNumber";
-            this.lbl_OrderNumber.Size = new System.Drawing.Size(142, 25);
+            this.lbl_OrderNumber.Size = new System.Drawing.Size(284, 46);
             this.lbl_OrderNumber.TabIndex = 1;
             this.lbl_OrderNumber.Text = "Order Number:";
             // 
@@ -92,10 +92,10 @@
             this.lbl_Paid.AutoSize = true;
             this.lbl_Paid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Paid.ForeColor = System.Drawing.Color.SandyBrown;
-            this.lbl_Paid.Location = new System.Drawing.Point(5, 92);
-            this.lbl_Paid.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_Paid.Location = new System.Drawing.Point(10, 196);
+            this.lbl_Paid.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Paid.Name = "lbl_Paid";
-            this.lbl_Paid.Size = new System.Drawing.Size(62, 25);
+            this.lbl_Paid.Size = new System.Drawing.Size(122, 46);
             this.lbl_Paid.TabIndex = 2;
             this.lbl_Paid.Text = "Paid: ";
             // 
@@ -104,10 +104,10 @@
             this.lbl_DelDate.AutoSize = true;
             this.lbl_DelDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_DelDate.ForeColor = System.Drawing.Color.SandyBrown;
-            this.lbl_DelDate.Location = new System.Drawing.Point(4, 126);
-            this.lbl_DelDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_DelDate.Location = new System.Drawing.Point(9, 242);
+            this.lbl_DelDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_DelDate.Name = "lbl_DelDate";
-            this.lbl_DelDate.Size = new System.Drawing.Size(139, 25);
+            this.lbl_DelDate.Size = new System.Drawing.Size(280, 46);
             this.lbl_DelDate.TabIndex = 3;
             this.lbl_DelDate.Text = "Delivery Date: ";
             // 
@@ -116,10 +116,10 @@
             this.lbl_delAdd.AutoSize = true;
             this.lbl_delAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_delAdd.ForeColor = System.Drawing.Color.SandyBrown;
-            this.lbl_delAdd.Location = new System.Drawing.Point(5, 179);
-            this.lbl_delAdd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_delAdd.Location = new System.Drawing.Point(8, 288);
+            this.lbl_delAdd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_delAdd.Name = "lbl_delAdd";
-            this.lbl_delAdd.Size = new System.Drawing.Size(166, 25);
+            this.lbl_delAdd.Size = new System.Drawing.Size(331, 46);
             this.lbl_delAdd.TabIndex = 4;
             this.lbl_delAdd.Text = "Delivery Address:";
             // 
@@ -128,10 +128,10 @@
             this.lbl_Total.AutoSize = true;
             this.lbl_Total.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Total.ForeColor = System.Drawing.Color.SandyBrown;
-            this.lbl_Total.Location = new System.Drawing.Point(5, 53);
-            this.lbl_Total.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_Total.Location = new System.Drawing.Point(10, 141);
+            this.lbl_Total.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Total.Name = "lbl_Total";
-            this.lbl_Total.Size = new System.Drawing.Size(67, 25);
+            this.lbl_Total.Size = new System.Drawing.Size(131, 46);
             this.lbl_Total.TabIndex = 5;
             this.lbl_Total.Text = "Total: ";
             // 
@@ -140,10 +140,10 @@
             this.lbl_OrderStatus.AutoSize = true;
             this.lbl_OrderStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_OrderStatus.ForeColor = System.Drawing.Color.PeachPuff;
-            this.lbl_OrderStatus.Location = new System.Drawing.Point(561, 66);
-            this.lbl_OrderStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_OrderStatus.Location = new System.Drawing.Point(8, 37);
+            this.lbl_OrderStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_OrderStatus.Name = "lbl_OrderStatus";
-            this.lbl_OrderStatus.Size = new System.Drawing.Size(134, 25);
+            this.lbl_OrderStatus.Size = new System.Drawing.Size(267, 46);
             this.lbl_OrderStatus.TabIndex = 6;
             this.lbl_OrderStatus.Text = "Order Status: ";
             // 
@@ -151,10 +151,10 @@
             // 
             this.btn_SetComplete.BackColor = System.Drawing.Color.SkyBlue;
             this.btn_SetComplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_SetComplete.Location = new System.Drawing.Point(484, 20);
-            this.btn_SetComplete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_SetComplete.Location = new System.Drawing.Point(968, 37);
+            this.btn_SetComplete.Margin = new System.Windows.Forms.Padding(4);
             this.btn_SetComplete.Name = "btn_SetComplete";
-            this.btn_SetComplete.Size = new System.Drawing.Size(135, 49);
+            this.btn_SetComplete.Size = new System.Drawing.Size(270, 95);
             this.btn_SetComplete.TabIndex = 7;
             this.btn_SetComplete.Text = "Set Complete";
             this.btn_SetComplete.UseVisualStyleBackColor = false;
@@ -164,10 +164,10 @@
             // 
             this.btn_Processing.BackColor = System.Drawing.Color.SlateBlue;
             this.btn_Processing.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Processing.Location = new System.Drawing.Point(356, 20);
-            this.btn_Processing.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Processing.Location = new System.Drawing.Point(336, 37);
+            this.btn_Processing.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Processing.Name = "btn_Processing";
-            this.btn_Processing.Size = new System.Drawing.Size(124, 49);
+            this.btn_Processing.Size = new System.Drawing.Size(248, 95);
             this.btn_Processing.TabIndex = 8;
             this.btn_Processing.Text = "Claim Order";
             this.btn_Processing.UseVisualStyleBackColor = false;
@@ -177,10 +177,10 @@
             // 
             this.btn_outDel.BackColor = System.Drawing.Color.Tan;
             this.btn_outDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_outDel.Location = new System.Drawing.Point(168, 19);
-            this.btn_outDel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_outDel.Location = new System.Drawing.Point(592, 37);
+            this.btn_outDel.Margin = new System.Windows.Forms.Padding(4);
             this.btn_outDel.Name = "btn_outDel";
-            this.btn_outDel.Size = new System.Drawing.Size(184, 49);
+            this.btn_outDel.Size = new System.Drawing.Size(368, 95);
             this.btn_outDel.TabIndex = 9;
             this.btn_outDel.Text = "Set Out for Delivery";
             this.btn_outDel.UseVisualStyleBackColor = false;
@@ -190,10 +190,10 @@
             // 
             this.btn_Cancel.BackColor = System.Drawing.Color.Peru;
             this.btn_Cancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Cancel.Location = new System.Drawing.Point(654, 19);
-            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Cancel.Location = new System.Drawing.Point(1434, 37);
+            this.btn_Cancel.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(133, 49);
+            this.btn_Cancel.Size = new System.Drawing.Size(266, 95);
             this.btn_Cancel.TabIndex = 10;
             this.btn_Cancel.Text = "Cancel Order";
             this.btn_Cancel.UseVisualStyleBackColor = false;
@@ -205,10 +205,10 @@
             this.lbl_logout.BackColor = System.Drawing.Color.DarkKhaki;
             this.lbl_logout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbl_logout.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_logout.Location = new System.Drawing.Point(833, 0);
-            this.lbl_logout.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_logout.Location = new System.Drawing.Point(1666, 0);
+            this.lbl_logout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_logout.Name = "lbl_logout";
-            this.lbl_logout.Size = new System.Drawing.Size(30, 29);
+            this.lbl_logout.Size = new System.Drawing.Size(52, 52);
             this.lbl_logout.TabIndex = 11;
             this.lbl_logout.Text = "X";
             this.lbl_logout.Click += new System.EventHandler(this.Lbl_logout_Click);
@@ -219,10 +219,10 @@
             this.lbl_previous.BackColor = System.Drawing.Color.DarkKhaki;
             this.lbl_previous.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbl_previous.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_previous.Location = new System.Drawing.Point(705, 0);
-            this.lbl_previous.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_previous.Location = new System.Drawing.Point(1410, 0);
+            this.lbl_previous.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_previous.Name = "lbl_previous";
-            this.lbl_previous.Size = new System.Drawing.Size(107, 29);
+            this.lbl_previous.Size = new System.Drawing.Size(193, 52);
             this.lbl_previous.TabIndex = 12;
             this.lbl_previous.Text = "Previous";
             this.lbl_previous.Click += new System.EventHandler(this.Lbl_previous_Click);
@@ -231,10 +231,10 @@
             // 
             this.btn_Unclaim.BackColor = System.Drawing.Color.Tomato;
             this.btn_Unclaim.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Unclaim.Location = new System.Drawing.Point(12, 19);
-            this.btn_Unclaim.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_Unclaim.Location = new System.Drawing.Point(24, 37);
+            this.btn_Unclaim.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Unclaim.Name = "btn_Unclaim";
-            this.btn_Unclaim.Size = new System.Drawing.Size(152, 49);
+            this.btn_Unclaim.Size = new System.Drawing.Size(304, 95);
             this.btn_Unclaim.TabIndex = 13;
             this.btn_Unclaim.Text = "Unclaim Order";
             this.btn_Unclaim.UseVisualStyleBackColor = false;
@@ -245,10 +245,10 @@
             this.lbl_empClaimed.AutoSize = true;
             this.lbl_empClaimed.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_empClaimed.ForeColor = System.Drawing.Color.Gold;
-            this.lbl_empClaimed.Location = new System.Drawing.Point(5, 270);
-            this.lbl_empClaimed.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_empClaimed.Location = new System.Drawing.Point(10, 523);
+            this.lbl_empClaimed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_empClaimed.Name = "lbl_empClaimed";
-            this.lbl_empClaimed.Size = new System.Drawing.Size(287, 24);
+            this.lbl_empClaimed.Size = new System.Drawing.Size(561, 42);
             this.lbl_empClaimed.TabIndex = 14;
             this.lbl_empClaimed.Text = "Employee processing this order: ";
             // 
@@ -256,12 +256,12 @@
             // 
             this.lbl_date.AutoSize = true;
             this.lbl_date.BackColor = System.Drawing.Color.Teal;
-            this.lbl_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_date.ForeColor = System.Drawing.Color.PeachPuff;
-            this.lbl_date.Location = new System.Drawing.Point(6, 66);
-            this.lbl_date.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_date.Location = new System.Drawing.Point(1102, 111);
+            this.lbl_date.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_date.Name = "lbl_date";
-            this.lbl_date.Size = new System.Drawing.Size(153, 25);
+            this.lbl_date.Size = new System.Drawing.Size(216, 32);
             this.lbl_date.TabIndex = 15;
             this.lbl_date.Text = "Today\'s Date is:";
             // 
@@ -272,9 +272,9 @@
             this.lbl_titlePage.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_titlePage.ForeColor = System.Drawing.Color.DarkOliveGreen;
             this.lbl_titlePage.Location = new System.Drawing.Point(0, 0);
-            this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.lbl_titlePage.Name = "lbl_titlePage";
-            this.lbl_titlePage.Size = new System.Drawing.Size(875, 63);
+            this.lbl_titlePage.Size = new System.Drawing.Size(1750, 143);
             this.lbl_titlePage.TabIndex = 16;
             this.lbl_titlePage.Text = "Order Details";
             this.lbl_titlePage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -283,9 +283,10 @@
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.PapayaWhip;
             this.pictureBox3.Image = global::login.Properties.Resources.logo;
-            this.pictureBox3.Location = new System.Drawing.Point(-1, 0);
+            this.pictureBox3.Location = new System.Drawing.Point(-2, 0);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(105, 63);
+            this.pictureBox3.Size = new System.Drawing.Size(210, 143);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 17;
             this.pictureBox3.TabStop = false;
@@ -299,12 +300,14 @@
             this.groupBox1.Controls.Add(this.btn_outDel);
             this.groupBox1.Controls.Add(this.btn_Unclaim);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.groupBox1.Location = new System.Drawing.Point(8, 448);
+            this.groupBox1.Location = new System.Drawing.Point(16, 868);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(855, 75);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6);
+            this.groupBox1.Size = new System.Drawing.Size(1710, 145);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Buttons";
+            this.groupBox1.Text = "Order Status Actions";
             // 
             // groupBox2
             // 
@@ -315,32 +318,34 @@
             this.groupBox2.Controls.Add(this.lbl_delAdd);
             this.groupBox2.Controls.Add(this.lbl_empClaimed);
             this.groupBox2.Controls.Add(this.lbl_Total);
+            this.groupBox2.Controls.Add(this.lbl_OrderStatus);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.groupBox2.ForeColor = System.Drawing.Color.Honeydew;
-            this.groupBox2.Location = new System.Drawing.Point(312, 101);
+            this.groupBox2.Location = new System.Drawing.Point(624, 196);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(551, 321);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(6);
+            this.groupBox2.Size = new System.Drawing.Size(1102, 622);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Order Details";
             // 
             // OrdersDetails
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Teal;
-            this.ClientSize = new System.Drawing.Size(875, 526);
+            this.ClientSize = new System.Drawing.Size(1750, 1019);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.lbl_date);
             this.Controls.Add(this.lbl_previous);
             this.Controls.Add(this.lbl_logout);
-            this.Controls.Add(this.lbl_OrderStatus);
             this.Controls.Add(this.dgv_OrderItems);
             this.Controls.Add(this.lbl_titlePage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "OrdersDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OrdersDetails";

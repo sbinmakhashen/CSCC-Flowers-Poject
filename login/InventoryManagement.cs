@@ -36,6 +36,7 @@ namespace login
             data = SQL.GetEmployee(SQL.GetEmpNum(SQL.Username));
 
             string fname = data.Rows[0]["first_name"].ToString();
+            lbl_date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
 
             // Check for empty string.  
             if (string.IsNullOrEmpty(fname))
@@ -51,7 +52,7 @@ namespace login
 
             if (SQL.IsManager)
             {
-                lbl_loginInfo.Text = "Hello "+fname+". You are logged in as " + SQL.Username + ", a Manager. Todays Date is " + date + ".";
+                lbl_loginInfo.Text = "Hello "+fname+". You are logged in as " + SQL.Username + ", a Manager.";
                 btn_IncreaseQty.Show();
                 lbl_product.Show();
                 lbl_stock.Show();
@@ -310,7 +311,5 @@ namespace login
 
             
         }
-
-   
     }
 }
