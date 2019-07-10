@@ -151,12 +151,12 @@
             // 
             this.btn_SetComplete.BackColor = System.Drawing.Color.SkyBlue;
             this.btn_SetComplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_SetComplete.Location = new System.Drawing.Point(968, 37);
+            this.btn_SetComplete.Location = new System.Drawing.Point(592, 37);
             this.btn_SetComplete.Margin = new System.Windows.Forms.Padding(4);
             this.btn_SetComplete.Name = "btn_SetComplete";
-            this.btn_SetComplete.Size = new System.Drawing.Size(270, 95);
+            this.btn_SetComplete.Size = new System.Drawing.Size(360, 95);
             this.btn_SetComplete.TabIndex = 7;
-            this.btn_SetComplete.Text = "Set Complete";
+            this.btn_SetComplete.Text = "Set Processed (Ready for Delivery)";
             this.btn_SetComplete.UseVisualStyleBackColor = false;
             this.btn_SetComplete.Click += new System.EventHandler(this.Btn_SetComplete_Click);
             // 
@@ -177,7 +177,7 @@
             // 
             this.btn_outDel.BackColor = System.Drawing.Color.Tan;
             this.btn_outDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_outDel.Location = new System.Drawing.Point(592, 37);
+            this.btn_outDel.Location = new System.Drawing.Point(960, 37);
             this.btn_outDel.Margin = new System.Windows.Forms.Padding(4);
             this.btn_outDel.Name = "btn_outDel";
             this.btn_outDel.Size = new System.Drawing.Size(368, 95);

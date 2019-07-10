@@ -42,6 +42,10 @@
             this.lbl_due = new System.Windows.Forms.Label();
             this.lbl_lateWarning = new System.Windows.Forms.Label();
             this.lbl_paidOff = new System.Windows.Forms.Label();
+            this.btn_viewOrder = new System.Windows.Forms.Button();
+            this.lbl_recName = new System.Windows.Forms.Label();
+            this.lbl_recAddy = new System.Windows.Forms.Label();
+            this.lbl_recEmail = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl_close
@@ -125,13 +129,14 @@
             this.btn_Payment.Name = "btn_Payment";
             this.btn_Payment.Size = new System.Drawing.Size(302, 112);
             this.btn_Payment.TabIndex = 8;
-            this.btn_Payment.Text = "Make Payment";
+            this.btn_Payment.Text = "Record Payment";
             this.btn_Payment.UseVisualStyleBackColor = true;
+            this.btn_Payment.Click += new System.EventHandler(this.Btn_Payment_Click);
             // 
             // lbl_invoice
             // 
             this.lbl_invoice.AutoSize = true;
-            this.lbl_invoice.Location = new System.Drawing.Point(874, 229);
+            this.lbl_invoice.Location = new System.Drawing.Point(812, 229);
             this.lbl_invoice.Name = "lbl_invoice";
             this.lbl_invoice.Size = new System.Drawing.Size(246, 32);
             this.lbl_invoice.TabIndex = 9;
@@ -147,7 +152,7 @@
             // lbl_due
             // 
             this.lbl_due.AutoSize = true;
-            this.lbl_due.Location = new System.Drawing.Point(874, 378);
+            this.lbl_due.Location = new System.Drawing.Point(146, 429);
             this.lbl_due.Name = "lbl_due";
             this.lbl_due.Size = new System.Drawing.Size(115, 32);
             this.lbl_due.TabIndex = 11;
@@ -156,26 +161,71 @@
             // lbl_lateWarning
             // 
             this.lbl_lateWarning.AutoSize = true;
-            this.lbl_lateWarning.Location = new System.Drawing.Point(874, 346);
+            this.lbl_lateWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_lateWarning.ForeColor = System.Drawing.Color.Red;
+            this.lbl_lateWarning.Location = new System.Drawing.Point(145, 546);
             this.lbl_lateWarning.Name = "lbl_lateWarning";
-            this.lbl_lateWarning.Size = new System.Drawing.Size(193, 32);
+            this.lbl_lateWarning.Size = new System.Drawing.Size(245, 39);
             this.lbl_lateWarning.TabIndex = 12;
             this.lbl_lateWarning.Text = "!!! Past Due !!!";
             // 
             // lbl_paidOff
             // 
             this.lbl_paidOff.AutoSize = true;
-            this.lbl_paidOff.Location = new System.Drawing.Point(874, 410);
+            this.lbl_paidOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_paidOff.ForeColor = System.Drawing.Color.Green;
+            this.lbl_paidOff.Location = new System.Drawing.Point(145, 546);
             this.lbl_paidOff.Name = "lbl_paidOff";
-            this.lbl_paidOff.Size = new System.Drawing.Size(157, 32);
+            this.lbl_paidOff.Size = new System.Drawing.Size(201, 39);
             this.lbl_paidOff.TabIndex = 13;
             this.lbl_paidOff.Text = "Paid In Full";
+            // 
+            // btn_viewOrder
+            // 
+            this.btn_viewOrder.Location = new System.Drawing.Point(152, 782);
+            this.btn_viewOrder.Name = "btn_viewOrder";
+            this.btn_viewOrder.Size = new System.Drawing.Size(302, 60);
+            this.btn_viewOrder.TabIndex = 14;
+            this.btn_viewOrder.Text = "View Order Details";
+            this.btn_viewOrder.UseVisualStyleBackColor = true;
+            this.btn_viewOrder.Click += new System.EventHandler(this.Btn_viewOrder_Click);
+            // 
+            // lbl_recName
+            // 
+            this.lbl_recName.AutoSize = true;
+            this.lbl_recName.Location = new System.Drawing.Point(812, 280);
+            this.lbl_recName.Name = "lbl_recName";
+            this.lbl_recName.Size = new System.Drawing.Size(105, 32);
+            this.lbl_recName.TabIndex = 15;
+            this.lbl_recName.Text = "Name: ";
+            // 
+            // lbl_recAddy
+            // 
+            this.lbl_recAddy.AutoSize = true;
+            this.lbl_recAddy.Location = new System.Drawing.Point(812, 378);
+            this.lbl_recAddy.Name = "lbl_recAddy";
+            this.lbl_recAddy.Size = new System.Drawing.Size(134, 32);
+            this.lbl_recAddy.TabIndex = 16;
+            this.lbl_recAddy.Text = "Address: ";
+            // 
+            // lbl_recEmail
+            // 
+            this.lbl_recEmail.AutoSize = true;
+            this.lbl_recEmail.Location = new System.Drawing.Point(812, 327);
+            this.lbl_recEmail.Name = "lbl_recEmail";
+            this.lbl_recEmail.Size = new System.Drawing.Size(95, 32);
+            this.lbl_recEmail.TabIndex = 17;
+            this.lbl_recEmail.Text = "Email:";
             // 
             // AcctDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1614, 1001);
+            this.Controls.Add(this.lbl_recEmail);
+            this.Controls.Add(this.lbl_recAddy);
+            this.Controls.Add(this.lbl_recName);
+            this.Controls.Add(this.btn_viewOrder);
             this.Controls.Add(this.lbl_paidOff);
             this.Controls.Add(this.lbl_lateWarning);
             this.Controls.Add(this.lbl_due);
@@ -213,5 +263,9 @@
         private System.Windows.Forms.Label lbl_due;
         private System.Windows.Forms.Label lbl_lateWarning;
         private System.Windows.Forms.Label lbl_paidOff;
+        private System.Windows.Forms.Button btn_viewOrder;
+        private System.Windows.Forms.Label lbl_recName;
+        private System.Windows.Forms.Label lbl_recAddy;
+        private System.Windows.Forms.Label lbl_recEmail;
     }
 }

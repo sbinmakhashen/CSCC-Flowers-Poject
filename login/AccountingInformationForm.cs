@@ -27,6 +27,23 @@ namespace login
 
         }
 
+        public AccountingInformationForm(int flag)
+        {
+            InitializeComponent();
+            lbl_StoreName.Text = SQL.DefaultStore;
+            lbl_TableViewing.Text = "";
+            lbl_Date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
+
+            if(flag == 1)
+            {
+                DisplayPayableData();
+            }
+            if(flag == 2)
+            {
+                DisplayRecievableData();
+            }
+
+        }
 
 
         private void labelClose_Click(object sender, EventArgs e)

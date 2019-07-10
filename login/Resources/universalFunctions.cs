@@ -17,6 +17,7 @@ namespace login.Resources
             return dtDateTime;
         }
 
+
         public static bool CheckPWValid(string pw)
         {
             var regex = new Regex(@"((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&!^*()|{}]).{8,15})");

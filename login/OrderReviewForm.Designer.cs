@@ -147,10 +147,10 @@
             this.btn_viewOrders.BackColor = System.Drawing.Color.SandyBrown;
             this.btn_viewOrders.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_viewOrders.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_viewOrders.Location = new System.Drawing.Point(414, 213);
+            this.btn_viewOrders.Location = new System.Drawing.Point(708, 196);
             this.btn_viewOrders.Margin = new System.Windows.Forms.Padding(6);
             this.btn_viewOrders.Name = "btn_viewOrders";
-            this.btn_viewOrders.Size = new System.Drawing.Size(352, 60);
+            this.btn_viewOrders.Size = new System.Drawing.Size(470, 60);
             this.btn_viewOrders.TabIndex = 19;
             this.btn_viewOrders.Text = "View Orders Due After:";
             this.btn_viewOrders.UseVisualStyleBackColor = false;
@@ -164,7 +164,7 @@
             this.dateTimePicker_orders.CalendarTitleBackColor = System.Drawing.Color.Teal;
             this.dateTimePicker_orders.CalendarTrailingForeColor = System.Drawing.Color.Gray;
             this.dateTimePicker_orders.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker_orders.Location = new System.Drawing.Point(776, 213);
+            this.dateTimePicker_orders.Location = new System.Drawing.Point(1188, 196);
             this.dateTimePicker_orders.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker_orders.MinDate = new System.DateTime(1975, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker_orders.Name = "dateTimePicker_orders";
@@ -212,10 +212,10 @@
             this.btn_ViewToday.BackColor = System.Drawing.Color.Thistle;
             this.btn_ViewToday.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_ViewToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ViewToday.Location = new System.Drawing.Point(1550, 213);
+            this.btn_ViewToday.Location = new System.Drawing.Point(708, 268);
             this.btn_ViewToday.Margin = new System.Windows.Forms.Padding(6);
             this.btn_ViewToday.Name = "btn_ViewToday";
-            this.btn_ViewToday.Size = new System.Drawing.Size(416, 60);
+            this.btn_ViewToday.Size = new System.Drawing.Size(470, 60);
             this.btn_ViewToday.TabIndex = 24;
             this.btn_ViewToday.Text = "View Orders For Today";
             this.btn_ViewToday.UseVisualStyleBackColor = false;

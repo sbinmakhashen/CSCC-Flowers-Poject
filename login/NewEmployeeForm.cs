@@ -257,7 +257,12 @@ namespace login
                 {
                     throw new Exception("Pay Rate is not a valid number.");
 
-                } else
+                } else if( Math.Round(pay, 2) != pay)
+                {
+                    throw new Exception("Pay Rate cannot be a fraction of a cent.")
+                }
+
+                else
                 {
                     //setup the user and get the automatically created username
                     username = SQL.CreateUser(fName, lName, password); 

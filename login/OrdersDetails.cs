@@ -19,13 +19,28 @@ namespace login
         string claimedFName = "Not Claimed";
         string claimedUName = null;
         string curStatus = "No Status";
+        int acctID = 0;
 
         public OrdersDetails(int oN)
         {
+            acctID = 0;
             orderNum = oN;
             InitializeComponent();
             DisplayData();
             lbl_date.Text = "Today's Date is: " +DateTime.Today.ToString("dddd, dd MMMM yyyy");
+
+
+
+
+        }
+
+        public OrdersDetails(int oN, int from)
+        {
+            acctID = from;
+            orderNum = oN;
+            InitializeComponent();
+            DisplayData();
+            lbl_date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
 
 
 
@@ -42,9 +57,19 @@ namespace login
 
         private void Lbl_previous_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            var orderHistory = new OrderReviewForm();
-            orderHistory.Show();
+            if(acctID != 0)
+            {
+                this.Hide();
+                var acctDet = new AcctDetails(acctID, false);
+                acctDet.Show();
+            }
+            else
+            {
+                this.Hide();
+                var orderHistory = new OrderReviewForm();
+                orderHistory.Show();
+            }
+            
         }
 
 

@@ -100,7 +100,7 @@
             this.dgv_accounting.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dgv_accounting.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv_accounting.BackgroundColor = System.Drawing.Color.Tan;
-            this.dgv_accounting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_accounting.ColumnHeadersHeight = 58;
             this.dgv_accounting.Location = new System.Drawing.Point(330, 296);
             this.dgv_accounting.Margin = new System.Windows.Forms.Padding(6);
             this.dgv_accounting.Name = "dgv_accounting";
