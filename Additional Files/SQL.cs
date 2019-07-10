@@ -121,6 +121,8 @@ namespace CcnSession
                     DefaultStore = GetStore();
                     Console.WriteLine("Calling GetEmpNum");
                     LoggedInEmpNum = GetEmpNum(Username);
+                    Console.WriteLine("PWCorrect: " + PwCorrect + " | isManager: " + IsManager + " | DefaultStore: " + DefaultStore + "| empNum: " + LoggedInEmpNum + " | username: " + Username);
+                       
                 }
                 else
                 {
@@ -1173,14 +1175,23 @@ namespace CcnSession
 
         }
 
-        /* valid types are invoice and account
-         */
-        public static DataTable GetAcRec(int idNum, string type)
+        
+        public static DataTable GetAcRecDetail(int invoiceNum)
         {
-            var data = new DataTable();
+            try
+            {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT r.invoice_num, r.order_num, r.acct_num, r.amt, r.amt_paid, r.remainder, r.due_date, r.paid_date, h.order_status, h.pay_type, h.trans_date, c.first_name, c.last_name, c.email, c.street, c.city, c.state, c.zip  FROM acct_rec r JOIN order_history h ON h.order_num = r.order_num  JOIN customer c ON c.acct_num = r.acct_num WHERE invoice_num = @invoice ;"
+                };
+                cmd.Parameters.AddWithValue("@invoice", invoiceNum);
 
-
-            return data;
+                return SelectQry(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
@@ -1193,15 +1204,86 @@ namespace CcnSession
 
         }
 
-        public static int AmtOwed(int invoiceNum)
+ 
+        public static void AccRecPmt(int invoiceNum, double pmt)
         {
-            int owed = 0;
-            return owed;
-        }
+            try
+            {
+                var data = new DataTable();
+                double totalPaid = 0;
 
-        public static void AddPay(int invoiceNum, int pmt)
-        {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT remainder, amt_paid, order_num FROM acct_rec WHERE invoice_num = @id;"
+                };
+                cmd.Parameters.AddWithValue("id", invoiceNum);
 
+
+                data = SelectQry(cmd);
+                double.TryParse(data.Rows[0]["remainder"].ToString(), out double remain);
+                double.TryParse(data.Rows[0]["amt_paid"].ToString(), out double amtPaid);
+                int.TryParse(data.Rows[0]["order_num"].ToString(), out int orderNum);
+
+
+                totalPaid = pmt + amtPaid;
+
+
+
+                Console.WriteLine("Remainder: " + remain + " | Already Paid: " + amtPaid + " | Payment: " + pmt + " | TotalPaid: " + totalPaid + " | OrderNum: "+orderNum);
+
+
+
+                if (remain == 0)
+                {
+                    throw new Exception("This invoice is already paid off.");
+                }
+
+                if (remain - pmt < 0)
+                {
+                    throw new Exception("You are attempting to record a payment of more than what is owed. Please contact Accounting to approve this.");
+                }
+
+                if (remain == pmt)
+                {
+
+                    var cmd2 = new MySqlCommand()
+                    {
+                        CommandText = "UPDATE acct_rec SET amt_paid = @paid, paid_date = NOW() WHERE invoice_num=@id;" +
+                        "UPDATE order_history SET pay_rec ='Paid' WHERE order_num=@orderNum;"
+                    };
+                    cmd2.Parameters.AddWithValue("id", invoiceNum);
+                    cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
+                    cmd2.Parameters.AddWithValue("orderNum", orderNum.ToString());
+
+                    Console.WriteLine("Sending Command: {0}", cmd.ToString());
+                    SendQry(cmd2);
+
+                }
+                else if (remain - pmt > 0)
+                {
+                    var cmd2 = new MySqlCommand()
+                    {
+                        CommandText = "UPDATE acct_rec SET amt_paid = @paid WHERE invoice_num=@id;"
+                    };
+
+                    cmd2.Parameters.AddWithValue("id", invoiceNum);
+                    cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
+                    Console.WriteLine("Sending Command: {0}", cmd.ToString());
+                    SendQry(cmd2);
+                }
+                else // um. Should be caught but... if remain-totalPaid < 0
+                {
+                    throw new Exception("Error. Contact IT (code NegPay) ");
+                }
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static void NewAcRec(int acctNum, int orderNum, int owed)
@@ -1230,55 +1312,98 @@ namespace CcnSession
 
         public static DataTable AcctPay(int id)
         {
-            var data = new DataTable();
+            try
+            {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT * FROM acct_pay WHERE id = @id;"
+                };
+                cmd.Parameters.AddWithValue("id", id);
 
-
-            return data;
-
-        }
-
-        public static DataTable AcctPay(string vendor, int invoiceNum)
-        {
-            var data = new DataTable();
-
-
-            return data;
-
-        }
-
-        public static DataTable AcctPay(string vendor)
-        {
-            var data = new DataTable();
-
-
-            return data;
+                return SelectQry(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
-        public static DataTable AcctPay(string startDate, string endDate)
+
+        public static void AcctPayPmt(int idNum, double pmt)
         {
-            var data = new DataTable();
+            try
+            {
+                var data = new DataTable();
+                double totalPaid = 0;
+
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT remainder, amt_paid FROM acct_pay WHERE id = @id;"
+                };
+                cmd.Parameters.AddWithValue("id", idNum);
 
 
-            return data;
+                data = SelectQry(cmd);
+                double.TryParse(data.Rows[0]["remainder"].ToString(), out double remain);
+                double.TryParse(data.Rows[0]["amt_paid"].ToString(), out double amtPaid);
 
-        }
 
-        public static int AcctPayOwed(int id)
-        {
-            int owed = 0;
-            return owed;
-        }
+                
+                totalPaid = pmt + amtPaid;
 
-        public static int AcctPayOwed(string vendor, int invoiceNum)
-        {
-            int owed = 0;
-            return owed;
-        }
 
-        public static void AcctPayPmt(string vendor, int invoiceNum, int pmt)
-        {
 
+                Console.WriteLine("Remainder: " + remain + " | Already Paid: " + amtPaid + " | Payment: " + pmt + " | TotalPaid: " + totalPaid);
+
+
+                if (remain == 0)
+                {
+                    throw new Exception("This invoice is already paid off.");
+                }
+
+                if (remain-pmt < 0)
+                {
+                    throw new Exception("You are attempting to record a payment of more than what is owed. Please contact Accounting to approve this.");
+                }
+
+                if(remain == pmt)
+                {
+
+                    var cmd2 = new MySqlCommand()
+                    {
+                        CommandText = "UPDATE acct_pay SET amt_paid = @paid, paid_date = NOW() WHERE id=@id;"
+                    };
+                    cmd2.Parameters.AddWithValue("id", idNum);
+                    cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
+                    
+                    Console.WriteLine("Sending Command: {0}", cmd.ToString());
+                    SendQry(cmd2);
+
+                } else if(remain-pmt > 0)
+                {
+                    var cmd2 = new MySqlCommand()
+                    {
+                        CommandText = "UPDATE acct_pay SET amt_paid = @paid WHERE id=@id;"
+                    };
+                    
+                    cmd2.Parameters.AddWithValue("id", idNum);
+                    cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
+                    Console.WriteLine("Sending Command: {0}", cmd.ToString());
+                    SendQry(cmd2);
+                } else // um. Should be caught but... if remain-totalPaid < 0
+                {
+                    throw new Exception("Error. Contact IT (code NegPay) ");
+                }
+                
+
+                
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /* still Accounting Methods - but these are the Report Generation Methods
@@ -1743,7 +1868,7 @@ namespace CcnSession
 
                     //logging
                     Console.WriteLine("Connection:  {0}", cnn.State);
-                    Console.WriteLine("Sending Command: {0}", cmd);
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
 
                     //Sends the command, as defined by the string builder externally.
                     if (cmd.ExecuteNonQuery() >= 1)
