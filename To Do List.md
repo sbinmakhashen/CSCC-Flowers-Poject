@@ -23,8 +23,8 @@
 
 ## High Priority
 * ~~Get the Search on Order History by Date to work.~~ done, and working very well.
-* Accounting - ~~Acct Rec and Acct Payable~~ - Can view
-+ CRUD operations for Managers
+* Accounting - ~~Acct Rec and Acct Payable~~ - ~~Can view~~
++ ~~CRUD operations for Managers~~ - New Acct Rec??
 * Reports - Ledgers and what not.
 * View - but not adjust - other stores Inventory (related to The Problem)
 * Send Inventory to another store if Managers
