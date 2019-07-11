@@ -324,5 +324,29 @@ namespace login
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void Close_pic_Click(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+            this.Hide();
+            var loginForm = new LoginForm();
+            loginForm.Show();
+        }
+
+        private void Previous_pic_Click(object sender, EventArgs e)
+        {
+            if (acctID != 0)
+            {
+                this.Hide();
+                var acctDet = new AcctDetails(acctID, false);
+                acctDet.Show();
+            }
+            else
+            {
+                this.Hide();
+                var orderHistory = new OrderReviewForm();
+                orderHistory.Show();
+            }
+        }
     }
 }

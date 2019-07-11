@@ -58,7 +58,8 @@ namespace login
 
             double.TryParse(data.Rows[0]["remainder"].ToString(), out remainder);
 
-            lbl_Title.Text = "Accounts Payable Details";
+            lbl_Title.Text = "Accounts Payable";
+            groupBoxTitle.Text = "Account Payable Details";
             lbl_Vendor.Text = "Vendor: " + data.Rows[0]["vendor"].ToString();
             lbl_amtOwed.Text = "Amount still owed: $" + data.Rows[0]["amt"].ToString();
             lbl_paid.Text = "Amount paid to date: $" + data.Rows[0]["amt_paid"].ToString();
@@ -102,7 +103,8 @@ namespace login
 
             //order_status, pay_type, trans_date, 
 
-            lbl_Title.Text = "Accounts Receivable Details";
+            lbl_Title.Text = "Accounts Receivable";
+            groupBoxTitle.Text = "Account Receivable Details";
             lbl_Vendor.Text = "Invoice #: " + data.Rows[0]["invoice_num"].ToString();
             lbl_amtOwed.Text = "Amount still owed: $" + data.Rows[0]["amt"].ToString();
             lbl_paid.Text = "Amount paid to date: $" + data.Rows[0]["amt_paid"].ToString();
@@ -229,6 +231,39 @@ namespace login
             this.Hide();
             order.Show();
 
+        }
+
+        private void Close_pic_Click(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+
+            var login = new LoginForm();
+            login.Show();
+            this.Hide();
+        }
+
+        private void Previous_pic_Click(object sender, EventArgs e)
+        {
+
+
+            if (typeFlag) // flag : true = Payable, false = receivable
+            {
+                var accts = new AccountingInformationForm(1); // 1 is a flag for the Overload, to auto put up AcctPayable
+                accts.Show();
+                this.Hide();
+            }
+            else if (!typeFlag)
+            {
+                var accts = new AccountingInformationForm(2); // 2 is a flag for the Overload to auto display Acct Rec
+                accts.Show();
+                this.Hide();
+            }
+            else//somehow null???
+            {
+                var accts = new AccountingInformationForm(); // and just in case something goes weird, here. Default form.
+                accts.Show();
+                this.Hide();
+            }
         }
     }
 }

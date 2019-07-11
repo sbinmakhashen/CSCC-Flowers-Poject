@@ -1195,14 +1195,7 @@ namespace CcnSession
 
         }
 
-        public static DataTable GetAcRec(string startDate, string endDate)
-        {
-            var data = new DataTable();
-
-
-            return data;
-
-        }
+       
 
  
         public static void AccRecPmt(int invoiceNum, double pmt)
@@ -1415,14 +1408,80 @@ namespace CcnSession
 
         public static DataTable GeneralLedger()
         {
-            var data = new DataTable();
+            try
+            {
+
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT * FROM financials WHERE location = @store"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
 
 
-            return data;
+                return SelectQry(cmd);
+
+
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+
+        }
+        public static DataTable GeneralLedger(string date)
+        {
+            try
+            {
+
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT * FROM financials WHERE location = @store AND entry_date >= @date AND entry_date < @date +interval 1 month ORDER BY entry_date;"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
+                cmd.Parameters.AddWithValue("@date", date);
+
+
+                return SelectQry(cmd);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
 
         }
 
-        public static DataTable ProfitReport()
+        public static DataTable GeneralLedger(int year)
+        {
+            try
+            {
+                string date = year + "-01-01";
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT * FROM financials WHERE location = @store AND entry_date >= @date AND entry_date < @date +interval 1 year ORDER BY entry_date;"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
+                cmd.Parameters.AddWithValue("@date", date);
+
+
+                return SelectQry(cmd);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+
+        }
+
+        public static DataTable ProfitLossReport()
         {
             var data = new DataTable();
 
@@ -1431,7 +1490,7 @@ namespace CcnSession
 
         }
 
-        public static DataTable LossReport()
+        public static DataTable CashFlowReport()
         {
             var data = new DataTable();
 
@@ -1440,7 +1499,7 @@ namespace CcnSession
 
         }
 
-        public static DataTable CashReport()
+        public static DataTable BalanceSheetReport()
         {
             var data = new DataTable();
 
@@ -1449,9 +1508,91 @@ namespace CcnSession
 
         }
 
-        public static void RunReports()
+        public static void NewLedgerEntry(string type, string particular, double amt)
         {
+            /* Valid Types:
+             * ENUM('Payroll', 'Inventory', 'Utilities', 'Sales', 'Depreciation', 'Expense')
+             * 
+             * will be passed from a drop down menu, so will be proper
+             */
+            try
+            {
 
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "INSERT INTO `financials` (`location`, `trans_type`, `particular`, `amt`) VALUES ('@store', '@type', '@particular', '@amt');"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
+                cmd.Parameters.AddWithValue("@type", type);
+                cmd.Parameters.AddWithValue("@amt", amt);
+                cmd.Parameters.AddWithValue("@particular", particular);
+
+                SendQry(cmd);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
+
+        public static void LedgerUpdateType(int id, string type)
+        {
+            try
+            {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE financials SET type=@type WHERE money_id=@id"
+                };
+                cmd.Parameters.AddWithValue("@type", type);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                SendQry(cmd);
+            }catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+
+        public static void LedgerUpdateAmt(int id, double amt)
+        {
+            try
+            {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE financials SET amt=@amt WHERE money_id=@id"
+                };
+                cmd.Parameters.AddWithValue("@amt", amt);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                SendQry(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public static void LedgerUpdatePar(int id, string particular)
+        {
+            try
+            {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE financials SET particular=@particular WHERE money_id=@id"
+                };
+                cmd.Parameters.AddWithValue("@particular", particular);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                SendQry(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 

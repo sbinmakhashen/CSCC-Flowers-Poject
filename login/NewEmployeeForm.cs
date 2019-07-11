@@ -26,7 +26,7 @@ namespace login
             // remove the focus from the textboxes
             this.ActiveControl = label1;
         }
-        
+
         //Text Boxes Enter and Leave Methods 
         private void textBoxFirstname_Enter(object sender, EventArgs e)
         {
@@ -89,7 +89,7 @@ namespace login
                 textBoxPassword.Text = "Password";
                 textBoxPassword.UseSystemPasswordChar = false;
                 textBoxPassword.ForeColor = Color.Gray;
-            } 
+            }
         }
 
         private void textBoxPasswordConfirm_Enter(object sender, EventArgs e)
@@ -198,7 +198,7 @@ namespace login
                 textBoxPay_Rate.ForeColor = Color.Gray;
             }
         }
-        
+
         //Text Boxes Enter and Leave Methods Ends Here
 
         private void labelClose_Click(object sender, EventArgs e)
@@ -210,16 +210,6 @@ namespace login
         }
 
 
-        private void labelClose_MouseEnter(object sender, EventArgs e)
-        {
-            labelClose.ForeColor = Color.Black;
-        }
-
-        private void labelClose_MouseLeave(object sender, EventArgs e)
-        {
-            labelClose.ForeColor = Color.White;
-        }
-
         private void buttonCreateAccount_Click(object sender, EventArgs e)
         {
             // add a new user
@@ -229,7 +219,7 @@ namespace login
             string password = textBoxPassword.Text;
             string zCode = textBoxZip.Text;
 
-            
+
             string username;
 
             try
@@ -245,27 +235,31 @@ namespace login
                 {
                     throw new Exception("Please complete all fields.");
 
-                } else if (!textBoxPassword.Text.Equals(textBoxPasswordConfirm.Text))
+                }
+                else if (!textBoxPassword.Text.Equals(textBoxPasswordConfirm.Text))
                 {
                     throw new Exception("Passwords do not match.");
 
-                } else if (!uF.ZipValidate(zCode)) //if not a valid zip code,throw exception
+                }
+                else if (!uF.ZipValidate(zCode)) //if not a valid zip code,throw exception
                 {
                     throw new Exception("Zip Code must be either 5 or 9 numbers.");
 
-                } else if(pay==0)
+                }
+                else if (pay == 0)
                 {
                     throw new Exception("Pay Rate is not a valid number.");
 
-                } else if( Math.Round(pay, 2) != pay)
+                }
+                else if (Math.Round(pay, 2) != pay)
                 {
-                    throw new Exception("Pay Rate cannot be a fraction of a cent.")
+                    throw new Exception("Pay Rate cannot be a fraction of a cent.");
                 }
 
                 else
                 {
                     //setup the user and get the automatically created username
-                    username = SQL.CreateUser(fName, lName, password); 
+                    username = SQL.CreateUser(fName, lName, password);
                     // retrieve the emp_num from the newly created row
                     int empNumber = SQL.GetEmpNum(username);
 
@@ -282,7 +276,7 @@ namespace login
                     MessageBox.Show("Your Account Has Been Created. Your username is " + username + ". Please remember this for your records.", "Account Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     //Reset all the fields to default after account created.
-                    textBoxFirstname.Text ="First Name";
+                    textBoxFirstname.Text = "First Name";
                     textBoxFirstname.ForeColor = Color.Gray;
                     textBoxLastname.Text = "Last Name";
                     textBoxLastname.ForeColor = Color.Gray;
@@ -303,7 +297,8 @@ namespace login
                     textBoxPay_Rate.ForeColor = Color.Gray;
                 }
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Incorrect Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -322,10 +317,10 @@ namespace login
 
 
             if (textBoxFirstname.Text.ToLower().Equals("first name") || textBoxLastname.Text.ToLower().Equals("last name")
-                || textBoxPassword.Text.ToLower().Equals("password") || textBoxStreet.Text.ToLower().Equals("street") 
+                || textBoxPassword.Text.ToLower().Equals("password") || textBoxStreet.Text.ToLower().Equals("street")
                 || textBoxCity.Text.ToLower().Equals("City") || comboBoxState == null || textBoxZip.Text.ToLower().Equals("zip"))
             {
-                
+
 
                 return true;
             }
@@ -345,6 +340,19 @@ namespace login
             MainForm.Show();
         }
 
+        private void Close_pic_Click(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+            this.Hide();
+            LoginForm login = new LoginForm();
+            login.Show();
+        }
 
+        private void Previous_pic_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainForm MainForm = new MainForm();
+            MainForm.Show();
+        }
     }
 }

@@ -43,7 +43,7 @@
     </Reference>
     <Reference Include="CcnSession, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Capstone\CcnSession\bin\Release\CcnSession.dll</HintPath>
+      <HintPath>..\Additional Files\CcnSession.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
@@ -203,6 +203,8 @@
     <Content Include="images\lock.png" />
     <Content Include="images\user.png" />
     <Content Include="MySql.Data.dll" />
+    <None Include="Resources\previous_blue.png" />
+    <None Include="Resources\close.png" />
     <None Include="Resources\logo.PNG" />
   </ItemGroup>
   <ItemGroup>

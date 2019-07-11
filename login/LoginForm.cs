@@ -24,22 +24,14 @@ namespace login
             lbl_date.Text = "Today's Date: " + date;
         }
 
-        private void labelClose_MouseEnter(object sender, EventArgs e)
-        {
-            labelClose.ForeColor = Color.Black;
-        }
-
-        private void labelClose_MouseLeave(object sender, EventArgs e)
-        {
-            labelClose.ForeColor = Color.White;
-        }
-
-        private void labelClose_Click(object sender, EventArgs e)
+      
+        private void Close_pic_Click_1(object sender, EventArgs e)
         {
             //this.Close();
             SQL.Cleanup();
             Application.Exit();
         }
+
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -94,5 +86,7 @@ namespace login
            
 
         }
+
+        
     }
 }

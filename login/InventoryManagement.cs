@@ -83,7 +83,9 @@ namespace login
             dataGridView1.Columns[0].HeaderText = "Type";
             dataGridView1.Columns[1].HeaderText = "Item Name";
             dataGridView1.Columns[2].HeaderText = "Purchase Cost";
+            dataGridView1.Columns[2].DefaultCellStyle.Format = "c2";
             dataGridView1.Columns[3].HeaderText = "Sell Price";
+            dataGridView1.Columns[3].DefaultCellStyle.Format = "c2";
             dataGridView1.Columns[4].HeaderText = "Category";
             dataGridView1.Columns[5].HeaderText = "Quantity";
             dataGridView1.Sort(dataGridView1.Columns[1], ListSortDirection.Ascending);
@@ -310,6 +312,26 @@ namespace login
 
 
             
+        }
+
+        private void Previous_pic_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Close_pic_Click(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+            LoginForm login = new LoginForm();
+            this.Hide();
+            login.Show();
+        }
+
+        private void Previous_pic_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainForm MainForm = new MainForm();
+            MainForm.Show();
         }
     }
 }

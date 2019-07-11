@@ -93,25 +93,6 @@ namespace login
            
         }
 
-        private void textBoxSearch_Enter(object sender, EventArgs e)
-        {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here...."))
-            {
-                textBoxSearch.Text = "";
-                textBoxSearch.ForeColor = Color.Black;
-            }
-        }
-
-        private void textBoxSearch_Leave(object sender, EventArgs e)
-        {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here....") || fname.Trim().Equals(""))
-            {
-                textBoxSearch.Text = "Search Here....";
-                textBoxSearch.ForeColor = Color.IndianRed;
-            }
-        }
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
@@ -179,6 +160,26 @@ namespace login
             //flags for what table we are in to know what the buttons should do.
             receiving = true;
             payable = false;
+        }
+
+        private void Close_pic_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Close_pic_Click_1(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+            var login = new LoginForm();
+            this.Hide();
+            login.Show();
+        }
+
+        private void Previous_pic_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainForm MainForm = new MainForm();
+            MainForm.Show();
         }
 
         public void DisplayPayableData()

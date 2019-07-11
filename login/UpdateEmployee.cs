@@ -631,5 +631,20 @@ namespace login
         {
             txt_Pay.ForeColor = Color.Red;
         }
+
+        private void Close_pic_Click(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+            this.Hide();
+            LoginForm LoginForm = new LoginForm();
+            LoginForm.Show();
+        }
+
+        private void Previous_pic_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainForm MainForm = new MainForm();
+            MainForm.Show();
+        }
     }
 }

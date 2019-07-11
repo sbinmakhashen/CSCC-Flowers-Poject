@@ -7,35 +7,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 using CcnSession;
 
 namespace login
 {
     public partial class ReportsForm : Form
     {
-        MySqlConnection con = new MySqlConnection(@"server=remotemysql.com;port=3306;username=7903HxBTF8;password=U89DjsTnQO;database=7903HxBTF8");
-        int ProductID = 0;
+        
 
         public ReportsForm()
         {
             InitializeComponent();
-            disp_data();
-        }
-        public void disp_data()
-        {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from Reports";
-            cmd.ExecuteNonQuery();
-            DataTable dt = new DataTable();
-            MySqlDataAdapter dat = new MySqlDataAdapter(cmd);
-            dat.Fill(dt);
-            dataGridView1.DataSource = dt;
-            con.Close();
+            GeneralDisplay();
+            lbl_StoreName.Text = SQL.DefaultStore;
+            lbl_date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
         }
 
+        public void GeneralFormat()
+        {
+            dgv_reports.Columns[0].HeaderText = "Transaction ID";
+            dgv_reports.Columns[1].HeaderText = "Location";
+            dgv_reports.Columns[1].Visible = false;
+            dgv_reports.Columns[2].HeaderText = "Type";
+            dgv_reports.Columns[3].HeaderText = "Particulars";
+            dgv_reports.Columns[4].HeaderText = "Amount";
+            dgv_reports.Columns[4].DefaultCellStyle.Format = "c2";
+            dgv_reports.Columns[5].HeaderText = "Entry Date";
+            dgv_reports.Columns[5].DefaultCellStyle.Format = "d";
+            dgv_reports.Sort(dgv_reports.Columns[5], ListSortDirection.Ascending);
+        }
+        public void GeneralDisplay()
+        {
+            dgv_reports.DataSource = SQL.GeneralLedger();
+            
+        }
+        public void GeneralDisplay(string date)
+        {
+            dgv_reports.DataSource = SQL.GeneralLedger(date);
+            GeneralFormat();
+        }
+
+        public void GeneralDisplay(int year)
+        {
+            dgv_reports.DataSource = SQL.GeneralLedger(year);
+            GeneralFormat();
+        }
 
         private void labelClose_Click(object sender, EventArgs e)
         {
@@ -52,155 +68,107 @@ namespace login
             MainForm.Show();
         }
 
-        private void buttonInsert_Click(object sender, EventArgs e)
+       
+
+        
+
+        
+        /*
+         * 
+         * This button only sorta works. The Error checking isnt finished properly.
+         * 
+         */
+
+        private void Btn_GeneralLedger_Click(object sender, EventArgs e)
         {
-
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "insert into Reports(General_Ledger,General_Journal) values('" + this.textBoxGL.Text + "','" + this.textBoxGJ.Text + "');";
-            cmd.ExecuteNonQuery();
-            con.Close();
-            textBoxGL.Text = "";
-            textBoxGJ.Text = "";
-            disp_data();
-            Clear();
-            MessageBox.Show("record inserted successfully");
-        }
-
-        private void buttonDelete_Click(object sender, EventArgs e)
-        {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "DELETE FROM Reports WHERE General_Journal = '" + textBoxGJ.Text + "' AND General_Ledger = '" + textBoxGL.Text + "'";
-            cmd.ExecuteNonQuery();
-            textBoxGL.Text = "";
-            textBoxGJ.Text = "";
-
-            con.Close();
-            disp_data();
-            Clear();
-
-
-            MessageBox.Show("record deleted successfully");
-        }
-
-        private void buttonEdit_Click(object sender, EventArgs e)
-        {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "UPDATE `Reports` SET `General_Ledger`='" + textBoxGL.Text + "' WHERE General_Journal = '" + textBoxGJ.Text + "'";
-            cmd.ExecuteNonQuery();
-            textBoxGL.Text = "";
-            textBoxGJ.Text = "";
-            con.Close();
-            disp_data();
-            MessageBox.Show("record updated successfully");
-        }
-
-        private void dataGridView1_DoubleClick(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow.Index != -1)
+            int.TryParse(DateTime.Now.Year.ToString(), out int curYear);
+            int.TryParse(DateTime.Now.Month.ToString(), out int curMonth);
+            int selecteMonth = cmBx_Month.SelectedIndex;
+            try
             {
-                textBoxGL.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                textBoxGJ.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-               // textBoxBlalance.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-                ProductID = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString());
-                buttonEdit.Text = "Update";
-                buttonDelete.Enabled = Enabled;
-                buttonEdit.Enabled = Enabled;
-                buttonInsert.Enabled = Enabled;
+                // error checking
+                // - no month selected, no year selected - show whole ledger.
+                int.TryParse(txt_Year.Text, out int selectedYear);
 
-            }
-        }
-        void Clear()
-        {
-            textBoxGL.Text = textBoxGJ.Text = "";
-            ProductID = 0;
-            buttonInsert.Text = "Insert";
-            buttonDelete.Enabled = true;
-        }
+                if (txt_Year.Text.Trim().ToLower() == "year")
+                {
+                    GeneralDisplay();
+                    lbl_ReportName.Text = "General Ledger";
+                }
+                
+                // month empty, 
+                else if (cmBx_Month == null)
+                {
+                    // outside of year values
+                    if(selectedYear < 2016 || selectedYear > curYear)
+                    {
+                        throw new Exception("That year is outside the valid range (2016 through now).");
+                    }
+                    else// month is empty, but year is acceptable
+                    {
+                        GeneralDisplay(selectedYear);
+                    }
 
-        private void buttonReset_Click(object sender, EventArgs e)
-        {
-            disp_data();
-            Clear();
-        }
 
-        private void textBoxSearch_Enter(object sender, EventArgs e)
-        {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here...."))
+                } // if there is a value in month
+                else if(cmBx_Month != null)
+                {
+                    //year outside of acceptable range
+                    if (selectedYear < 2016 || selectedYear > curYear)
+                    {
+                        throw new Exception("Please enter a valid year (2016 through now).");
+                    }
+                    // month to far in the future
+                    else if (selecteMonth+1>= curMonth && selectedYear == curYear)
+                    {
+                        throw new Exception("Please select a month in the past");
+                    }
+                    // finally, month is acceptable + year is acceptable
+                    else
+                    {
+                        string date = selectedYear + "-" + selecteMonth + 1 + "-31";
+                        GeneralDisplay(date);
+                    }
+                }
+                
+
+            } catch (Exception ex)
             {
-                textBoxSearch.Text = "";
-                textBoxSearch.ForeColor = Color.Black;
+                MessageBox.Show(ex.Message, "Not a valid Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            
+            
         }
 
-        private void textBoxSearch_Leave(object sender, EventArgs e)
+        private void Btn_ProfitLoss_Click(object sender, EventArgs e)
         {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here....") || fname.Trim().Equals(""))
-            {
-                textBoxSearch.Text = "search here....";
-                textBoxSearch.ForeColor = Color.MediumBlue;
-            }
+            //ProfitLossDisplay();
+            lbl_ReportName.Text = "Profit / Loss Statement";
         }
 
-        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        private void Previous_pic_Click(object sender, EventArgs e)
         {
-            con.Open();
-            MySqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "SELECT * FROM Reports WHERE CONCAT(id,General_Ledger,General_Journal) LIKE '%" + textBoxSearch.Text + "%'";
-            cmd.ExecuteNonQuery();
-            DataTable dt = new DataTable();
-            MySqlDataAdapter dat = new MySqlDataAdapter(cmd);
-            dat.Fill(dt);
-            dataGridView1.DataSource = dt;
-            con.Close();
+
         }
 
-        private void textBoxGL_Enter(object sender, EventArgs e)
+        private void Close_pic_Click(object sender, EventArgs e)
         {
-            String GL = textBoxGL.Text;
-            if (GL.ToLower().Trim().Equals("general ledger"))
-            {
-                textBoxGL.Text = "";
-                textBoxGL.ForeColor = Color.Black;
-            }
+
         }
 
-        private void textBoxGL_Leave(object sender, EventArgs e)
+        private void Close_pic_Click_1(object sender, EventArgs e)
         {
-            String GL = textBoxGL.Text;
-            if (GL.ToLower().Trim().Equals("general ledger") || GL.Trim().Equals(""))
-            {
-                textBoxGL.Text = "general ledger";
-                textBoxGL.ForeColor = Color.MediumBlue;
-            }
+            SQL.Cleanup();
+            var login = new LoginForm();
+            this.Hide();
+            login.Show();
         }
 
-        private void textBoxGJ_Enter(object sender, EventArgs e)
+        private void Previous_pic_Click_1(object sender, EventArgs e)
         {
-            String GJ = textBoxGJ.Text;
-            if (GJ.ToLower().Trim().Equals("general journal"))
-            {
-                textBoxGJ.Text = "";
-                textBoxGJ.ForeColor = Color.Black;
-            }
-        }
-
-        private void textBoxGJ_Leave(object sender, EventArgs e)
-        {
-            String GJ = textBoxGJ.Text;
-            if (GJ.ToLower().Trim().Equals("general journal") || GJ.Trim().Equals(""))
-            {
-                textBoxGJ.Text = "general journal";
-                textBoxGJ.ForeColor = Color.MediumBlue;
-            }
+            this.Hide();
+            MainForm MainForm = new MainForm();
+            MainForm.Show();
         }
     }
 }

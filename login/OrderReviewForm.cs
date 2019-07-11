@@ -72,44 +72,44 @@ namespace login
         }
 
 
-    
 
-        private void textBoxSearch_Enter(object sender, EventArgs e)
-        {
-            String searchBox = textBoxSearch.Text;
-            if (searchBox.ToLower().Trim().Equals("Search Address Here...."))
-            {
-                textBoxSearch.Text = "";
-                textBoxSearch.ForeColor = Color.Black;
-            }
-        }
+        /*
+                private void textBoxSearch_Enter(object sender, EventArgs e)
+                {
+                    String searchBox = textBoxSearch.Text;
+                    if (searchBox.ToLower().Trim().Equals("Search Address Here...."))
+                    {
+                        textBoxSearch.Text = "";
+                        textBoxSearch.ForeColor = Color.Black;
+                    }
+                }
 
-        private void textBoxSearch_Leave(object sender, EventArgs e)
-        {
-            string searchTxt = textBoxSearch.Text;
-            if (dataGridView1.DataSource == null)
-            {
-                //safety catch. If user is moving to fast, reset the data when they leave the searchbox
-                dataGridView1.DataSource = orderHistoryData;
-            }
+                private void textBoxSearch_Leave(object sender, EventArgs e)
+                {
+                    string searchTxt = textBoxSearch.Text;
+                    if (dataGridView1.DataSource == null)
+                    {
+                        //safety catch. If user is moving to fast, reset the data when they leave the searchbox
+                        dataGridView1.DataSource = orderHistoryData;
+                    }
 
-            if (searchTxt.ToLower().Trim().Equals("search address here....") || searchTxt.Trim().Equals(""))
-            {
-                textBoxSearch.Text = "Search Address Here....";
-                textBoxSearch.ForeColor = Color.Maroon;
-                dataGridView1.DataSource = orderHistoryData;
+                    if (searchTxt.ToLower().Trim().Equals("search address here....") || searchTxt.Trim().Equals(""))
+                    {
+                        textBoxSearch.Text = "Search Address Here....";
+                        textBoxSearch.ForeColor = Color.Maroon;
+                        dataGridView1.DataSource = orderHistoryData;
 
-            }
-        }
+                    }
+                }
 
-        private void textBoxSearch_TextChanged(object sender, EventArgs e)
-        {
-            var dv = new DataView(orderHistoryData);
-            dv.RowFilter = string.Format("del_addy LIKE '%{0}%'", textBoxSearch.Text);
+                private void textBoxSearch_TextChanged(object sender, EventArgs e)
+                {
+                    var dv = new DataView(orderHistoryData);
+                    dv.RowFilter = string.Format("del_addy LIKE '%{0}%'", textBoxSearch.Text);
 
-            dataGridView1.DataSource = dv;
-        }
-
+                    dataGridView1.DataSource = dv;
+                }
+        */
         private void ButtonViewOrd_Click(object sender, EventArgs e)
         {
             dataGridView1.DataSource = null;
@@ -147,6 +147,22 @@ namespace login
             dv.RowFilter = " (CONVERT(del_date,System.DateTime) = #" + filterDate + "#)";
 
             dataGridView1.DataSource = dv;
+        }
+
+        private void Close_pic_Click(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+            this.Hide();
+
+            var LoginF = new LoginForm();
+            LoginF.Show();
+        }
+
+        private void Previous_pic_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MainForm MainForm = new MainForm();
+            MainForm.Show();
         }
     }
 }

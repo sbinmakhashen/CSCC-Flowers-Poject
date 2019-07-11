@@ -216,8 +216,12 @@ namespace login
             ChangePW.Show();
         }
 
-       
-
-       
+        private void Close_pic_Click(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+            this.Hide();
+            LoginForm login = new LoginForm();
+            login.Show();
+        }
     }
 }

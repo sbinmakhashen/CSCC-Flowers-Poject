@@ -171,7 +171,20 @@ namespace login
             }
         }
 
+        private void Close_pic_Click(object sender, EventArgs e)
+        {
+            SQL.Cleanup();
+            this.Hide();
+            var login = new LoginForm();
+            login.Show();
+        }
 
+        private void Previous_pic_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var main = new MainForm();
+            main.Show();
+        }
     }
 }
     
