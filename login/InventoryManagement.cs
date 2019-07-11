@@ -60,6 +60,7 @@ namespace login
                 lbl_name.Hide();
                 lbl_ChangeQty.Show();
                 txt_ChangeQty.Show();
+                btn_IncreaseQty.Show();
             } else
             {
                 lbl_loginInfo.Text = "Hello " + fname + ". You are logged in as " + SQL.Username + ", a Employee. Todays Date is " + date + ".";
@@ -70,6 +71,7 @@ namespace login
                 textBoxStockQty.Hide();
                 lbl_ChangeQty.Hide();
                 txt_ChangeQty.Hide();
+                btn_IncreaseQty.Hide();
             }
 
         }
@@ -130,13 +132,23 @@ namespace login
             {
                 if (dataGridView1.CurrentRow.Index != -1)
                 {
-                    lbl_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                    lbl_name.Show();
-                    textBoxStockQty.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                    txt_ChangeQty.Text = "";
-                    int.TryParse(textBoxStockQty.Text, out tempQty);
-                    ProductID = SQL.GetItemId(lbl_name.Text);
-                    btn_IncreaseQty.Show();
+                    if(SQL.IsManager)
+                    {
+                        lbl_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                        lbl_name.Show();
+                        textBoxStockQty.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+                        txt_ChangeQty.Text = "";
+                        int.TryParse(textBoxStockQty.Text, out tempQty);
+                        ProductID = SQL.GetItemId(lbl_name.Text);
+                        btn_IncreaseQty.Show();
+                    }else
+                    {
+                        btn_IncreaseQty.Hide();
+                        lbl_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                        lbl_name.Show();
+                    }
+
+                    
 
 
 

@@ -96,7 +96,8 @@ namespace login
 
             if(claimedEmpNum == SQL.LoggedInEmpNum)
             {
-                MessageBox.Show("You already have claimed this order.", "Already Claimed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show("You already have claimed this order. Do you want it set it back to just Received?.", "Already Claimed", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                ChangeStatus(result, "Received");
 
             } else if (curStatus =="Received" && claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum != 0)
             {
@@ -250,7 +251,6 @@ namespace login
                     if(status == "Ordered")
                     {
                         ChangeStatus(DialogResult.Yes, 0);
-                        SQL.ChangeStatus(orderNum, status);
                         SQL.ChangeStatus(orderNum, 0);
                     }
                     else

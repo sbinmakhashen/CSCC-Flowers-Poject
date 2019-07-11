@@ -316,18 +316,50 @@ namespace login
         }
 
 
-        public void BalanceSheetFormat(string date)
+        public void BalanceSheetFormat(string date, DataTable data)
         {
+
+            
+
+
             var b = new balanceData();
 
-            dgv_reports.DataSource = balance;
+            
 
-            b = SQL.BalanceCompile(balance);
+            b = SQL.BalanceCompile(data);
             double futureRec = SQL.FutureRec(date);
 
             dgv_reports.Hide();
             lbl_ReportName.Text = "Balance Sheet Report";
             grp_StatementDisplay.Text = "Balance Sheet";
+
+
+            int.TryParse(txt_Year.Text, out int y);
+
+            b.Month = cmBx_Month.SelectedIndex + 1;
+            b.Year = y;
+
+            b.SetMonth(b.Month);
+
+            if (b.Month != 0 && b.Year != 0)
+            {
+                lbl_StateDate.Text = "Report for " + b.LongMonth + " " + b.Year;
+            }
+            else if (b.Month == 0 && b.Year != 0)
+            {
+                if (b.Year == DateTime.Today.Year)
+                {
+                    lbl_StateDate.Text = "Report for the year of " + b.Year + " through the month of " + DateTime.Today.ToString("MMMM");
+                }
+                else
+                {
+                    lbl_StateDate.Text = "Report for the year of " + b.Year;
+                }
+            }
+            else if (b.Month == 0 && b.Year == 0)
+            {
+                lbl_StateDate.Text = "Full Life of Store (From Jan 2010 to Now)";
+            }
 
             title_TotalRevenue.Text = "Assets";
             lbl_revenue.Hide();
@@ -380,22 +412,22 @@ namespace login
 
         public void BalanceSheetDisplay()
         {
-            balance = SQL.BalanceSheetReport();
+            
             string date = DateTime.Today.ToString("yyyy-MM-dd");
-            BalanceSheetFormat(date);
+            BalanceSheetFormat(date, SQL.BalanceSheetReport());
 
         }
         public void BalanceSheetDisplay(string date)
         {
-            balance = SQL.BalanceSheetReport(date);
-            BalanceSheetFormat(date);
+            
+            BalanceSheetFormat(date, SQL.BalanceSheetReport(date));
         }
 
         public void BalanceSheetDisplay(int year)
         {
-            balance = SQL.BalanceSheetReport(year);
+            
             string date = year + "-01-01";
-            BalanceSheetFormat(date);
+            BalanceSheetFormat(date, SQL.BalanceSheetReport(year));
         }
 
 
@@ -634,6 +666,7 @@ namespace login
 
         private void Btn_Balance_Click(object sender, EventArgs e)
         {
+            balance = null;
             int.TryParse(DateTime.Now.Year.ToString(), out int curYear);
             int.TryParse(DateTime.Now.Month.ToString(), out int curMonth);
             int selecteMonth = cmBx_Month.SelectedIndex;
@@ -703,7 +736,7 @@ namespace login
 
         private void Btn_balanceReport_Click(object sender, EventArgs e)
         {
-
+            balance = null;
             int.TryParse(DateTime.Now.Year.ToString(), out int curYear);
             int.TryParse(DateTime.Now.Month.ToString(), out int curMonth);
             int selecteMonth = cmBx_Month.SelectedIndex;
@@ -721,6 +754,7 @@ namespace login
                     if (txt_Year.Text.Trim().ToLower() == "year")
                     {
                         BalanceSheetDisplay();
+                        
 
                     }
                     // outside of year values
