@@ -900,7 +900,7 @@ namespace CcnSession
             {
                 //order number is not user inputed on the top app, so this is a safe string.
                 //this is if a user is unclaiming the order, so emp_num is set back to 0.
-                string sql = "UPDATE order_history SET order_status = 'Received', emp_num='0' WHERE order_num = " + orderNum + ";";
+                string sql = "UPDATE order_history SET order_status = 'Ordered', emp_num='0' WHERE order_num = " + orderNum + ";";
                 SendQry(sql);
             } else
             {
@@ -1595,8 +1595,8 @@ namespace CcnSession
             var cmd = new MySqlCommand()
             {
                 CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND trans_type - 'Sales' OR trans_type = 'Payroll';" +
-                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount, remainder*-1 As 'Due', due_date As 'Entry Date' FROM acct_rec WHERE location = @Store;"+
-                "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount , remainder*-1 AS Due , due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store;"
+                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount,  due_date As 'Entry Date' FROM acct_rec WHERE location = @Store;"+
+                "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount ,  due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store;"
             };
             cmd.Parameters.AddWithValue("@Store", DefaultStore);
 
@@ -1611,9 +1611,9 @@ namespace CcnSession
 
             var cmd = new MySqlCommand()
             {
-                CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND trans_type - 'Sales' OR trans_type = 'Payroll' AND entry_date >= @date AND entry_date < @date + interval 1 month;" +
-                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount, remainder*-1 As 'Due', due_date As 'Entry Date' FROM acct_rec WHERE location = @Store  AND due_date >= @date AND due_date < @date + interval 1 month;" +
-                "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount , remainder*-1 AS Due , due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store  AND due_date >= @date AND due_date < @date + interval 1 month;"
+                CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND (trans_type = 'Sales' OR trans_type = 'Payroll') AND (entry_date >= @date AND entry_date < @date + interval 1 month);" +
+                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount,  due_date As 'Entry Date' FROM acct_rec WHERE location = @Store  AND (due_date >= @date AND due_date < @date + interval 1 month);" +
+                "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount ,  due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store  AND (due_date >= @date AND due_date < @date + interval 1 month);"
             };
             cmd.Parameters.AddWithValue("@Store", DefaultStore);
             cmd.Parameters.AddWithValue("@date", date);
@@ -1629,9 +1629,9 @@ namespace CcnSession
             string date = year + "-01-01";
             var cmd = new MySqlCommand()
             {
-                CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND trans_type - 'Sales' OR trans_type = 'Payroll' entry_date >= @date AND entry_date < @date + interval 1 year;" +
-                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount, remainder*-1 As 'Due', due_date As 'Entry Date' FROM acct_rec WHERE location = @Store  AND due_date >= @date AND due_date < @date + interval 1 year;" +
-                "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount , remainder*-1 AS Due , due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store  AND due_date >= @date AND due_date < @date + interval 1 year;"
+                CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND (trans_type = 'Sales' OR trans_type = 'Payroll') AND (entry_date >= @date AND entry_date < @date + interval 1 year);" +
+                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount,  due_date As 'Entry Date' FROM acct_rec WHERE location = @Store  AND (due_date >= @date AND due_date < @date + interval 1 year);" +
+                "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount ,  due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store  AND (due_date >= @date AND due_date < @date + interval 1 year);"
             };
             cmd.Parameters.AddWithValue("@Store", DefaultStore);
             cmd.Parameters.AddWithValue("@date", date);
