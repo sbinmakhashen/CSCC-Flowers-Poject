@@ -366,7 +366,7 @@
             this.lbl_NetIncome.AutoSize = true;
             this.lbl_NetIncome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_NetIncome.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbl_NetIncome.Location = new System.Drawing.Point(705, 489);
+            this.lbl_NetIncome.Location = new System.Drawing.Point(729, 489);
             this.lbl_NetIncome.Name = "lbl_NetIncome";
             this.lbl_NetIncome.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lbl_NetIncome.Size = new System.Drawing.Size(196, 36);
@@ -414,7 +414,7 @@
             this.lbl_operatingProfit.AutoSize = true;
             this.lbl_operatingProfit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_operatingProfit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbl_operatingProfit.Location = new System.Drawing.Point(705, 421);
+            this.lbl_operatingProfit.Location = new System.Drawing.Point(729, 421);
             this.lbl_operatingProfit.Name = "lbl_operatingProfit";
             this.lbl_operatingProfit.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lbl_operatingProfit.Size = new System.Drawing.Size(196, 36);
@@ -546,7 +546,7 @@
             this.lbl_revenue.AutoSize = true;
             this.lbl_revenue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_revenue.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbl_revenue.Location = new System.Drawing.Point(710, 99);
+            this.lbl_revenue.Location = new System.Drawing.Point(728, 99);
             this.lbl_revenue.Name = "lbl_revenue";
             this.lbl_revenue.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lbl_revenue.Size = new System.Drawing.Size(191, 39);
@@ -721,7 +721,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv_reports.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgv_reports.Location = new System.Drawing.Point(0, 13);
+            this.dgv_reports.Location = new System.Drawing.Point(0, 8);
             this.dgv_reports.Margin = new System.Windows.Forms.Padding(2);
             this.dgv_reports.Name = "dgv_reports";
             this.dgv_reports.ReadOnly = true;
@@ -820,7 +820,7 @@
             this.lbl_TotalPositive.AutoSize = true;
             this.lbl_TotalPositive.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_TotalPositive.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbl_TotalPositive.Location = new System.Drawing.Point(705, 567);
+            this.lbl_TotalPositive.Location = new System.Drawing.Point(728, 567);
             this.lbl_TotalPositive.Name = "lbl_TotalPositive";
             this.lbl_TotalPositive.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lbl_TotalPositive.Size = new System.Drawing.Size(215, 39);

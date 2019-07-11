@@ -316,63 +316,86 @@ namespace login
         }
 
 
-        public void BalanceSheetFormat()
+        public void BalanceSheetFormat(string date)
         {
             var b = new balanceData();
 
             dgv_reports.DataSource = balance;
 
             b = SQL.BalanceCompile(balance);
+            double futureRec = SQL.FutureRec(date);
 
             dgv_reports.Hide();
             lbl_ReportName.Text = "Balance Sheet Report";
             grp_StatementDisplay.Text = "Balance Sheet";
 
             title_TotalRevenue.Text = "Assets";
+            lbl_revenue.Hide();
             title_Asset.Show();
+            title_ActRec.Show();
             title_ActRec.Text = "Cash";
+            lbl_acctRec.Show();
             lbl_acctRec.Text = b.Cash.ToString("c2");
             title_Inventory.Text = "Inventory";
+            lbl_inventory.Text = b.Inventory.ToString("c2");
             title_Gross.Text = "Prepaid Insurance";
+            lbl_gross.Text = b.Insurance.ToString("c2");
+            lbl_totalAssets.Text = b.TotalPhysAsset().ToString("c2");
             title_AssetTotal.Show();
             title_Intang.Show();
             title_tradeName.Show();
+            lbl_tradeName.Text = b.Trademark.ToString("c2");
             lbl_tradeName.Show();
             lbl_totalAssets.Show();
             title_OperProf.Text = "Total Intangible Assets";
+            lbl_operatingProfit.Text = b.TotalIntang().ToString("c2");
+            
             title_NetIncome.Text = "Other Assets";
+            lbl_NetIncome.Text = b.Other.ToString("c2");
             title_TotalPositive.Show();
             lbl_TotalPositive.Show();
+            lbl_TotalPositive.Text = b.TotalAsset().ToString("c2");
             Title_OperExpensesCategory.Text = "Liabilities";
             title_AcctPay.Text = "Accounts Payable";
+            lbl_actPay.Text = b.Payable.ToString("c2");
+            lbl_payroll.Text = b.Payroll.ToString("c2");
             title_Utilities.Text = "Unearned Receivables";
+            lbl_utilities.Text = b.Receivable.ToString("c2");
             title_Marketing.Text = "Taxes payable";
+            lbl_Marketing.Text = b.Taxes.ToString("c2");
             title_Expenses.Hide();
             lbl_expenses.Hide();
             title_TotalOpCost.Text = "Current Liabilites";
+            lbl_TotalExpense.Text = b.CurrLiab().ToString("c2");
             title_Taxes.Text = "Long Term Payable";
+            lbl_Taxes.Text = futureRec.ToString("c2");
             title_totalLiable.Show();
             lbl_totalLiable.Show();
+            lbl_totalLiable.Text = (futureRec+b.CurrLiab()).ToString("c2");
 
 
         }
 
+
+
         public void BalanceSheetDisplay()
         {
             balance = SQL.BalanceSheetReport();
-            BalanceSheetFormat();
+            string date = DateTime.Today.ToString("yyyy-MM-dd");
+            BalanceSheetFormat(date);
 
         }
         public void BalanceSheetDisplay(string date)
         {
             balance = SQL.BalanceSheetReport(date);
-            BalanceSheetFormat();
+            BalanceSheetFormat(date);
         }
 
         public void BalanceSheetDisplay(int year)
         {
             balance = SQL.BalanceSheetReport(year);
-            BalanceSheetFormat();
+            string date = year + "-01-01";
+            BalanceSheetFormat(date);
         }
 
 
