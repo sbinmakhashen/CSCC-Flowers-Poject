@@ -18,6 +18,29 @@ namespace CcnSession
 
         public double Payroll { get; set; }
         public double Insurance { get; set; }
+        public double Other { get; set; }
+
+
+        public double TotalIntang()
+        {
+            return Trademark;
+        }
+
+        public double TotalPhysAsset()
+        {
+            return Cash + Inventory + Insurance;
+        }
+
+        public double TotalAsset()
+        {
+            return TotalIntang() + TotalPhysAsset() +Other;
+        }
+
+        public double CurrLiab()
+        {
+            return Payroll + Receivable + Payable + Taxes;
+        }
+        
 
     }
 }

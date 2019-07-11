@@ -1641,6 +1641,25 @@ namespace CcnSession
 
         }
 
+        public static double FutureRec(string date)
+        {
+            var cmd = new MySqlCommand()
+                {
+                
+                CommandText = "SELECT SUM(remainder) AS total FROM acct_rec WHERE paid_date = 0 AND due_date >= @date + interval 1 month AND location = @store;"
+            };
+
+            cmd.Parameters.AddWithValue("@store", DefaultStore);
+            cmd.Parameters.AddWithValue("@date", date);
+
+            var data = new DataTable();
+            data = SelectQry(cmd);
+
+            double.TryParse(data.Rows[0]["Total"].ToString(), out double x);
+
+            return x;
+        }
+
 
         public static balanceData BalanceCompile(DataTable dt)
         {
@@ -1659,18 +1678,18 @@ namespace CcnSession
                 {
 
                     double.TryParse(row[3].ToString(), out double d);
-                    b.Payroll += d;
+                    b.Payroll += -d;
 
                 }
                 if (row[1].ToString() == "AcctRec")
                 {
                     double.TryParse(row[3].ToString(), out double d);
-                    b.Receivable += d;
+                    b.Receivable += -d;
                 }
                 if (row[1].ToString() == "AcctPay")
                 {
                     double.TryParse(row[3].ToString(), out double d);
-                    b.Payable += d;
+                    b.Payable += -d;
                 }
             }
 
@@ -1689,6 +1708,7 @@ namespace CcnSession
             b.Taxes = b.Cash * .055;
             b.Insurance = b.Cash * .001 + b.Taxes * .001;
             b.Trademark = b.Cash * .07 + b.Insurance * .39;
+            b.Other = (b.Cash / 50) * .1;
             return b;
         }
 
