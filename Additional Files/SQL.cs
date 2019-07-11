@@ -1481,32 +1481,218 @@ namespace CcnSession
 
         }
 
-        public static DataTable ProfitLossReport()
+        //returns current month as default
+        public static PLState ProfitLossReport()
         {
-            var data = new DataTable();
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "SELECT trans_type, amt, particular FROM financials WHERE location = @store ORDER BY entry_date;"
+            };
+            cmd.Parameters.AddWithValue("@store", DefaultStore);
+
+            
+
+                try
+                {
+                    return ProfitRead(cmd);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                
+            
+        }
+
+        public static PLState ProfitLossReport(string date, int month)
+        {
+
+            
+                var profitLoss = new PLState();
+
+                
+
+                
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT trans_type, amt, particular FROM financials WHERE location = @store AND entry_date >= @date AND entry_date < @date +interval 1 month ORDER BY entry_date;"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
+                cmd.Parameters.AddWithValue("@date", date);
+                try
+                {
+                    profitLoss =  ProfitRead(cmd);
+                    string trimDate = date.Trim(new char[] { ' ', '-' });
 
 
-            return data;
+                    int.TryParse(trimDate.Substring(0, 4), out int year);
+                    profitLoss.SetMonth(month);
+                    profitLoss.Year = year;
+                    return profitLoss;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            
+        }
+        public static PLState ProfitLossReport(int year)
+        {
+
+            
+                var profitLoss = new PLState();
+
+                string date = year + "-01-01";
+                profitLoss.Year = year;
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT trans_type, amt, particular FROM financials WHERE location = @store AND entry_date >= @date AND entry_date < @date +interval 1 year ORDER BY entry_date;"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
+                cmd.Parameters.AddWithValue("@date", date);
+                try
+                {
+                    profitLoss = ProfitRead(cmd);
+                    
+                    profitLoss.Year = year;
+                    return profitLoss;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            
+        }
+
+
+        public static PLState CashFlowReport()
+        {
+            return ProfitLossReport();
+            
 
         }
 
-        public static DataTable CashFlowReport()
+        public static PLState CashFlowReport(string date, int month)
         {
-            var data = new DataTable();
+            return ProfitLossReport(date, month);
 
-
-            return data;
 
         }
+
+        public static PLState CashFlowReport(int year)
+        {
+            return ProfitLossReport(year);
+
+
+        }
+
+
 
         public static DataTable BalanceSheetReport()
         {
-            var data = new DataTable();
+            
 
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND trans_type - 'Sales' OR trans_type = 'Payroll';" +
+                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount, remainder*-1 As 'Due', due_date As 'Entry Date' FROM acct_rec WHERE location = @Store;"+
+                "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount , remainder*-1 AS Due , due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store;"
+            };
+            cmd.Parameters.AddWithValue("@Store", DefaultStore);
 
-            return data;
+      
+            return BalanceReader(cmd);
 
         }
+
+        public static DataTable BalanceSheetReport(string date)
+        {
+
+
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND trans_type - 'Sales' OR trans_type = 'Payroll' AND entry_date >= @date AND entry_date < @date + interval 1 month;" +
+                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount, remainder*-1 As 'Due', due_date As 'Entry Date' FROM acct_rec WHERE location = @Store  AND due_date >= @date AND due_date < @date + interval 1 month;" +
+                "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount , remainder*-1 AS Due , due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store  AND due_date >= @date AND due_date < @date + interval 1 month;"
+            };
+            cmd.Parameters.AddWithValue("@Store", DefaultStore);
+            cmd.Parameters.AddWithValue("@date", date);
+
+
+            return BalanceReader(cmd);
+
+        }
+
+        public static DataTable BalanceSheetReport(int year)
+        {
+
+            string date = year + "-01-01";
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND trans_type - 'Sales' OR trans_type = 'Payroll' entry_date >= @date AND entry_date < @date + interval 1 year;" +
+                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount, remainder*-1 As 'Due', due_date As 'Entry Date' FROM acct_rec WHERE location = @Store  AND due_date >= @date AND due_date < @date + interval 1 year;" +
+                "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount , remainder*-1 AS Due , due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store  AND due_date >= @date AND due_date < @date + interval 1 year;"
+            };
+            cmd.Parameters.AddWithValue("@Store", DefaultStore);
+            cmd.Parameters.AddWithValue("@date", date);
+
+
+            return BalanceReader(cmd);
+
+        }
+
+
+        public static balanceData BalanceCompile(DataTable dt)
+        {
+            var b = new balanceData();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                if(row[1].ToString()=="Sales")
+                {
+                    
+                    double.TryParse(row[3].ToString(), out double d);
+                    b.Cash += d;
+     
+                }
+                if (row[1].ToString() == "Payroll")
+                {
+
+                    double.TryParse(row[3].ToString(), out double d);
+                    b.Payroll += d;
+
+                }
+                if (row[1].ToString() == "AcctRec")
+                {
+                    double.TryParse(row[3].ToString(), out double d);
+                    b.Receivable += d;
+                }
+                if (row[1].ToString() == "AcctPay")
+                {
+                    double.TryParse(row[3].ToString(), out double d);
+                    b.Payable += d;
+                }
+            }
+
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "SELECT SUM(s.qty * i.purchase_cost) AS Total FROM store_inventory s JOIN items i ON i.item_id = s.item_id WHERE s.location=@store;"
+            };
+            cmd.Parameters.AddWithValue("@store", DefaultStore);
+
+            var data = new DataTable();
+            data = SelectQry(cmd);
+
+            double.TryParse(data.Rows[0]["Total"].ToString(), out double x);
+            b.Inventory = x;
+
+            b.Taxes = b.Cash * .055;
+            b.Insurance = b.Cash * .001 + b.Taxes * .001;
+            b.Trademark = b.Cash * .07 + b.Insurance * .39;
+            return b;
+        }
+
+
 
         public static void NewLedgerEntry(string type, string particular, double amt)
         {
@@ -1605,11 +1791,207 @@ namespace CcnSession
 
         /*Private Internal Functions */
 
+
+
+
+        private static DataTable BalanceReader(MySqlCommand cmd)
+        {
+            var data = new DataTable("Balance Report");
+            DataColumn column;
+            DataRow row;
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.Int32");
+            column.ColumnName = "id";
+            column.ReadOnly = true;
+            column.Unique = true;
+            // Add the Column to the DataColumnCollection.
+            data.Columns.Add(column);
+
+
+            // Create second column.
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "TransactionType";
+            column.AutoIncrement = false;
+            column.Caption = "Transaction";
+            column.ReadOnly = false;
+            column.Unique = false;
+            // Add the column to the table.
+            data.Columns.Add(column);
+
+            
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Details";
+            column.AutoIncrement = false;
+            column.Caption = "Details";
+            column.ReadOnly = false;
+            column.Unique = false;
+            data.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.Double");
+            column.ColumnName = "Amount";
+            column.AutoIncrement = false;
+            column.Caption = "Amount";
+            column.ReadOnly = false;
+            column.Unique = false;
+            data.Columns.Add(column);
+
+            
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "EntryDate";
+            column.AutoIncrement = false;
+            column.Caption = "Date";
+            column.ReadOnly = false;
+            column.Unique = false;
+            data.Columns.Add(column);
+
+            
+
+            // Make the ID column the primary key column.
+            DataColumn[] PrimaryKeyColumns = new DataColumn[1];
+            PrimaryKeyColumns[0] = data.Columns["id"];
+            data.PrimaryKey = PrimaryKeyColumns;
+
+            int i = 0; //counter
+
+            using (var cnn = new MySqlConnection(cnnStr.ConnectionString))
+            {
+
+
+
+                MySqlDataReader rdr = null;
+                try
+                {
+                    cmd.Connection = cnn;
+                    cnn.Open();
+
+                    Console.WriteLine("Connection:  {0}", cnn.State);
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
+
+                    rdr = cmd.ExecuteReader();
+                    while(rdr.HasRows)
+                    {
+                        while (rdr.Read())
+                        {
+                            row = data.NewRow();
+                            row["id"] = i;
+                            row[1] = rdr.GetString(0);
+                            row[2] = rdr.GetString(1);
+                            row[3] = rdr.GetDouble(2);
+                            row[4] = rdr.GetString(3);
+                            data.Rows.Add(row);
+                            i++;
+                            
+                        }
+                        rdr.NextResult();
+                    }
+                    
+
+                    return data;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+        }
+
+
+        /* PorfitRead() No overloads
+         * 
+         * this is the function that reads in the data from the General Ledger to create the Profit Loss
+         * sheet and the Cashflow sheet.
+         * 
+         */
+
+
+        private static PLState ProfitRead(MySqlCommand cmd)
+        {
+            var profitLoss = new PLState();
+
+            using (var cnn = new MySqlConnection(cnnStr.ConnectionString))
+            {
+
+
+
+                MySqlDataReader rdr = null;
+                try
+                {
+                    cmd.Connection = cnn;
+                    cnn.Open();
+
+                    Console.WriteLine("Connection:  {0}", cnn.State);
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
+
+                    rdr = cmd.ExecuteReader();
+
+                    while (rdr.Read())
+                    {
+                        if (rdr.GetString(0) == "Payroll")
+                        {
+                            profitLoss.Payroll += rdr.GetDouble(1);
+
+                        }
+                        else if (rdr.GetString(0) == "Utilities")
+                        {
+                            profitLoss.Utilities += rdr.GetDouble(1);
+
+                        }
+                        else if (rdr.GetString(0) == "Inventory")
+                        {
+                            profitLoss.Inventory += rdr.GetDouble(1);
+
+                        }
+                        else if (rdr.GetString(0) == "Expense")
+                        {
+                            if(rdr.GetString(2).Substring(0,5)== "Vendo")
+                            {
+                                profitLoss.Vendor += rdr.GetDouble(1);
+                            } else if (rdr.GetString(2).Substring(0, 5) == "Marke" || rdr.GetString(2).Substring(0, 5) == "Addit")
+                            {
+                                profitLoss.Marketing += rdr.GetDouble(1);
+
+                            } else if (rdr.GetString(2).Substring(0, 5) == "Petty")
+                            {
+                                profitLoss.Expenses += rdr.GetDouble(1);
+                            } else
+                                profitLoss.Expenses += rdr.GetDouble(1);
+
+                        }
+                        else if (rdr.GetString(0) == "Sales")
+                        {
+                            if(rdr.GetString(2).Substring(0, 4) == "Acct")
+                            {
+                                profitLoss.Receivable += rdr.GetDouble(1);
+                            } else
+                                profitLoss.Sales += rdr.GetDouble(1);
+
+                        }
+
+
+
+                    }
+
+                    return profitLoss;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+
         /* GetStore() - no overloads - private - internal use Only
          * 
          * used to get the store of the logged in account.
          */
-
         private static string GetStore()
         {
             try
