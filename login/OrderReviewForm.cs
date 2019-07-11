@@ -58,8 +58,11 @@ namespace login
                 dataGridView1.Columns[0].Visible = false;
                 dataGridView1.Columns[1].HeaderText = "Delivery Address";
                 dataGridView1.Columns[2].HeaderText = "Ordered On";
+                dataGridView1.Columns[2].DefaultCellStyle.Format = "d";
                 dataGridView1.Columns[3].HeaderText = "Delivery By";
+                dataGridView1.Columns[3].DefaultCellStyle.Format = "d";
                 dataGridView1.Columns[4].HeaderText = "Total Cost";
+                dataGridView1.Columns[4].DefaultCellStyle.Format = "c2";
                 dataGridView1.Columns[5].HeaderText = "Payment Status";
                 dataGridView1.Columns[6].HeaderText = "Order Status";
                 dataGridView1.Columns[7].HeaderText = "Order Number";
