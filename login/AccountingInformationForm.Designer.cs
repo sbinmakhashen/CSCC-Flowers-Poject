@@ -34,7 +34,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dgv_accounting = new System.Windows.Forms.DataGridView();
             this.buttonReset = new System.Windows.Forms.Button();
-            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.btn_AcctPay = new System.Windows.Forms.Button();
             this.btn_AcctRec = new System.Windows.Forms.Button();
             this.lbl_store = new System.Windows.Forms.Label();
@@ -125,21 +124,6 @@
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = false;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
-            // 
-            // textBoxSearch
-            // 
-            this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSearch.ForeColor = System.Drawing.Color.IndianRed;
-            this.textBoxSearch.Location = new System.Drawing.Point(330, 192);
-            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6);
-            this.textBoxSearch.Multiline = true;
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(860, 89);
-            this.textBoxSearch.TabIndex = 29;
-            this.textBoxSearch.Text = "Search here....";
-            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
-            this.textBoxSearch.Enter += new System.EventHandler(this.textBoxSearch_Enter);
-            this.textBoxSearch.Leave += new System.EventHandler(this.textBoxSearch_Leave);
             // 
             // btn_AcctPay
             // 
@@ -252,7 +236,6 @@
             this.Controls.Add(this.lbl_store);
             this.Controls.Add(this.btn_AcctRec);
             this.Controls.Add(this.btn_AcctPay);
-            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.dgv_accounting);
             this.Controls.Add(this.label2);
@@ -278,7 +261,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgv_accounting;
         private System.Windows.Forms.Button buttonReset;
-        private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button btn_AcctPay;
         private System.Windows.Forms.Button btn_AcctRec;
         private System.Windows.Forms.Label lbl_store;

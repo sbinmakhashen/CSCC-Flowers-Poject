@@ -93,25 +93,6 @@ namespace login
            
         }
 
-        private void textBoxSearch_Enter(object sender, EventArgs e)
-        {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here...."))
-            {
-                textBoxSearch.Text = "";
-                textBoxSearch.ForeColor = Color.Black;
-            }
-        }
-
-        private void textBoxSearch_Leave(object sender, EventArgs e)
-        {
-            String fname = textBoxSearch.Text;
-            if (fname.ToLower().Trim().Equals("search here....") || fname.Trim().Equals(""))
-            {
-                textBoxSearch.Text = "Search Here....";
-                textBoxSearch.ForeColor = Color.IndianRed;
-            }
-        }
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {

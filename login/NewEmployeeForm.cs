@@ -259,7 +259,7 @@ namespace login
 
                 } else if( Math.Round(pay, 2) != pay)
                 {
-                    throw new Exception("Pay Rate cannot be a fraction of a cent.")
+                    throw new Exception("Pay Rate cannot be a fraction of a cent.");
                 }
 
                 else
