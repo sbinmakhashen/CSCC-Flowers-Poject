@@ -104,6 +104,12 @@ namespace login
 
                 ChangeStatus(result, "Received");
             }
+            else if (curStatus == "Received" && claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum == 0)
+            {
+                DialogResult result = MessageBox.Show("This order is already set as Recieved, but unclaimed. Are you sure you want to claim it?", "Already Claimed", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                ChangeStatus(result, "Received");
+            }
 
 
             else if (curStatus == "Processed" || curStatus == "Canceled" || curStatus == "Out For Delivery" || curStatus == "Delivered")
@@ -111,6 +117,11 @@ namespace login
                DialogResult result= MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 ChangeStatus(result, "Received");
+            }
+            else
+            {
+                
+                ChangeStatus(DialogResult.Yes, "Received");
             }
         }
 
@@ -124,22 +135,27 @@ namespace login
         {
             if (claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum !=0)
             {
-                DialogResult result = MessageBox.Show("You do not have this order. Do you want to unclaim it?", "Already Claimed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ChangeStatus(result, 0);
+                DialogResult result = MessageBox.Show("You do not have this order. Do you want to remove the current claim?", "Already Claimed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ChangeStatus(result, "Ordered");
 
             }
             else if (curStatus == "Ordered"  || claimedEmpNum == 0)
             {
-                DialogResult result = MessageBox.Show("This order is not yet claimed. Please claim it before unclaiming.", "Not Yet Claimed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("This order is not yet claimed. There is no need to Unclaim it.", "Not Yet Claimed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
 
 
-            else if (curStatus == "Processed" || curStatus == "Canceled" || curStatus == "Out For Delivery")
+            else if (curStatus == "Received" || curStatus == "Processed" || curStatus == "Canceled" || curStatus == "Out For Delivery")
             {
-                DialogResult result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("This order currently has the status of " + curStatus + ".\nThis will return the status to Unclaimed and Not Yet Recieved.\nAre you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                ChangeStatus(result, 0);
+                ChangeStatus(result, "Ordered");
+            }
+            else
+            {
+
+                ChangeStatus(DialogResult.Yes, "Ordered");
             }
         }
 
@@ -147,7 +163,7 @@ namespace login
         {
             if (claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum != 0)
             {
-                DialogResult result = MessageBox.Show("You do not have this order. Do you want to set its status as Ready for delivery?", "Already Claimed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show("You are not the Processor of this Order. Do you want to set its status as Ready for delivery?", "Already Claimed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ChangeStatus(result, "Processed");
 
             }
@@ -161,6 +177,11 @@ namespace login
                 DialogResult result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 ChangeStatus(result, "Processed");
+            }
+            else
+            {
+
+                ChangeStatus(DialogResult.Yes, "Processed");
             }
         }
 
@@ -182,6 +203,11 @@ namespace login
                 DialogResult result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 ChangeStatus(result, "Out For Delivery");
+            }
+            else
+            {
+
+                ChangeStatus(DialogResult.Yes, "Out For Delivery");
             }
         }
 
@@ -221,9 +247,19 @@ namespace login
 
                 try
                 {
-                    SQL.ChangeStatus(orderNum, status);
-                    MessageBox.Show("Order Status updated to " + status + ".", "Order Status Changed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    DisplayData();
+                    if(status == "Ordered")
+                    {
+                        ChangeStatus(DialogResult.Yes, 0);
+                        SQL.ChangeStatus(orderNum, status);
+                        SQL.ChangeStatus(orderNum, 0);
+                    }
+                    else
+                    {
+                        SQL.ChangeStatus(orderNum, status);
+                        MessageBox.Show("Order Status updated to " + status + ".", "Order Status Changed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DisplayData();
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -233,7 +269,7 @@ namespace login
             }
             else
             {
-                MessageBox.Show("The order status was not changed. It is still" + curStatus + ".", "No change made", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("The order status was not changed. It is still " + curStatus + ".", "No change made", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -249,6 +285,7 @@ namespace login
                     if(emp == 0)
                     {
                         MessageBox.Show("Order status reverted to unclaimed.", "Order Status Changed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        lbl_OrderStatus.Text = "Ordered";
                     }else
                     {
                         var data = new DataTable();
