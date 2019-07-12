@@ -21,18 +21,74 @@
 
 # TO DO for Anthony
 
+## Current To DO
+
+
+
+### Move Inventory
+* View Other Stores Inventory (But Not Update)
+* Move Inventory to Other Store (manager only, move OUT, not IN)
+
+
+### OrderDetail Adjust Inventory
+* Set For Delivery on OrderDetails removes qty from Store_Inventory
+* Set back to any previous statement Adds it back.
+
+### AcctRec 
+* Change button to say Pay Receied
+* When payment made, add to General Ledger
+
+
+### HR Employee Level
+* Change Anyone's PW
+* Change Anyone's Info
+* Change Anyone to Manager or Employee
+
+### Password Security
+
+* Database for PW Changes
+
+#### Table for Pw Changes
+* id
+* emp_num (fkey)
+* time_changed
+* previous_hash
+* previous_salt
+
+#### Methods for PW Changes
+* count (23)
+* check vs previous_hash
+
+* Lockout
+
+#### Table for Lockout
+* id
+* emp_num (fkey)
+* timestamp
+* attempt# (in last 15 mins)
+
+
+
+#### Methods for Lockout
+* check if 3 errors in 15 mins
+* add incorrect attempt
+* show attempts remaining
+
+
+## Old
+
 ## High Priority
 * ~~Get the Search on Order History by Date to work.~~ done, and working very well.
 * Accounting - ~~Acct Rec and Acct Payable~~ - ~~Can view~~
 + ~~CRUD operations for Managers~~ - New Acct Rec??
-* Reports - Ledgers and what not.
+* ~Reports - Ledgers and what not.~
 * View - but not adjust - other stores Inventory (related to The Problem)
 * Send Inventory to another store if Managers
 
 ## Medium Priority
 * Additional employee level. HR
 + Change other employees PWs, update employee information.
-* Prevent Managers from changing their own store location.
+* ~Prevent Managers from changing their own store location~.
 
 * Table design for PW changes 
 + Time Changed
