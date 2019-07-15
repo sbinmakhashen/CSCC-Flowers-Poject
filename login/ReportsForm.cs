@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -260,6 +261,28 @@ namespace login
             dgv_reports.Columns[5].HeaderText = "Entry Date";
             dgv_reports.Columns[5].DefaultCellStyle.Format = "d";
             dgv_reports.Sort(dgv_reports.Columns[5], ListSortDirection.Ascending);
+
+            int.TryParse(txt_Year.Text, out int year);
+
+            if (cmBx_Month.SelectedIndex != -1 &&  year != 0)
+            {
+                lbl_StateDate.Text = "Report for " + cmBx_Month.Text + " " + year;
+            }
+            else if (cmBx_Month.SelectedIndex == -1 && year != 0)
+            {
+                if (year == DateTime.Today.Year)
+                {
+                    lbl_StateDate.Text = "Report for the year of " + year + " through the month of " + DateTime.Today.ToString("MMMM");
+                }
+                else
+                {
+                    lbl_StateDate.Text = "Report for the year of " + year;
+                }
+            }
+            else if (cmBx_Month.SelectedIndex == -1 && year == 0)
+            {
+                lbl_StateDate.Text = "Full Life of Store (From Jan 2010 to Now)";
+            }
         }
         public void GeneralDisplay()
         {
