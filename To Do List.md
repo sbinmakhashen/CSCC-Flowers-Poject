@@ -69,10 +69,10 @@
 
 
 
-#### Methods for Lockout
-* check if 3 errors in 15 mins
-* add incorrect attempt
-* show attempts remaining
+#### ~~Methods for Lockout~~
+* ~~check if 3 errors in 15 mins~~
+* ~~add incorrect attempt~~
+* ~~show attempts remaining~~
 
 
 ## Old
