@@ -23,12 +23,9 @@
 
 ## Current To DO
 
-
-
 ### Move Inventory
 * View Other Stores Inventory (But Not Update)
 * Move Inventory to Other Store (manager only, move OUT, not IN)
-
 
 ### OrderDetail Adjust Inventory
 * Set For Delivery on OrderDetails removes qty from Store_Inventory
@@ -38,34 +35,37 @@
 * Change button to say Pay Receied
 * When payment made, add to General Ledger
 
-
 ### HR Employee Level
 * Change Anyone's PW
 * Change Anyone's Info
 * Change Anyone to Manager or Employee
 
-### Password Security
 
-* Database for PW Changes
+## Finished To Do
 
-#### Table for Pw Changes
-* id
-* emp_num (fkey)
-* time_changed
-* previous_hash
-* previous_salt
 
-#### Methods for PW Changes
-* count (23)
-* check vs previous_hash
+### ~~Password Security~~
 
-* Lockout
+* ~~Database for PW Changes~~
 
-#### Table for Lockout
-* id
-* emp_num (fkey)
-* timestamp
-* attempt# (in last 15 mins)
+#### ~~Table for Pw Changes~~
+* ~~id~~
+* ~~emp_num (fkey)~~
+* ~~time_changed~~
+* ~~previous_hash~~
+* ~~previous_salt~~
+
+#### ~~Methods for PW Changes~~
+* ~~count (23)~~
+* ~~check vs previous_hash~~
+
+* ~~Lockout~~
+
+#### ~~Table for Lockout~~
+* ~~id~~
+* ~~emp_num (fkey)~~
+* ~~timestamp~~
+* ~~attempt# (in last 15 mins)~~
 
 
 
