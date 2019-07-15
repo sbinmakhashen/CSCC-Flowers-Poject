@@ -25,11 +25,12 @@ namespace login
         {
             try
             {
-                if (SQL.ChkPassword(txt_CurrentPW.Text))
+                if (SQL.ChkPasswordNoFail(txt_CurrentPW.Text))
                 {
                     
                     if(txt_NewPW.Text == txt_CurrentPW.Text)
                     {
+                       
                         throw new Exception("New Password must be different than current.");
                     }
                     if (!uF.CheckPWValid(txt_NewPW.Text))
@@ -38,7 +39,17 @@ namespace login
                     }
                     if (txt_NewPW.Text == txt_ConfirmNewPW.Text)
                     {
+                        /* this throws a bunch of possibe erorrs if the new PW does not meet the 
+                         * required secuirty protocols:
+                         * 
+                         * not used within the last 15 pws changes
+                         * 
+                         * not changed less than 24 hours ago
+                         * 
+                         */
+
                         SQL.ChangePassword(txt_NewPW.Text);
+                        
                         DialogResult result = MessageBox.Show("Your password has been succesfully changed", "Password Changed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if(result == DialogResult.OK)
                         {

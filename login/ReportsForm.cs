@@ -367,21 +367,38 @@ namespace login
             if (b.Month != 0 && b.Year != 0)
             {
                 lbl_StateDate.Text = "Report for " + b.LongMonth + " " + b.Year;
+
+                //We don't need Future Liable Acct Rec that hasn't yet been paid in old reports.
+                title_Taxes.Hide();
+                lbl_Taxes.Hide();
+                lbl_totalLiable.Text = b.CurrLiab().ToString("c2");
+
             }
             else if (b.Month == 0 && b.Year != 0)
             {
                 if (b.Year == DateTime.Today.Year)
                 {
                     lbl_StateDate.Text = "Report for the year of " + b.Year + " through the month of " + DateTime.Today.ToString("MMMM");
+                    lbl_totalLiable.Text = (futureRec + b.CurrLiab()).ToString("c2");
+                    title_Taxes.Show();
+                    lbl_Taxes.Show();
                 }
                 else
                 {
                     lbl_StateDate.Text = "Report for the year of " + b.Year;
+                    //We don't need Future Liable Acct Rec that hasn't yet been paid in old reports.
+                    title_Taxes.Hide();
+                    lbl_Taxes.Hide();
+                    lbl_totalLiable.Text = b.CurrLiab().ToString("c2");
                 }
             }
             else if (b.Month == 0 && b.Year == 0)
             {
                 lbl_StateDate.Text = "Full Life of Store (From Jan 2010 to Now)";
+
+                lbl_totalLiable.Text = (futureRec + b.CurrLiab()).ToString("c2");
+                title_Taxes.Show();
+                lbl_Taxes.Show();
             }
 
             title_TotalRevenue.Text = "Assets";
@@ -426,7 +443,7 @@ namespace login
             lbl_Taxes.Text = futureRec.ToString("c2");
             title_totalLiable.Show();
             lbl_totalLiable.Show();
-            lbl_totalLiable.Text = (futureRec+b.CurrLiab()).ToString("c2");
+            
 
 
         }

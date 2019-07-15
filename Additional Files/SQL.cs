@@ -1,5 +1,5 @@
 ﻿/* This class is designed to hold all the information needed to access a mySQL database in the background for a 
- * session. This includes the permission level of the user (currently Employee or Managerm based on the table)
+ * session. This includes the permission level of the user (currently Employee or Manager based on the table)
  * it also holds the connection data, so that it is always the same.
  * 
  * each function that can retrieve or send data to the mySQL database deals with the connection internally
@@ -18,22 +18,8 @@
  * For: Columbus State Community College, CSCI-2999 capstone, su2019.
  */
 
-
-
-
-/* TO DO LIST
- * 
- * More Detailed Exceptions (custom?)
- * 
- * perhaps change some bool functions to throw custom message if false.
- */
-
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using CcnSession.Properties;
 
@@ -49,6 +35,7 @@ namespace CcnSession
         static public string DefaultStore { get; set; }
         public static string Username { get; set; }
         public static bool CurEmp { get; set; }
+        public static int FailPWAttempts { get; set; }
 
         public static int LoggedInEmpNum { get; set; }
 
@@ -69,8 +56,8 @@ namespace CcnSession
         /* Housekeeping Functions
          * 
          * these functions are setup and cleanup of the static object
-         */
-        /* SQL.Setup(username, password) - No Overloads
+         *
+         * SQL.Setup(username, password) - No Overloads
          * 
          * Initializes session.
          * 
@@ -130,7 +117,7 @@ namespace CcnSession
                     CurEmp = false;
                     PwCorrect = false;
                     LoggedInEmpNum = 0;
-                    throw new Exception("Those records do not match our database.");
+                    throw new Exception("Those records do not match our database. \nThis was attempt #"+FailPWAttempts+" of 3.");
                 }
             }
             catch (Exception ex)
@@ -164,7 +151,7 @@ namespace CcnSession
          * these functions are for creating, and updating new user entries in the employee database
          */
 
-        /* SQL.ChkPassword(password) - No Overloads
+        /* SQL.ChkPassword(password) - 1 overload (string, vs Hash+salt)
          * 
          * Checks the password against the database, and returns true if valid, false if not.
          * 
@@ -179,6 +166,10 @@ namespace CcnSession
 
             try
             {
+                if(PwAttempts(GetEmpNum(Username)) >=3)
+                {
+                    throw new Exception("Exceeded Login Attempts. Please wait at least 15 mins before trying again.");
+                }
                 byte[] salt;
                 string hash;
                 var saltData = new DataTable();
@@ -198,6 +189,7 @@ namespace CcnSession
                 }
                 else
                 {
+                    PWAttemptFail(GetEmpNum(Username));
                     return false;
                 }
             } catch (Exception ex)
@@ -207,6 +199,8 @@ namespace CcnSession
             
 
         }
+
+
 
         /* SQL.CreateUser(fname, lname, desiredPW) - no overloads
          * 
@@ -342,10 +336,10 @@ namespace CcnSession
          * 
          * Be sure to ChkPassword BEFORE calling this function.
          * 
-         * returns true if successful, false if not.
+         * throws exceptions upward for use in error messages
          */
 
-        public static bool ChangePassword(string newPW)
+        public static void ChangePassword(string newPW)
         {
             var salt = PasswordHash.GenerateSalt();
             var hash = PasswordHash.ComputeHash(newPW, salt);
@@ -353,33 +347,40 @@ namespace CcnSession
             string saltString = Convert.ToBase64String(salt);
             string hashString = Convert.ToBase64String(hash);
 
-            //if the PWs are the same, then we don't want to change it!
 
-            // really needs exception handling here.
-            if (ChkPassword(newPW))
-            { return false; }
-
-            var cmd = new MySqlCommand()
+            try
             {
-                CommandText = "UPDATE employee SET password = @hash, salt = @salt WHERE username = @username;"
-            }  ;
+                // this method throws errors upward, so if we get one it will exit out without finishing the rest
+                // of this pw change
+                PWProtocol(LoggedInEmpNum, newPW);
 
-            cmd.Parameters.AddWithValue("@hash", hashString);
-            cmd.Parameters.AddWithValue("@salt", saltString);
-            cmd.Parameters.AddWithValue("@username", Username);
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE employee SET password = @hash, salt = @salt WHERE username = @username;"+
+                    "INSERT pw_history (`emp_num`, `hash`, `salt`) VALUES (@empNum, @hash, @salt);"
+                };
 
+                cmd.Parameters.AddWithValue("@hash", hashString);
+                cmd.Parameters.AddWithValue("@salt", saltString);
+                cmd.Parameters.AddWithValue("@username", Username);
+                cmd.Parameters.AddWithValue("@empNum", LoggedInEmpNum);
 
+                /* the SQL query here updates the Employee table with the current new pw for checking, and adds the now
+                 * confirmed to be protocol safe new pw to the pw_history database for checking against the next pw change.
+                 */
 
-            //string sql = "UPDATE employee SET password = '" + hashString + "', salt = '" + saltString + "' WHERE username = '" + Username + "';";
+                if (!SendQry(cmd))
+                {
+                    throw new Exception("Error connecting to the Database. Please contact IT.");
+                }
+                
 
-            if (SendQry(cmd))
+            } catch (Exception ex)
             {
-                return true;
+                throw ex;
             }
-            else
-            {
-                return false;
-            }
+
+            
 
 
 
@@ -419,6 +420,15 @@ namespace CcnSession
             
         }
 
+        /* Update Functions
+         * 
+         * These functions handle the various fields that might need to be updated in the employee database
+         * 
+         * they are individual because only one may need to be updated at a time, and due to time constraints it was easier
+         * to build them like this and check if a field has changed in the main program rather than doing an entire black box
+         * check in the background.
+         * 
+         */
         public static void UpdateFname(int empNum, string fname)
         {
             
@@ -462,7 +472,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
         public static void UpdateStreet(int empNum, string street)
         {
             
@@ -484,7 +493,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
         public static void UpdateCity(int empNum, string city)
         {
             
@@ -506,7 +514,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
         public static void UpdateState(int empNum, string st)
         {
             
@@ -527,7 +534,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
         public static void UpdateZip(int empNum, int zip)
         {
            
@@ -548,7 +554,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
         public static void Promote(int empNum)
         {
             
@@ -568,7 +573,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
         public static void Demote(int empNum)
         {
             
@@ -587,7 +591,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
         public static void Changestore(int empNum, string store)
         {
             
@@ -607,7 +610,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
         public static void ChangePay(int empNum, double newPay)
         {
             
@@ -628,7 +630,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
         public static void Terminate(int empNum)
         {
             
@@ -659,6 +660,15 @@ namespace CcnSession
             }
         }
 
+
+        /* GetGemployee(empNum) 
+         * 
+         * This function pulls up a single row DataTable of the employee based on their empNum
+         * 
+         * this row contains everything needed: fname, lname, address, uname, pwhash, salthash, payrate, start date, end date
+         * 
+         * 
+         */
         public static DataTable GetEmployee(int empNum)
         {
             
@@ -1174,8 +1184,6 @@ namespace CcnSession
             }
 
         }
-
-        
         public static DataTable GetAcRecDetail(int invoiceNum)
         {
             try
@@ -1194,10 +1202,6 @@ namespace CcnSession
             }
 
         }
-
-       
-
- 
         public static void AccRecPmt(int invoiceNum, double pmt)
         {
             try
@@ -1284,6 +1288,8 @@ namespace CcnSession
 
         }
 
+
+
         public static DataTable AcctPay()
         {
             try
@@ -1302,7 +1308,6 @@ namespace CcnSession
             }
 
         }
-
         public static DataTable AcctPay(int id)
         {
             try
@@ -1321,8 +1326,6 @@ namespace CcnSession
             }
 
         }
-
-
         public static void AcctPayPmt(int idNum, double pmt)
         {
             try
@@ -1454,7 +1457,6 @@ namespace CcnSession
 
 
         }
-
         public static DataTable GeneralLedger(int year)
         {
             try
@@ -1503,7 +1505,6 @@ namespace CcnSession
                 
             
         }
-
         public static PLState ProfitLossReport(string date, int month)
         {
 
@@ -1564,21 +1565,26 @@ namespace CcnSession
             
         }
 
-
+        /* CashFlowReport 
+         * 
+         * um. These two reports seem so damn similar to me, just leaving out a few things from one to the other
+         * 
+         * so... i just recalled the functions. The output side of the app only uses what ... needed...(?) but
+         * its all there if I got them backwards!
+         * 
+         */
         public static PLState CashFlowReport()
         {
             return ProfitLossReport();
             
 
         }
-
         public static PLState CashFlowReport(string date, int month)
         {
             return ProfitLossReport(date, month);
 
 
         }
-
         public static PLState CashFlowReport(int year)
         {
             return ProfitLossReport(year);
@@ -1604,7 +1610,6 @@ namespace CcnSession
             return BalanceReader(cmd);
 
         }
-
         public static DataTable BalanceSheetReport(string date)
         {
 
@@ -1622,7 +1627,6 @@ namespace CcnSession
             return BalanceReader(cmd);
 
         }
-
         public static DataTable BalanceSheetReport(int year)
         {
 
@@ -1641,6 +1645,12 @@ namespace CcnSession
 
         }
 
+        /* FutureRec(Date)
+         * 
+         * this function pulls up the Accts Recievable that are still Outstanding and DUE after the current date for the
+         * Balance Sheet Report
+         * 
+         */
         public static double FutureRec(string date)
         {
             var cmd = new MySqlCommand()
@@ -1660,7 +1670,12 @@ namespace CcnSession
             return x;
         }
 
-
+        /*BalanceCombile(DataTable)
+         * 
+         * this function takes the data table and calculates all the necessary values that the Balance Sheet 
+         * will need, storing them in the class BalanceData
+         * 
+         */
         public static balanceData BalanceCompile(DataTable dt)
         {
             var b = new balanceData();
@@ -1745,6 +1760,11 @@ namespace CcnSession
 
         }
 
+        /* LedgerUpdate--x--
+         * 
+         * various Ledger Update fields.
+         * 
+         */
         public static void LedgerUpdateType(int id, string type)
         {
             try
@@ -1812,7 +1832,228 @@ namespace CcnSession
         /*Private Internal Functions */
 
 
+        /* PWProtocol(empNum, newPW)
+         * 
+         * this method will take a desired pw and check it against the pw_history table. It is looking for the following.
+         * 
+         * a) No pw changes in the last 24 hours for the selected empNum
+         * 
+         * b) The PW desired does not exist in the last 15 used pws
+         * 
+         *  throw's exception messages for the app to catch and display as error windows in the pw change prw
+         * 
+         */
+        private static void PWProtocol(int empNum, string newPW)
+        {
+            
 
+            try
+            {
+                if (ChkPassword(newPW)) // this checks to see if the pw is the same as the current pw.
+                {
+                    throw new Exception("Cannot change a password to your current password");
+                    /* I don't believe this is a security risk? if they are able to change the pw they already
+                     * know the current pw based on how it is set up
+                     */
+                }
+
+
+
+
+
+
+                byte[] prevSalt;
+        
+                string prevHashString, prevSaltString;
+                
+                var pwData = new DataTable();
+
+                Console.WriteLine("Getting Previous 15 Hashes");
+                // get the Table pw_history of all values where empNum is the employee number
+                pwData = GetTable("pw_history", "emp_num", empNum.ToString());
+                
+
+                int rows = pwData.Rows.Count;
+
+                DateTime.TryParse(pwData.Rows[rows - 1]["change_date"].ToString(), out DateTime lastPWDate);
+                var now = DateTime.Now;
+                var past24 = now.AddHours(-24);
+                if (lastPWDate > past24 && lastPWDate <= now)
+                {
+                    // if the last pw change was less than 24 hours ago, throw an error
+                    throw new Exception("You must wait at least 24 hours before changing your password again");
+                }
+
+
+                if (rows > 15)
+                {
+                    for (int i = 1; i <= 15; i++)
+                    {
+                        /* this will count down from the last row of the pw_history that was returned, until we
+                         * check 15 rows - the pw protocol requirement of not being able to reuse one of the last
+                         * 15 pws
+                         * 
+                         *  we start i at 1 because rows is a Count, and therefore needs to be one smaller to get the
+                         *  last row index.  Starting i at 1 just removes the need for a -1 anywhere
+                         */
+                        prevSaltString = pwData.Rows[rows - i]["salt"].ToString();
+                        prevHashString = pwData.Rows[rows - i]["hash"].ToString();
+
+                        // convert th saltString into a Byte for the pwHash functions
+                        prevSalt = Convert.FromBase64String(prevSaltString);
+                        /* pass the byte salt and the new pw through the Hash and get the Hash as it would have been
+                         * for an old pw and the salt generated and stored at the time
+                         * 
+                         * so this is a hash (byte[]) of a previous salt with the new pw, that we will check against the old
+                         * hash
+                         */
+                        
+                        var newPWHash = PasswordHash.ComputeHash(newPW, prevSalt);
+
+                        //convert the string of the previous hash into a byte for comparison to the new hash
+                        var prevHash = Convert.FromBase64String(prevHashString);
+                        if (prevHash == newPWHash)
+                        {
+                            /* if the two hashs (one created with this row's salt and the new pw, the other created from
+                             * whatever that pw was + the same hash - so if they are the same, they are the same pw) are same
+                             * return false
+                             */
+
+                            DateTime.TryParse(pwData.Rows[rows - i]["change_date"].ToString(), out DateTime prevPWDate);
+
+                            throw new Exception("You cannot use a pw you have used within the last 15 password changes.\n You last used that password on " + prevPWDate.ToString("yyyy-MM-dd") +".");
+                        }
+
+                    }
+                    /* if we get through the last 15 pw possiblities, and have not thrown an error yet, we can simply exit
+                     * pw isn't in the system yet. 
+                     */
+                    
+                    
+
+                
+                }
+                else // if there are currently less than 15 pw changes
+                {
+                    for (int i = 1; i <= rows; i++)
+                    {
+                        /* this will count down from the last row of the pw_history that was returned, until we hit
+                         * the number of rows in the table, preventing an out of index error.
+                         * 
+                         * we start i at 1 because rows is a Count, and therefore needs to be one smaller to get the
+                         *  last row index.  Starting i at 1 just removes the need for a -1 anywhere
+                         */
+                        prevSaltString = pwData.Rows[rows - i]["salt"].ToString();
+                        prevHashString = pwData.Rows[rows - i]["hash"].ToString();
+
+                        // convert th saltString into a Byte for the pwHash functions
+                        prevSalt = Convert.FromBase64String(prevSaltString);
+                        /* pass the byte salt and the new pw through the Hash and get the Hash as it would have been
+                         * for an old pw and the salt generated and stored at the time
+                         * 
+                         * so this is a hash (byte[]) of a previous salt with the new pw, that we will check against the old
+                         * hash
+                         */
+
+                        var newPWHash = PasswordHash.ComputeHash(newPW, prevSalt);
+
+                        //convert the string of the previous hash into a byte for comparison to the new hash
+                        var prevHash = Convert.FromBase64String(prevHashString);
+                        if (prevHash == newPWHash)
+                        {
+                            /* if the two hashs (one created with this row's salt and the new pw, the other created from
+                             * whatever that pw was + the same hash - so if they are the same, they are the same pw) are same
+                             * throw an error
+                             */
+                            DateTime.TryParse(pwData.Rows[rows - i]["change_date"].ToString(), out DateTime prevPWDate);
+
+                            throw new Exception("You cannot use a pw you have used within the last 15 password changes.\n You last used that password on " + prevPWDate.ToString("yyyy-MM-dd") + ".");
+                        }
+
+                    }
+                    /* if we get through the last 15 pw possiblities, and have not thrown an error, we can exit gracefully because the
+                     * pw isn't in the system yet. 
+                     */
+                    
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+                //continue to pass the error upwards.
+                throw ex;
+            }
+
+
+
+        }
+
+        /*PWAttemptFail(empNum) - no overlaods, internal use only
+         * 
+         * if the pw was incorrect, this method adds a value to the pw_fail_attempts table to record the failed attempts
+         */
+
+        private static void PWAttemptFail(int empNum)
+        {
+            try
+            {
+
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "INSERT pw_fail_attempts (`emp_num`) VALUE (@empNum);"
+                };
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+
+                SendQry(cmd);
+
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        /* PwAttempts(empNum) - no overloads, internal use only
+         * 
+         * this method checks to see if there are more than 3 attempts in the last 15 mins, and sets a property 
+         * in this class for use elsewhere
+         */
+
+        private static int PwAttempts(int empNum)
+        {
+            try
+            {
+
+                var now = DateTime.Now;
+
+                var timePass = now.AddMinutes(-15).ToString();
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT COUNT(`id) FROM `pw_fail_attempts` WHERE emp_num = @empNum AND fail_time >=@failTime"
+                };
+
+                cmd.Parameters.AddWithValue("@empNum", empNum);
+                cmd.Parameters.AddWithValue("@failTime", timePass);
+
+                // we could use another way, because we are JUST getting back a count, but this function is already
+                // written and I'm lazy :)
+                var data = SelectQry(cmd);
+                int.TryParse(data.Rows[0][0].ToString(), out int f);
+                FailPWAttempts = f; // set the property for use elsewhere if needed
+                return f; // return the value, not the property, just in case.
+
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /* BalanceReader - no overloads, internal use only
+         * 
+         * Takes the incoming command, which is a serious of SQL statements, and inputs them all into a 
+         * unified table (so there are no blank spaces) that can be displayed in a datagridview
+         * 
+         */
 
         private static DataTable BalanceReader(MySqlCommand cmd)
         {
@@ -1923,10 +2164,10 @@ namespace CcnSession
         }
 
 
-        /* PorfitRead() No overloads
+        /* PorfitRead() No overloads, interal use only
          * 
          * this is the function that reads in the data from the General Ledger to create the Profit Loss
-         * sheet and the Cashflow sheet.
+         * sheet and the Cashflow sheet, adding the data into a custom class
          * 
          */
 
@@ -2338,9 +2579,8 @@ namespace CcnSession
                     cmd.Parameters.Add("?EMAIL", MySqlDbType.Text).Value = email;
 
             * Alternatively, it the  SQL Query to be sent does not need to be rebuilt like this often,
-            * simply store it as a string.
-            * 
-            *       cmd.CommandText+"INSERT INTO Customer(" +id + firstName + lastName + email+ ")";
+            * simply store it as a string 
+           
 
             returns a boolean, of True if the command is successful (ie, returns more than 0 rows), or false
             if the command is not successful (returns 0 rows)
@@ -2367,6 +2607,9 @@ namespace CcnSession
                     Console.WriteLine("Sending Command: {0}", cmd.ToString()) ;
 
                     //Sends the command, as defined by the string builder externally.
+
+                    /* return true/false is for edge cases where we need to know if 0 lines were affected - and hence the data didn't update
+                     */
                     if (cmd.ExecuteNonQuery() >= 1)
                     {
                         return true;

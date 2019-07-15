@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 using CcnSession;
-
 
 namespace login
 {
@@ -70,7 +61,12 @@ namespace login
             {
                 try
                 {
-                    // will throw an error if it can't find the username.
+                    /* will throw an error if it can't find the username, or pw is incorrect.
+                     * 
+                     * this also keeps a record of incorrect pw logins in the database, and will
+                     * throw an error if the count is 3 or greater in the last 15 mins.
+                     */
+
                     SQL.Setup(username, password);
 
                     //if CurEmp is false then they have been terminated.
@@ -85,6 +81,7 @@ namespace login
                     }
                     else
                     {
+                        //catch all error. Shouldn't be needed.
                         MessageBox.Show("Our Records do not match this data. Please Try again.", "Wrong Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -93,14 +90,6 @@ namespace login
                     MessageBox.Show(ex.Message, "Wrong Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-            
-
-            
-
-           
-
         }
-
     }
 }
