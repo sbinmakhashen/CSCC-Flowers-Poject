@@ -70,12 +70,7 @@ namespace login
                 MessageBox.Show("Passwords Do Not Match", "Wrong Password", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-           String CNP = txt_ConfirmNewPW.Text;
-            if (CNP.ToLower().Trim().Equals("confirm new password") || CNP.Trim().Equals(""))
-            {
-                txt_ConfirmNewPW.Text = "confirm new password";
-                txt_ConfirmNewPW.ForeColor = Color.LightSeaGreen;
-            }
+          
 
         }
 
@@ -102,53 +97,27 @@ namespace login
             main.Show();
         }
 
-        private void txt_CurrentPW_Enter(object sender, EventArgs e)
+        private void txt_CurrentPW_KeyDown(object sender, KeyEventArgs e)
         {
-            String CP = txt_CurrentPW.Text;
-            if (CP.ToLower().Trim().Equals("current password"))
+            if (e.KeyCode == Keys.Enter)
             {
-                txt_CurrentPW.Text = "";
-                txt_CurrentPW.ForeColor = Color.Black;
+                btn_ChgPW.PerformClick();
             }
         }
 
-        private void txt_CurrentPW_Leave(object sender, EventArgs e)
+        private void txt_NewPW_KeyDown(object sender, KeyEventArgs e)
         {
-            String CP = txt_CurrentPW.Text;
-            if (CP.ToLower().Trim().Equals("current password") || CP.Trim().Equals(""))
+            if (e.KeyCode == Keys.Enter)
             {
-                txt_CurrentPW.Text = "current password";
-                txt_CurrentPW.ForeColor = Color.LightSeaGreen;
+                btn_ChgPW.PerformClick();
             }
         }
 
-        private void txt_NewPW_Enter(object sender, EventArgs e)
+        private void txt_ConfirmNewPW_KeyDown(object sender, KeyEventArgs e)
         {
-            String NP = txt_NewPW.Text;
-            if (NP.ToLower().Trim().Equals("new password"))
+            if (e.KeyCode == Keys.Enter)
             {
-                txt_NewPW.Text = "";
-                txt_NewPW.ForeColor = Color.Black;
-            }
-        }
-
-        private void txt_NewPW_Leave(object sender, EventArgs e)
-        {
-            String NP = txt_NewPW.Text;
-            if (NP.ToLower().Trim().Equals("new password") || NP.Trim().Equals(""))
-            {
-                txt_NewPW.Text = "new password";
-                txt_NewPW.ForeColor = Color.LightSeaGreen;
-            }
-        }
-
-        private void txt_ConfirmNewPW_Enter(object sender, EventArgs e)
-        {
-            String CNP = txt_ConfirmNewPW.Text;
-            if (CNP.ToLower().Trim().Equals("confirm new password"))
-            {
-                txt_ConfirmNewPW.Text = "";
-                txt_ConfirmNewPW.ForeColor = Color.Black;
+                btn_ChgPW.PerformClick();
             }
         }
 
@@ -185,6 +154,9 @@ namespace login
             var main = new MainForm();
             main.Show();
         }
+
+
+        
     }
 }
     

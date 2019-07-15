@@ -646,5 +646,13 @@ namespace login
             MainForm MainForm = new MainForm();
             MainForm.Show();
         }
+
+        private void text_Username_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btn_Search.PerformClick();
+            }
+        }
     }
 }

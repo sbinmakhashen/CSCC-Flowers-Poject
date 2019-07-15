@@ -24,7 +24,22 @@ namespace login
             lbl_date.Text = "Today's Date: " + date;
         }
 
-      
+             private void textBoxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonLogin.PerformClick();
+            }
+        }
+
+        private void textBoxUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonLogin.PerformClick();
+            }
+        }
+ 
         private void Close_pic_Click_1(object sender, EventArgs e)
         {
             //this.Close();
@@ -87,6 +102,5 @@ namespace login
 
         }
 
-        
     }
 }

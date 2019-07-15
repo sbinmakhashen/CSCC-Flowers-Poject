@@ -41,6 +41,9 @@
             this.checkBox_show_hide = new System.Windows.Forms.CheckBox();
             this.Previous_pic = new System.Windows.Forms.PictureBox();
             this.Close_pic = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Previous_pic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Close_pic)).BeginInit();
@@ -49,74 +52,72 @@
             // lbl_DisplayUsername
             // 
             this.lbl_DisplayUsername.AutoSize = true;
-            this.lbl_DisplayUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_DisplayUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_DisplayUsername.ForeColor = System.Drawing.Color.MidnightBlue;
             this.lbl_DisplayUsername.Location = new System.Drawing.Point(6, 94);
             this.lbl_DisplayUsername.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_DisplayUsername.Name = "lbl_DisplayUsername";
-            this.lbl_DisplayUsername.Size = new System.Drawing.Size(178, 25);
+            this.lbl_DisplayUsername.Size = new System.Drawing.Size(255, 32);
             this.lbl_DisplayUsername.TabIndex = 0;
             this.lbl_DisplayUsername.Text = "Your Username is: ";
             // 
             // txt_CurrentPW
             // 
-            this.txt_CurrentPW.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_CurrentPW.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.txt_CurrentPW.Location = new System.Drawing.Point(187, 154);
-            this.txt_CurrentPW.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_CurrentPW.Font = new System.Drawing.Font("Arial", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_CurrentPW.ForeColor = System.Drawing.Color.Black;
+            this.txt_CurrentPW.Location = new System.Drawing.Point(572, 273);
+            this.txt_CurrentPW.Margin = new System.Windows.Forms.Padding(2);
             this.txt_CurrentPW.Name = "txt_CurrentPW";
-            this.txt_CurrentPW.Size = new System.Drawing.Size(359, 49);
+            this.txt_CurrentPW.Size = new System.Drawing.Size(494, 50);
             this.txt_CurrentPW.TabIndex = 4;
-            this.txt_CurrentPW.Text = "Current Password";
-            this.txt_CurrentPW.Enter += new System.EventHandler(this.txt_CurrentPW_Enter);
-            this.txt_CurrentPW.Leave += new System.EventHandler(this.txt_CurrentPW_Leave);
+            this.txt_CurrentPW.UseSystemPasswordChar = true;
+            this.txt_CurrentPW.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_CurrentPW_KeyDown);
             // 
             // txt_NewPW
             // 
-            this.txt_NewPW.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_NewPW.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.txt_NewPW.Location = new System.Drawing.Point(187, 213);
-            this.txt_NewPW.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_NewPW.Font = new System.Drawing.Font("Arial", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_NewPW.ForeColor = System.Drawing.Color.Black;
+            this.txt_NewPW.Location = new System.Drawing.Point(572, 338);
+            this.txt_NewPW.Margin = new System.Windows.Forms.Padding(2);
             this.txt_NewPW.Name = "txt_NewPW";
-            this.txt_NewPW.Size = new System.Drawing.Size(359, 45);
+            this.txt_NewPW.Size = new System.Drawing.Size(494, 50);
             this.txt_NewPW.TabIndex = 5;
-            this.txt_NewPW.Text = "New Password";
-            this.txt_NewPW.Enter += new System.EventHandler(this.txt_NewPW_Enter);
-            this.txt_NewPW.Leave += new System.EventHandler(this.txt_NewPW_Leave);
+            this.txt_NewPW.UseSystemPasswordChar = true;
+            this.txt_NewPW.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_NewPW_KeyDown);
             // 
             // txt_ConfirmNewPW
             // 
-            this.txt_ConfirmNewPW.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_ConfirmNewPW.ForeColor = System.Drawing.Color.LightSeaGreen;
-            this.txt_ConfirmNewPW.Location = new System.Drawing.Point(187, 270);
-            this.txt_ConfirmNewPW.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_ConfirmNewPW.Font = new System.Drawing.Font("Arial", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_ConfirmNewPW.ForeColor = System.Drawing.Color.Black;
+            this.txt_ConfirmNewPW.Location = new System.Drawing.Point(572, 406);
+            this.txt_ConfirmNewPW.Margin = new System.Windows.Forms.Padding(2);
             this.txt_ConfirmNewPW.Name = "txt_ConfirmNewPW";
-            this.txt_ConfirmNewPW.Size = new System.Drawing.Size(359, 45);
+            this.txt_ConfirmNewPW.Size = new System.Drawing.Size(494, 50);
             this.txt_ConfirmNewPW.TabIndex = 6;
-            this.txt_ConfirmNewPW.Text = "Confirm New Password";
-            this.txt_ConfirmNewPW.Enter += new System.EventHandler(this.txt_ConfirmNewPW_Enter);
+            this.txt_ConfirmNewPW.UseSystemPasswordChar = true;
+            this.txt_ConfirmNewPW.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_ConfirmNewPW_KeyDown);
             this.txt_ConfirmNewPW.Leave += new System.EventHandler(this.txt_ConfirmNewPW_Leave);
             // 
             // lbl_username
             // 
             this.lbl_username.AutoSize = true;
-            this.lbl_username.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_username.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_username.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lbl_username.Location = new System.Drawing.Point(183, 94);
+            this.lbl_username.Location = new System.Drawing.Point(246, 94);
             this.lbl_username.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_username.Name = "lbl_username";
-            this.lbl_username.Size = new System.Drawing.Size(64, 25);
+            this.lbl_username.Size = new System.Drawing.Size(93, 32);
             this.lbl_username.TabIndex = 7;
             this.lbl_username.Text = "label1";
             // 
             // btn_ChgPW
             // 
             this.btn_ChgPW.BackColor = System.Drawing.Color.DarkGoldenrod;
-            this.btn_ChgPW.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ChgPW.Location = new System.Drawing.Point(232, 325);
-            this.btn_ChgPW.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_ChgPW.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_ChgPW.Location = new System.Drawing.Point(618, 486);
+            this.btn_ChgPW.Margin = new System.Windows.Forms.Padding(2);
             this.btn_ChgPW.Name = "btn_ChgPW";
-            this.btn_ChgPW.Size = new System.Drawing.Size(247, 48);
+            this.btn_ChgPW.Size = new System.Drawing.Size(382, 74);
             this.btn_ChgPW.TabIndex = 8;
             this.btn_ChgPW.Text = "Change Password";
             this.btn_ChgPW.UseVisualStyleBackColor = false;
@@ -125,10 +126,11 @@
             // btn_NotYou
             // 
             this.btn_NotYou.BackColor = System.Drawing.Color.Green;
-            this.btn_NotYou.Location = new System.Drawing.Point(279, 449);
-            this.btn_NotYou.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_NotYou.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_NotYou.Location = new System.Drawing.Point(661, 709);
+            this.btn_NotYou.Margin = new System.Windows.Forms.Padding(2);
             this.btn_NotYou.Name = "btn_NotYou";
-            this.btn_NotYou.Size = new System.Drawing.Size(130, 49);
+            this.btn_NotYou.Size = new System.Drawing.Size(265, 75);
             this.btn_NotYou.TabIndex = 9;
             this.btn_NotYou.Text = "Not You?";
             this.btn_NotYou.UseVisualStyleBackColor = false;
@@ -138,12 +140,12 @@
             // 
             this.lbl_date.AutoSize = true;
             this.lbl_date.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.lbl_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_date.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lbl_date.Location = new System.Drawing.Point(432, 70);
+            this.lbl_date.Location = new System.Drawing.Point(1168, 66);
             this.lbl_date.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_date.Name = "lbl_date";
-            this.lbl_date.Size = new System.Drawing.Size(114, 17);
+            this.lbl_date.Size = new System.Drawing.Size(136, 20);
             this.lbl_date.TabIndex = 12;
             this.lbl_date.Text = "Today\'s Date is: ";
             // 
@@ -151,12 +153,12 @@
             // 
             this.lbl_titlePage.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.lbl_titlePage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lbl_titlePage.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_titlePage.Font = new System.Drawing.Font("Arial", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_titlePage.ForeColor = System.Drawing.Color.DarkOliveGreen;
             this.lbl_titlePage.Location = new System.Drawing.Point(0, 0);
             this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_titlePage.Name = "lbl_titlePage";
-            this.lbl_titlePage.Size = new System.Drawing.Size(748, 86);
+            this.lbl_titlePage.Size = new System.Drawing.Size(1572, 86);
             this.lbl_titlePage.TabIndex = 13;
             this.lbl_titlePage.Text = "Change Your Password";
             this.lbl_titlePage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -167,7 +169,7 @@
             this.pictureBox3.Image = global::login.Properties.Resources.logo;
             this.pictureBox3.Location = new System.Drawing.Point(-1, 0);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(105, 86);
+            this.pictureBox3.Size = new System.Drawing.Size(153, 86);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 14;
             this.pictureBox3.TabStop = false;
@@ -175,10 +177,10 @@
             // checkBox_show_hide
             // 
             this.checkBox_show_hide.AutoSize = true;
-            this.checkBox_show_hide.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_show_hide.Location = new System.Drawing.Point(549, 231);
+            this.checkBox_show_hide.Font = new System.Drawing.Font("Arial", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_show_hide.Location = new System.Drawing.Point(1136, 334);
             this.checkBox_show_hide.Name = "checkBox_show_hide";
-            this.checkBox_show_hide.Size = new System.Drawing.Size(84, 28);
+            this.checkBox_show_hide.Size = new System.Drawing.Size(142, 49);
             this.checkBox_show_hide.TabIndex = 15;
             this.checkBox_show_hide.Text = "Show";
             this.checkBox_show_hide.UseVisualStyleBackColor = true;
@@ -189,7 +191,7 @@
             this.Previous_pic.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.Previous_pic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Previous_pic.Image = global::login.Properties.Resources.previous_blue;
-            this.Previous_pic.Location = new System.Drawing.Point(654, 0);
+            this.Previous_pic.Location = new System.Drawing.Point(1467, 0);
             this.Previous_pic.Name = "Previous_pic";
             this.Previous_pic.Size = new System.Drawing.Size(39, 40);
             this.Previous_pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -202,7 +204,7 @@
             this.Close_pic.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.Close_pic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Close_pic.Image = global::login.Properties.Resources.close;
-            this.Close_pic.Location = new System.Drawing.Point(710, 0);
+            this.Close_pic.Location = new System.Drawing.Point(1534, 0);
             this.Close_pic.Name = "Close_pic";
             this.Close_pic.Size = new System.Drawing.Size(38, 40);
             this.Close_pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -210,12 +212,48 @@
             this.Close_pic.TabStop = false;
             this.Close_pic.Click += new System.EventHandler(this.Close_pic_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(90, 277);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(346, 45);
+            this.label1.TabIndex = 44;
+            this.label1.Text = "Current Password";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.Location = new System.Drawing.Point(90, 341);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(286, 45);
+            this.label2.TabIndex = 45;
+            this.label2.Text = "New Password";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.Location = new System.Drawing.Point(90, 411);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(444, 45);
+            this.label3.TabIndex = 46;
+            this.label3.Text = "Confirm New Password";
+            // 
             // ChangePW
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ClientSize = new System.Drawing.Size(748, 511);
+            this.ClientSize = new System.Drawing.Size(1572, 795);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Previous_pic);
             this.Controls.Add(this.Close_pic);
             this.Controls.Add(this.checkBox_show_hide);
@@ -230,7 +268,7 @@
             this.Controls.Add(this.lbl_DisplayUsername);
             this.Controls.Add(this.lbl_titlePage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ChangePW";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ChangePW";
@@ -257,5 +295,8 @@
         private System.Windows.Forms.CheckBox checkBox_show_hide;
         private System.Windows.Forms.PictureBox Previous_pic;
         private System.Windows.Forms.PictureBox Close_pic;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
