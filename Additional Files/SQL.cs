@@ -170,8 +170,7 @@ namespace CcnSession
                 {
                     throw new Exception("Exceeded Login Attempts. Please wait at least 15 mins before trying again.");
                 }
-                byte[] salt;
-                string hash;
+                byte[] salt, hash;
                 var saltData = new DataTable();
                 var hashData = new DataTable();
                 Console.WriteLine("Getting Salt.");
@@ -181,14 +180,14 @@ namespace CcnSession
                 hashData = GetColumn("employee", "password", "username", Username);
 
                 salt = Convert.FromBase64String(saltData.Rows[0]["salt"].ToString());
-                hash = hashData.Rows[0]["password"].ToString();
-
-                if (hash == Convert.ToBase64String(PasswordHash.ComputeHash(pw, salt)))
+                hash = Convert.FromBase64String(hashData.Rows[0]["password"].ToString());
+                if (PasswordHash.VerifyPassword(pw, salt, hash))
                 {
                     return true;
                 }
                 else
                 {
+                   
                     PWAttemptFail(GetEmpNum(Username));
                     return false;
                 }
@@ -200,6 +199,45 @@ namespace CcnSession
 
         }
 
+        /* ChkPasswordNoFail(password) - no overloads
+         * 
+         * Same as above method, but does not deal with the Failed pw - for use in Changing Passwords
+         */
+
+        public static bool ChkPasswordNoFail(string pw)
+        {
+
+            try
+            {
+                
+                byte[] salt,hash;
+                var saltData = new DataTable();
+                var hashData = new DataTable();
+                Console.WriteLine("Getting Salt.");
+                saltData = GetColumn("employee", "salt", "username", Username);
+
+                Console.WriteLine("Getting Hash.");
+                hashData = GetColumn("employee", "password", "username", Username);
+
+
+                salt = Convert.FromBase64String(saltData.Rows[0]["salt"].ToString());
+                hash = Convert.FromBase64String(hashData.Rows[0]["password"].ToString());
+                if (PasswordHash.VerifyPassword(pw, salt, hash))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
 
 
         /* SQL.CreateUser(fname, lname, desiredPW) - no overloads
@@ -380,12 +418,8 @@ namespace CcnSession
                 throw ex;
             }
 
-            
-
-
-
         }
-
+       
         /* SQL.GetEmpNumber(username)
          * 
          * returns an employee number. 
@@ -1252,7 +1286,7 @@ namespace CcnSession
                     cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
                     cmd2.Parameters.AddWithValue("orderNum", orderNum.ToString());
 
-                    Console.WriteLine("Sending Command: {0}", cmd.ToString());
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
                     SendQry(cmd2);
 
                 }
@@ -1265,7 +1299,7 @@ namespace CcnSession
 
                     cmd2.Parameters.AddWithValue("id", invoiceNum);
                     cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
-                    Console.WriteLine("Sending Command: {0}", cmd.ToString());
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
                     SendQry(cmd2);
                 }
                 else // um. Should be caught but... if remain-totalPaid < 0
@@ -1373,7 +1407,7 @@ namespace CcnSession
                     cmd2.Parameters.AddWithValue("id", idNum);
                     cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
                     
-                    Console.WriteLine("Sending Command: {0}", cmd.ToString());
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
                     SendQry(cmd2);
 
                 } else if(remain-pmt > 0)
@@ -1385,7 +1419,7 @@ namespace CcnSession
                     
                     cmd2.Parameters.AddWithValue("id", idNum);
                     cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
-                    Console.WriteLine("Sending Command: {0}", cmd.ToString());
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
                     SendQry(cmd2);
                 } else // um. Should be caught but... if remain-totalPaid < 0
                 {
@@ -1849,7 +1883,7 @@ namespace CcnSession
 
             try
             {
-                if (ChkPassword(newPW)) // this checks to see if the pw is the same as the current pw.
+                if (ChkPasswordNoFail(newPW)) // this checks to see if the pw is the same as the current pw.
                 {
                     throw new Exception("Cannot change a password to your current password");
                     /* I don't believe this is a security risk? if they are able to change the pw they already
@@ -1862,29 +1896,37 @@ namespace CcnSession
 
 
 
-                byte[] prevSalt;
-        
-                string prevHashString, prevSaltString;
+                byte[] prevSalt, prevHash;
                 
                 var pwData = new DataTable();
+                var lastPWDate = new DateTime();
+                var now = DateTime.Now;
 
                 Console.WriteLine("Getting Previous 15 Hashes");
                 // get the Table pw_history of all values where empNum is the employee number
                 pwData = GetTable("pw_history", "emp_num", empNum.ToString());
                 
-
                 int rows = pwData.Rows.Count;
 
-                DateTime.TryParse(pwData.Rows[rows - 1]["change_date"].ToString(), out DateTime lastPWDate);
-                var now = DateTime.Now;
-                var past24 = now.AddHours(-24);
-                if (lastPWDate > past24 && lastPWDate <= now)
+                if (rows !=0) // if there is any data in the table that is returned - 
                 {
-                    // if the last pw change was less than 24 hours ago, throw an error
-                    throw new Exception("You must wait at least 24 hours before changing your password again");
-                }
+                    DateTime.TryParse(pwData.Rows[rows - 1]["change_date"].ToString(), out  lastPWDate);
 
+                    /* Another lazy hack. Server time is 4 hours ahead of where we are using this.
+                     * 
+                     * really should get a global server time variable set up for use ANYWHERE in the world...
+                     */
+                    var past24 = now.AddHours(-20);
 
+                    Console.WriteLine("Row Count: " + rows + " | 24 Hours ago (servertime):  " + past24 + " | Last PW Change (servertime): " + lastPWDate);
+
+                    if (lastPWDate >= past24 )
+                    {
+                        // if the last pw change was less than 24 hours ago, throw an error
+                        throw new Exception("You must wait at least 24 hours before changing your password again");
+                    }
+                } // else, there has not been any pw changes for this empNum, and we don't have to check last 24hrs
+                
                 if (rows > 15)
                 {
                     for (int i = 1; i <= 15; i++)
@@ -1896,23 +1938,15 @@ namespace CcnSession
                          *  we start i at 1 because rows is a Count, and therefore needs to be one smaller to get the
                          *  last row index.  Starting i at 1 just removes the need for a -1 anywhere
                          */
-                        prevSaltString = pwData.Rows[rows - i]["salt"].ToString();
-                        prevHashString = pwData.Rows[rows - i]["hash"].ToString();
 
-                        // convert th saltString into a Byte for the pwHash functions
-                        prevSalt = Convert.FromBase64String(prevSaltString);
-                        /* pass the byte salt and the new pw through the Hash and get the Hash as it would have been
-                         * for an old pw and the salt generated and stored at the time
-                         * 
-                         * so this is a hash (byte[]) of a previous salt with the new pw, that we will check against the old
-                         * hash
-                         */
+
+                        // convert the salt and hash into a Byte for the pwHash functions
+                        prevSalt = Convert.FromBase64String(pwData.Rows[rows - i]["salt"].ToString());
+                        prevHash = Convert.FromBase64String(pwData.Rows[rows - i]["hash"].ToString());
+                      
                         
-                        var newPWHash = PasswordHash.ComputeHash(newPW, prevSalt);
 
-                        //convert the string of the previous hash into a byte for comparison to the new hash
-                        var prevHash = Convert.FromBase64String(prevHashString);
-                        if (prevHash == newPWHash)
+                        if (PasswordHash.VerifyPassword(newPW, prevSalt, prevHash))
                         {
                             /* if the two hashs (one created with this row's salt and the new pw, the other created from
                              * whatever that pw was + the same hash - so if they are the same, they are the same pw) are same
@@ -1928,10 +1962,7 @@ namespace CcnSession
                     /* if we get through the last 15 pw possiblities, and have not thrown an error yet, we can simply exit
                      * pw isn't in the system yet. 
                      */
-                    
-                    
 
-                
                 }
                 else // if there are currently less than 15 pw changes
                 {
@@ -1943,24 +1974,27 @@ namespace CcnSession
                          * we start i at 1 because rows is a Count, and therefore needs to be one smaller to get the
                          *  last row index.  Starting i at 1 just removes the need for a -1 anywhere
                          */
-                        prevSaltString = pwData.Rows[rows - i]["salt"].ToString();
-                        prevHashString = pwData.Rows[rows - i]["hash"].ToString();
+                        var prevSaltString = pwData.Rows[rows - i]["salt"].ToString();
+                        var prevHashString = pwData.Rows[rows - i]["hash"].ToString();
 
-                        // convert th saltString into a Byte for the pwHash functions
-                        prevSalt = Convert.FromBase64String(prevSaltString);
-                        /* pass the byte salt and the new pw through the Hash and get the Hash as it would have been
-                         * for an old pw and the salt generated and stored at the time
-                         * 
-                         * so this is a hash (byte[]) of a previous salt with the new pw, that we will check against the old
-                         * hash
-                         */
+                        Console.WriteLine("Row#: "+(rows-i)+" | Prev Hash: " + prevHashString + " | Prev Salt: " + prevSaltString + " | New PW: " + newPW  );
 
-                        var newPWHash = PasswordHash.ComputeHash(newPW, prevSalt);
 
-                        //convert the string of the previous hash into a byte for comparison to the new hash
-                        var prevHash = Convert.FromBase64String(prevHashString);
-                        if (prevHash == newPWHash)
+
+                        
+
+                        // convert the salt and hash into a Byte for the pwHash functions
+                        prevSalt = Convert.FromBase64String(pwData.Rows[rows - i]["salt"].ToString());
+                        prevHash = Convert.FromBase64String(pwData.Rows[rows - i]["hash"].ToString());
+
+                        string newHashString = Convert.ToBase64String(PasswordHash.ComputeHash(newPW, prevSalt));
+                        Console.WriteLine("PrevHash | NewHash (Bytes) - " + prevHashString + " | " + newHashString);
+
+                        if (PasswordHash.VerifyPassword(newPW, prevSalt, prevHash))
                         {
+                            
+                            Console.WriteLine("Match Found");
+                            
                             /* if the two hashs (one created with this row's salt and the new pw, the other created from
                              * whatever that pw was + the same hash - so if they are the same, they are the same pw) are same
                              * throw an error
@@ -1970,6 +2004,7 @@ namespace CcnSession
                             throw new Exception("You cannot use a pw you have used within the last 15 password changes.\n You last used that password on " + prevPWDate.ToString("yyyy-MM-dd") + ".");
                         }
 
+                        Console.WriteLine("No Match Found on Row " + (rows - i));
                     }
                     /* if we get through the last 15 pw possiblities, and have not thrown an error, we can exit gracefully because the
                      * pw isn't in the system yet. 
@@ -1998,7 +2033,7 @@ namespace CcnSession
         {
             try
             {
-
+                Console.WriteLine("PW Incorrect, entering into pw_fail_attempts table");
                 var cmd = new MySqlCommand()
                 {
                     CommandText = "INSERT pw_fail_attempts (`emp_num`) VALUE (@empNum);"
@@ -2027,20 +2062,31 @@ namespace CcnSession
 
                 var now = DateTime.Now;
 
-                var timePass = now.AddMinutes(-15).ToString();
-                var cmd = new MySqlCommand()
-                {
-                    CommandText = "SELECT COUNT(`id) FROM `pw_fail_attempts` WHERE emp_num = @empNum AND fail_time >=@failTime"
-                };
+                //the database server time is 4 hours ahead of EST. This is a hack. I should be checking against
+                // the server time, defining it as a global variable against DateTime.Now no matter where the program
+                // is run
 
-                cmd.Parameters.AddWithValue("@empNum", empNum);
-                cmd.Parameters.AddWithValue("@failTime", timePass);
+
+                var timePass = now.AddMinutes(-15).AddHours(4).ToString("yyyy-MM-dd HH:mm:ss");
+                Console.WriteLine("15 Mins ago (server time)  is: " + timePass +" | Current Failed Attempts before Check for more: "+FailPWAttempts);
+
+
+                
+
+                /* neither of these two parts of the string are being accepted from user input (so safe against SQL injection) and DateTime is so stupidly finicky
+                 * that it is just so much easier to pass it as a string
+                 */
+                string sql = "SELECT COUNT(`id`) FROM `pw_fail_attempts` WHERE emp_num = '" + GetEmpNum(Username) + "' AND fail_time >='"+timePass+"'";
+                var cmd = new MySqlCommand(sql);
+
 
                 // we could use another way, because we are JUST getting back a count, but this function is already
                 // written and I'm lazy :)
                 var data = SelectQry(cmd);
                 int.TryParse(data.Rows[0][0].ToString(), out int f);
                 FailPWAttempts = f; // set the property for use elsewhere if needed
+
+                Console.WriteLine("Failed Attempts after checking Database " + FailPWAttempts);
                 return f; // return the value, not the property, just in case.
 
             } catch (Exception ex)
@@ -2343,7 +2389,7 @@ namespace CcnSession
                     cnn.Open();
 
                     Console.WriteLine("Connection:  {0}", cnn.State);
-                    Console.WriteLine("Sending Command: {0}", cmd);
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
 
                     rdr = cmd.ExecuteReader();
 
@@ -2604,7 +2650,7 @@ namespace CcnSession
 
                     //logging
                     Console.WriteLine("Connection:  {0}", cnn.State);
-                    Console.WriteLine("Sending Command: {0}", cmd.ToString()) ;
+                    Console.WriteLine("Sending Command: {0}", cmd.CommandText) ;
 
                     //Sends the command, as defined by the string builder externally.
 
