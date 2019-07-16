@@ -61,6 +61,8 @@ namespace login
                 lbl_ChangeQty.Show();
                 txt_ChangeQty.Show();
                 btn_IncreaseQty.Show();
+                btn_Send2Store.Show();
+                Store_DropDown.Show();
             } else
             {
                 lbl_loginInfo.Text = "Hello " + fname + ". You are logged in as " + SQL.Username + ", a Employee. Todays Date is " + date + ".";
@@ -72,6 +74,8 @@ namespace login
                 lbl_ChangeQty.Hide();
                 txt_ChangeQty.Hide();
                 btn_IncreaseQty.Hide();
+                btn_Send2Store.Hide();
+                Store_DropDown.Hide();
             }
 
         }
@@ -344,6 +348,34 @@ namespace login
             this.Hide();
             MainForm MainForm = new MainForm();
             MainForm.Show();
+        }
+
+        private void Store_DropDown_Enter(object sender, EventArgs e)
+        {
+            String SDD = Store_DropDown.Text;
+            if (SDD.ToLower().Trim().Equals("select a store"))
+            {
+                Store_DropDown.Text = "";
+                Store_DropDown.ForeColor = Color.Black;
+            }
+        }
+
+        private void Store_DropDown_Leave(object sender, EventArgs e)
+        {
+            String SDD = Store_DropDown.Text;
+            if (SDD.ToLower().Trim().Equals("select a store"))
+            {
+                Store_DropDown.Text = "";
+                Store_DropDown.ForeColor = Color.SeaGreen;
+            }
+        }
+
+        private void btn_Send2Store_Click(object sender, EventArgs e)
+        {
+            string StoreDD = Store_DropDown.Text;
+            string StockQty = textBoxStockQty.Text;
+
+            //finish the error checking later 
         }
     }
 }
