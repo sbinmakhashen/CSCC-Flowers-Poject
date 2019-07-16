@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_accounting = new System.Windows.Forms.DataGridView();
             this.buttonReset = new System.Windows.Forms.Button();
             this.btn_AcctPay = new System.Windows.Forms.Button();
@@ -53,20 +53,21 @@
             this.dgv_accounting.AllowUserToAddRows = false;
             this.dgv_accounting.AllowUserToDeleteRows = false;
             this.dgv_accounting.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
-            this.dgv_accounting.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+            this.dgv_accounting.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_accounting.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_accounting.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv_accounting.BackgroundColor = System.Drawing.Color.Tan;
             this.dgv_accounting.ColumnHeadersHeight = 58;
-            this.dgv_accounting.Location = new System.Drawing.Point(314, 159);
+            this.dgv_accounting.Location = new System.Drawing.Point(628, 308);
+            this.dgv_accounting.Margin = new System.Windows.Forms.Padding(6);
             this.dgv_accounting.Name = "dgv_accounting";
             this.dgv_accounting.ReadOnly = true;
             this.dgv_accounting.RowHeadersWidth = 102;
             this.dgv_accounting.RowTemplate.Height = 24;
-            this.dgv_accounting.Size = new System.Drawing.Size(1175, 601);
-            this.dgv_accounting.TabIndex = 17;
+            this.dgv_accounting.Size = new System.Drawing.Size(2350, 1164);
+            this.dgv_accounting.TabIndex = 25;
             this.dgv_accounting.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_accounting_CellContentClick);
             this.dgv_accounting.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
             // 
@@ -75,10 +76,11 @@
             this.buttonReset.BackColor = System.Drawing.Color.Tomato;
             this.buttonReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonReset.Location = new System.Drawing.Point(3, 681);
+            this.buttonReset.Location = new System.Drawing.Point(20, 1320);
+            this.buttonReset.Margin = new System.Windows.Forms.Padding(6);
             this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(249, 79);
-            this.buttonReset.TabIndex = 28;
+            this.buttonReset.Size = new System.Drawing.Size(498, 153);
+            this.buttonReset.TabIndex = 30;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = false;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
@@ -88,10 +90,11 @@
             this.btn_AcctPay.BackColor = System.Drawing.Color.Turquoise;
             this.btn_AcctPay.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_AcctPay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_AcctPay.Location = new System.Drawing.Point(3, 231);
+            this.btn_AcctPay.Location = new System.Drawing.Point(20, 450);
+            this.btn_AcctPay.Margin = new System.Windows.Forms.Padding(6);
             this.btn_AcctPay.Name = "btn_AcctPay";
-            this.btn_AcctPay.Size = new System.Drawing.Size(245, 79);
-            this.btn_AcctPay.TabIndex = 30;
+            this.btn_AcctPay.Size = new System.Drawing.Size(490, 153);
+            this.btn_AcctPay.TabIndex = 10;
             this.btn_AcctPay.Text = "Accounts Payable";
             this.btn_AcctPay.UseVisualStyleBackColor = false;
             this.btn_AcctPay.Click += new System.EventHandler(this.Btn_AcctPay_Click);
@@ -101,10 +104,11 @@
             this.btn_AcctRec.BackColor = System.Drawing.Color.Wheat;
             this.btn_AcctRec.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_AcctRec.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_AcctRec.Location = new System.Drawing.Point(3, 414);
+            this.btn_AcctRec.Location = new System.Drawing.Point(20, 850);
+            this.btn_AcctRec.Margin = new System.Windows.Forms.Padding(6);
             this.btn_AcctRec.Name = "btn_AcctRec";
-            this.btn_AcctRec.Size = new System.Drawing.Size(245, 79);
-            this.btn_AcctRec.TabIndex = 31;
+            this.btn_AcctRec.Size = new System.Drawing.Size(490, 153);
+            this.btn_AcctRec.TabIndex = 20;
             this.btn_AcctRec.Text = "Accounts Recievable";
             this.btn_AcctRec.UseVisualStyleBackColor = false;
             this.btn_AcctRec.Click += new System.EventHandler(this.Btn_AcctRec_Click);
@@ -114,10 +118,10 @@
             this.lbl_store.AutoSize = true;
             this.lbl_store.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_store.ForeColor = System.Drawing.Color.Teal;
-            this.lbl_store.Location = new System.Drawing.Point(11, 110);
-            this.lbl_store.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_store.Location = new System.Drawing.Point(20, 210);
+            this.lbl_store.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_store.Name = "lbl_store";
-            this.lbl_store.Size = new System.Drawing.Size(122, 24);
+            this.lbl_store.Size = new System.Drawing.Size(244, 42);
             this.lbl_store.TabIndex = 32;
             this.lbl_store.Text = "Your Store Is:";
             // 
@@ -126,10 +130,10 @@
             this.lbl_StoreName.AutoSize = true;
             this.lbl_StoreName.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_StoreName.ForeColor = System.Drawing.Color.Teal;
-            this.lbl_StoreName.Location = new System.Drawing.Point(8, 148);
-            this.lbl_StoreName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_StoreName.Location = new System.Drawing.Point(20, 290);
+            this.lbl_StoreName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_StoreName.Name = "lbl_StoreName";
-            this.lbl_StoreName.Size = new System.Drawing.Size(169, 39);
+            this.lbl_StoreName.Size = new System.Drawing.Size(327, 75);
             this.lbl_StoreName.TabIndex = 33;
             this.lbl_StoreName.Text = "4001-Indy";
             // 
@@ -138,10 +142,10 @@
             this.lbl_view.AutoSize = true;
             this.lbl_view.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_view.ForeColor = System.Drawing.Color.Brown;
-            this.lbl_view.Location = new System.Drawing.Point(867, 96);
-            this.lbl_view.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_view.Location = new System.Drawing.Point(1740, 180);
+            this.lbl_view.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_view.Name = "lbl_view";
-            this.lbl_view.Size = new System.Drawing.Size(163, 24);
+            this.lbl_view.Size = new System.Drawing.Size(320, 42);
             this.lbl_view.TabIndex = 34;
             this.lbl_view.Text = "Currently Viewing:";
             // 
@@ -150,10 +154,10 @@
             this.lbl_TableViewing.AutoSize = true;
             this.lbl_TableViewing.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_TableViewing.ForeColor = System.Drawing.Color.Brown;
-            this.lbl_TableViewing.Location = new System.Drawing.Point(866, 120);
-            this.lbl_TableViewing.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_TableViewing.Location = new System.Drawing.Point(1740, 230);
+            this.lbl_TableViewing.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_TableViewing.Name = "lbl_TableViewing";
-            this.lbl_TableViewing.Size = new System.Drawing.Size(314, 36);
+            this.lbl_TableViewing.Size = new System.Drawing.Size(605, 69);
             this.lbl_TableViewing.TabIndex = 35;
             this.lbl_TableViewing.Text = "Accounts Receivable";
             // 
@@ -164,9 +168,9 @@
             this.lbl_titlePage.Font = new System.Drawing.Font("Arial", 31.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_titlePage.ForeColor = System.Drawing.Color.DarkCyan;
             this.lbl_titlePage.Location = new System.Drawing.Point(0, 0);
-            this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.lbl_titlePage.Name = "lbl_titlePage";
-            this.lbl_titlePage.Size = new System.Drawing.Size(1572, 86);
+            this.lbl_titlePage.Size = new System.Drawing.Size(3144, 167);
             this.lbl_titlePage.TabIndex = 36;
             this.lbl_titlePage.Text = "Accounting Information";
             this.lbl_titlePage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -175,10 +179,10 @@
             // 
             this.lbl_Date.AutoSize = true;
             this.lbl_Date.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Date.Location = new System.Drawing.Point(1213, 62);
-            this.lbl_Date.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbl_Date.Location = new System.Drawing.Point(2426, 125);
+            this.lbl_Date.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Date.Name = "lbl_Date";
-            this.lbl_Date.Size = new System.Drawing.Size(137, 24);
+            this.lbl_Date.Size = new System.Drawing.Size(276, 42);
             this.lbl_Date.TabIndex = 37;
             this.lbl_Date.Text = "Today\'s Date Is";
             // 
@@ -187,9 +191,10 @@
             this.Previous_pic.BackColor = System.Drawing.Color.DarkKhaki;
             this.Previous_pic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Previous_pic.Image = global::login.Properties.Resources.previous_blue;
-            this.Previous_pic.Location = new System.Drawing.Point(1470, 0);
+            this.Previous_pic.Location = new System.Drawing.Point(2940, 0);
+            this.Previous_pic.Margin = new System.Windows.Forms.Padding(6);
             this.Previous_pic.Name = "Previous_pic";
-            this.Previous_pic.Size = new System.Drawing.Size(40, 40);
+            this.Previous_pic.Size = new System.Drawing.Size(80, 78);
             this.Previous_pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Previous_pic.TabIndex = 49;
             this.Previous_pic.TabStop = false;
@@ -200,9 +205,10 @@
             this.Close_pic.BackColor = System.Drawing.Color.DarkKhaki;
             this.Close_pic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Close_pic.Image = global::login.Properties.Resources.close;
-            this.Close_pic.Location = new System.Drawing.Point(1533, 0);
+            this.Close_pic.Location = new System.Drawing.Point(3066, 0);
+            this.Close_pic.Margin = new System.Windows.Forms.Padding(6);
             this.Close_pic.Name = "Close_pic";
-            this.Close_pic.Size = new System.Drawing.Size(39, 40);
+            this.Close_pic.Size = new System.Drawing.Size(78, 78);
             this.Close_pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Close_pic.TabIndex = 48;
             this.Close_pic.TabStop = false;
@@ -212,19 +218,20 @@
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.PapayaWhip;
             this.pictureBox3.Image = global::login.Properties.Resources.logo;
-            this.pictureBox3.Location = new System.Drawing.Point(1, 0);
+            this.pictureBox3.Location = new System.Drawing.Point(2, 0);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(162, 86);
+            this.pictureBox3.Size = new System.Drawing.Size(324, 167);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 6;
             this.pictureBox3.TabStop = false;
             // 
             // AccountingInformationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1572, 795);
+            this.ClientSize = new System.Drawing.Size(3144, 1540);
             this.Controls.Add(this.Previous_pic);
             this.Controls.Add(this.Close_pic);
             this.Controls.Add(this.lbl_Date);
@@ -239,6 +246,7 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.lbl_titlePage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "AccountingInformationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AccountingInformationForm";

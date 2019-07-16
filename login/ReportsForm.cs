@@ -844,7 +844,5 @@ namespace login
                 MessageBox.Show(ex.Message, "Not a valid Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        
     }
 }
