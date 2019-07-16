@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lbl_titlePage = new System.Windows.Forms.Label();
             this.btn_GeneralLedger = new System.Windows.Forms.Button();
@@ -87,8 +87,8 @@
             this.title_TotalRevenue = new System.Windows.Forms.Label();
             this.lbl_StateDate = new System.Windows.Forms.Label();
             this.btn_balanceReport = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_NewLedger = new System.Windows.Forms.Button();
+            this.btn_ModifyLedger = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Previous_pic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Close_pic)).BeginInit();
@@ -365,26 +365,26 @@
             // 
             this.dgv_reports.AllowUserToAddRows = false;
             this.dgv_reports.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.NullValue = null;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Indigo;
-            this.dgv_reports.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Indigo;
+            this.dgv_reports.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_reports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_reports.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv_reports.BackgroundColor = System.Drawing.Color.MidnightBlue;
             this.dgv_reports.ColumnHeadersHeight = 58;
             this.dgv_reports.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_reports.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_reports.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_reports.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_reports.Location = new System.Drawing.Point(2, 29);
             this.dgv_reports.Margin = new System.Windows.Forms.Padding(1);
@@ -956,31 +956,31 @@
             this.btn_balanceReport.UseVisualStyleBackColor = false;
             this.btn_balanceReport.Click += new System.EventHandler(this.Btn_balanceReport_Click);
             // 
-            // button1
+            // btn_NewLedger
             // 
-            this.button1.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.DarkRed;
-            this.button1.Location = new System.Drawing.Point(326, 121);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(233, 45);
-            this.button1.TabIndex = 52;
-            this.button1.Text = "New Ledger Entry";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btn_NewLedger.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btn_NewLedger.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_NewLedger.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_NewLedger.ForeColor = System.Drawing.Color.DarkRed;
+            this.btn_NewLedger.Location = new System.Drawing.Point(326, 121);
+            this.btn_NewLedger.Name = "btn_NewLedger";
+            this.btn_NewLedger.Size = new System.Drawing.Size(233, 45);
+            this.btn_NewLedger.TabIndex = 52;
+            this.btn_NewLedger.Text = "New Ledger Entry";
+            this.btn_NewLedger.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btn_ModifyLedger
             // 
-            this.button2.BackColor = System.Drawing.Color.DarkCyan;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(647, 121);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(233, 45);
-            this.button2.TabIndex = 53;
-            this.button2.Text = "Modify Ledger Entry";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btn_ModifyLedger.BackColor = System.Drawing.Color.DarkCyan;
+            this.btn_ModifyLedger.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_ModifyLedger.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_ModifyLedger.ForeColor = System.Drawing.Color.White;
+            this.btn_ModifyLedger.Location = new System.Drawing.Point(647, 121);
+            this.btn_ModifyLedger.Name = "btn_ModifyLedger";
+            this.btn_ModifyLedger.Size = new System.Drawing.Size(233, 45);
+            this.btn_ModifyLedger.TabIndex = 53;
+            this.btn_ModifyLedger.Text = "Modify Ledger Entry";
+            this.btn_ModifyLedger.UseVisualStyleBackColor = false;
             // 
             // ReportsForm
             // 
@@ -988,8 +988,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.ClientSize = new System.Drawing.Size(1572, 795);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_ModifyLedger);
+            this.Controls.Add(this.btn_NewLedger);
             this.Controls.Add(this.btn_balanceReport);
             this.Controls.Add(this.grp_StatementDisplay);
             this.Controls.Add(this.Previous_pic);
@@ -1081,7 +1081,7 @@
         private System.Windows.Forms.Label title_TotalPositive;
         private System.Windows.Forms.Label lbl_totalLiable;
         private System.Windows.Forms.Label title_totalLiable;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_NewLedger;
+        private System.Windows.Forms.Button btn_ModifyLedger;
     }
 }
