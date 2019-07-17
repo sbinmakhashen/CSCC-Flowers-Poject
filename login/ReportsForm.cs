@@ -33,9 +33,15 @@ namespace login
 
         public ReportsForm()
         {
+            DateTime now = DateTime.Today;
             InitializeComponent();
-            GeneralDisplay();
+            string date =  now.Year+ "-" + now.Month + "-01";
+            
+            txt_Year.Text = now.Year.ToString();
+            cmBx_Month.SelectedIndex = now.Month - 1;
             lbl_StoreName.Text = SQL.DefaultStore;
+
+            GeneralDisplay(date);
             lbl_date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
         }
 

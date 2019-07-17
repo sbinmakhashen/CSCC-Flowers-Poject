@@ -119,13 +119,13 @@ namespace login
         {
             if (cmb_Particular.SelectedIndex == 1)
             {
-                lbl_entryParticular.Show();
-                cmb_Particular.Show();
+                lbl_entryDetail.Show();
+                cmb_Detail.Show();
             }
             else
             {
-                lbl_entryParticular.Hide();
-                cmb_Particular.Hide();
+                lbl_entryDetail.Hide();
+                cmb_Detail.Hide();
             }
             
         }
