@@ -18,6 +18,8 @@ namespace login
         bool typeFlag;
         double remainder;
         int orderNum = 0;
+        string vendor, invoice;
+
         
 
         public AcctDetails(int iN, bool flag)
@@ -66,7 +68,11 @@ namespace login
             lbl_remain.Text = "Amount remaining: $" + remainder;
             lbl_invoice.Text = "Vendor's Invoice #: " + data.Rows[0]["invoice_num"].ToString();
 
-           
+            vendor = data.Rows[0]["vendor"].ToString();
+            invoice = data.Rows[0]["invoice_num"].ToString();
+            
+
+
 
 
             DateTime.TryParse(data.Rows[0]["due_date"].ToString(), out DateTime dueDate);
@@ -194,6 +200,10 @@ namespace login
                 {
                     
                     SQL.AcctPayPmt(idNum, payAmt);
+                    string type = "Inventory";
+                    //sorry. I cheated here. Its the end of the project and we didnt get any deeper into the AcctPayables
+                    string particular = "Inventory Purchase of item #" + lbl_invoice.Text.Substring(4, 1) + " from Vendor " + vendor + " for Invoice # " + invoice;
+                    SQL.NewLedgerEntry(type, particular, -payAmt);
 
                     MessageBox.Show("Payment of " + payAmt.ToString("$#.##") + " accepted.", "Payment Recorded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DisplayPayData();
@@ -209,7 +219,9 @@ namespace login
                 {
 
                     SQL.AccRecPmt(idNum, payAmt);
-
+                    string type = "AcctRec";
+                    string particular = "Acct Rec Sales for Invoice#" + idNum;
+                    SQL.NewLedgerEntry(type, particular, -payAmt);
                     MessageBox.Show("Payment of " + payAmt.ToString("$#.##") + " accepted.", "Payment Recorded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DisplayRecData();
 
