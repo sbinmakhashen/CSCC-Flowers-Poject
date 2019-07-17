@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.lbl_titlePage = new System.Windows.Forms.Label();
             this.btn_GeneralLedger = new System.Windows.Forms.Button();
@@ -88,7 +89,6 @@
             this.lbl_StateDate = new System.Windows.Forms.Label();
             this.btn_balanceReport = new System.Windows.Forms.Button();
             this.btn_NewLedger = new System.Windows.Forms.Button();
-            this.btn_ModifyLedger = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Previous_pic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Close_pic)).BeginInit();
@@ -235,7 +235,7 @@
             "November",
             "December",
             "Full Year"});
-            this.cmBx_Month.Location = new System.Drawing.Point(10, 1400);
+            this.cmBx_Month.Location = new System.Drawing.Point(20, 1400);
             this.cmBx_Month.Margin = new System.Windows.Forms.Padding(4);
             this.cmBx_Month.Name = "cmBx_Month";
             this.cmBx_Month.Size = new System.Drawing.Size(334, 54);
@@ -372,26 +372,36 @@
             // 
             this.dgv_reports.AllowUserToAddRows = false;
             this.dgv_reports.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.NullValue = null;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Indigo;
-            this.dgv_reports.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.NullValue = null;
+            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Indigo;
+            this.dgv_reports.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dgv_reports.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_reports.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgv_reports.BackgroundColor = System.Drawing.Color.MidnightBlue;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_reports.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgv_reports.ColumnHeadersHeight = 58;
             this.dgv_reports.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_reports.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle9.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_reports.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgv_reports.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_reports.Location = new System.Drawing.Point(4, 58);
             this.dgv_reports.Margin = new System.Windows.Forms.Padding(2);
@@ -977,20 +987,7 @@
             this.btn_NewLedger.TabIndex = 80;
             this.btn_NewLedger.Text = "New Ledger Entry";
             this.btn_NewLedger.UseVisualStyleBackColor = false;
-            // 
-            // btn_ModifyLedger
-            // 
-            this.btn_ModifyLedger.BackColor = System.Drawing.Color.DarkCyan;
-            this.btn_ModifyLedger.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_ModifyLedger.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ModifyLedger.ForeColor = System.Drawing.Color.White;
-            this.btn_ModifyLedger.Location = new System.Drawing.Point(1250, 225);
-            this.btn_ModifyLedger.Margin = new System.Windows.Forms.Padding(6);
-            this.btn_ModifyLedger.Name = "btn_ModifyLedger";
-            this.btn_ModifyLedger.Size = new System.Drawing.Size(466, 87);
-            this.btn_ModifyLedger.TabIndex = 90;
-            this.btn_ModifyLedger.Text = "Modify Ledger Entry";
-            this.btn_ModifyLedger.UseVisualStyleBackColor = false;
+            this.btn_NewLedger.Click += new System.EventHandler(this.Btn_NewLedger_Click);
             // 
             // ReportsForm
             // 
@@ -998,7 +995,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.ClientSize = new System.Drawing.Size(3144, 1540);
-            this.Controls.Add(this.btn_ModifyLedger);
             this.Controls.Add(this.btn_NewLedger);
             this.Controls.Add(this.btn_balanceReport);
             this.Controls.Add(this.grp_StatementDisplay);
@@ -1093,6 +1089,5 @@
         private System.Windows.Forms.Label lbl_totalLiable;
         private System.Windows.Forms.Label title_totalLiable;
         private System.Windows.Forms.Button btn_NewLedger;
-        private System.Windows.Forms.Button btn_ModifyLedger;
     }
 }

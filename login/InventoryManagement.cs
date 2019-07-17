@@ -16,17 +16,20 @@ namespace login
     public partial class InventoryManagement : Form
     {
 
-        int ProductID;
-        int tempQty;
+        int ProductID; // stores the ItemID being adjusted
+        int tempQty; // for use in error checking against moving/deleting too much item
+        string viewStore; // stores the store being currently viewed
+        string ItemName; // stores the name of the item being adjusted
+        bool isHomeStore = true; // flag for if viewing home store (and allowing the doubleclick on the grid)
         DataTable inventoryData = new DataTable();
 
         public InventoryManagement()
         {
             InitializeComponent();
             lbl_name.Text = "";
-            DispData();
-            lbl_StoreName.Text = SQL.DefaultStore;
             
+            viewStore = SQL.DefaultStore;
+            isHomeStore = true;
 
 
             var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
@@ -61,7 +64,7 @@ namespace login
                 lbl_ChangeQty.Show();
                 txt_ChangeQty.Show();
                 btn_IncreaseQty.Show();
-                btn_Send2Store.Show();
+                btn_Send2Store.Hide();
                 Store_DropDown.Show();
             } else
             {
@@ -75,15 +78,17 @@ namespace login
                 txt_ChangeQty.Hide();
                 btn_IncreaseQty.Hide();
                 btn_Send2Store.Hide();
-                Store_DropDown.Hide();
+                Store_DropDown.Show();
             }
 
+
+            DispData();
         }
 
         public void DispData()
         {
-            inventoryData = SQL.GetInventory();
-
+            inventoryData = SQL.GetInventory(viewStore);
+            lbl_StoreName.Text = viewStore;
             dataGridView1.DataSource = inventoryData;
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.Columns[0].HeaderText = "Type";
@@ -124,9 +129,24 @@ namespace login
 
         private void buttonDisplay_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = null;
+            viewStore = Store_DropDown.Text;
+            
+            
+            if(viewStore == SQL.DefaultStore)
+            {
+                btn_IncreaseQty.Show();
+                btn_Send2Store.Hide();
+                isHomeStore = true;
+                Clear();
+            }
+            else
+            {
+                btn_Send2Store.Show();
+                btn_IncreaseQty.Hide();
+                isHomeStore = false;
+            }
+
             DispData();
-            Clear();
         }
 
 
@@ -136,19 +156,26 @@ namespace login
             {
                 if (dataGridView1.CurrentRow.Index != -1)
                 {
+                    if(!isHomeStore)
+                    {
+                        // don't let them manipulate qty's of stores not their own.
+                        throw new InvalidOperationException("Cannot select an item from a store not your own.\nWould you like to view your home store now?");
+                    }
                     if(SQL.IsManager)
                     {
-                        lbl_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                        ItemName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                        lbl_name.Text = ItemName;
                         lbl_name.Show();
                         textBoxStockQty.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
                         txt_ChangeQty.Text = "";
                         int.TryParse(textBoxStockQty.Text, out tempQty);
-                        ProductID = SQL.GetItemId(lbl_name.Text);
+                        ProductID = SQL.GetItemId(ItemName);
                         btn_IncreaseQty.Show();
                     }else
                     {
                         btn_IncreaseQty.Hide();
-                        lbl_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                        ItemName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                        lbl_name.Text = ItemName;
                         lbl_name.Show();
                     }
 
@@ -157,24 +184,47 @@ namespace login
 
 
                 }
-            }catch
+            }
+            catch (InvalidOperationException ex)
+            {
+                // if they double click in the grid when its not the default store, then error
+                // and ask if they want to view their default store
+
+                DialogResult result =  MessageBox.Show(ex.Message, "Not Home Store", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if(result == DialogResult.Yes)
+                {
+                    isHomeStore = true;
+                    viewStore = SQL.DefaultStore;
+                    btn_Send2Store.Hide();
+                    btn_IncreaseQty.Show();
+
+                    Clear();
+                    DispData();
+                }
+            }
+
+            catch
             {
                 //safety catch - will throw an exception if the dataGridView is empty.
                 // this refreshes it tries a second time.
+                // sometimes hitting the buttons to quickly causes it to not have the data
+                // yet and so it needs to catch
 
                 // we can do this because there should ALWAYS be inventory for each store, so
                 // yeah. we're cheating. Sorry.
 
 
                 dataGridView1.DataSource = inventoryData;
-                lbl_name.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                ItemName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                lbl_name.Text = ItemName;
                 lbl_name.Show();
                 textBoxStockQty.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
                 txt_ChangeQty.Text = "";
                 int.TryParse(textBoxStockQty.Text, out tempQty);
-                ProductID = SQL.GetItemId(lbl_name.Text);
+                ProductID = SQL.GetItemId(ItemName);
                 btn_IncreaseQty.Show();
-            }
+            } 
             
         }
         void Clear()
@@ -231,6 +281,7 @@ namespace login
              * 
              */
 
+            // Out of Current Project Scope
 
             
         }
@@ -373,9 +424,57 @@ namespace login
         private void btn_Send2Store_Click(object sender, EventArgs e)
         {
             string StoreDD = Store_DropDown.Text;
-            string StockQty = textBoxStockQty.Text;
+            viewStore = StoreDD;
+            int.TryParse(txt_ChangeQty.Text, out int xferAmt);
 
-            //finish the error checking later 
+            try
+            {
+
+            /* Error Checking Requirements - put them here and delete this comment when you're done.
+             *
+             * Check that ProductId != -1 (what we set it to if no item is selected)
+             * (error message: "Please select an item while viewing your store first"
+             * 
+             * Check that txt_ChangeQty <= tempQty 
+             * (error: Can't Send more than in current Inventory.)
+             * 
+             * Check that txt_ChangeQty has a number in it and it is not negative
+             * (error: Please enter a valid Number.)
+             * 
+             * Check that textBoxStockQty is still the same as tempQty
+             * (Please only use the Adjust Quantity field.)
+             * 
+             * Check to make sure StoreDD != SQL.DefaultStore
+             * (Can't move items from your own store to your own store)
+             * 
+             * use individual If statements with a Throw in each one
+             * 
+             * Throw new Exception("Error Message Here)
+             * 
+             * no else statements
+             */
+
+                SQL.ItemChgStore(ProductID, StoreDD, xferAmt);
+                DispData();
+
+                DialogResult result = MessageBox.Show("Successfully Moved " + xferAmt + " of " + ItemName + " to store " + viewStore + ".\nWould you like to return to your own store?", "Item Moved", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    isHomeStore = true;
+                    viewStore = SQL.DefaultStore;
+
+                    Clear();
+                    DispData();
+                }
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+
+
+
         }
     }
 }

@@ -10,6 +10,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CcnSession;
 
+/* To whomever looks at this code:
+ * 
+ * There is a better way to do ---all-- of this. The constant hiding and showing of fields, of changing
+ * their .Text is ... to put it bluntly, brute force and so ugly.
+ * 
+ * It should have been dynamically created whenever a button is hit, but... this was the last section
+ * of code that had to be written for our due date, and it was crunch time. Instead of creating a serious
+ * of dynamic label generations that would have required quite a bit of debugging I (anthony/project lead)
+ * decided to go with the quick and dirty and just -get it done-
+ * 
+ * sorry.
+ * 
+ */
+
 namespace login
 {
     public partial class ReportsForm : Form
@@ -27,6 +41,7 @@ namespace login
 
         public void ProftLossFormat(PLState statement)
         {
+            btn_NewLedger.Hide();
             title_TotalRevenue.Text = "Total Cash Sales Revenue";
             title_ActRec.Text = "Accounts Receivable Collected";
             title_Inventory.Text = "Cost of Goods Sold";
@@ -135,7 +150,7 @@ namespace login
 
         public void CashFlowFormat(PLState statement)
         {
-
+            btn_NewLedger.Hide();
             title_TotalRevenue.Text = "Total Cash Sales Revenue";
             title_ActRec.Text = "Accounts Receivable Collected";
             title_Inventory.Text = "Cost of Goods Sold";
@@ -250,6 +265,7 @@ namespace login
 
 
             dgv_reports.Show();
+            btn_NewLedger.Show();
             dgv_reports.Columns[0].HeaderText = "Transaction ID";
             dgv_reports.Columns[0].Visible = false;
             dgv_reports.Columns[1].HeaderText = "Location";
@@ -307,9 +323,9 @@ namespace login
 
         public void BalanceFormat()
         {
-           
-            
-            
+
+
+            btn_NewLedger.Hide();
             dgv_reports.Show();
             lbl_ReportName.Text = "Balance Sheet Full List";
             grp_StatementDisplay.Text = "";
@@ -401,6 +417,7 @@ namespace login
                 lbl_Taxes.Show();
             }
 
+            btn_NewLedger.Hide();
             title_TotalRevenue.Text = "Assets";
             lbl_revenue.Hide();
             title_Asset.Show();
@@ -843,6 +860,11 @@ namespace login
             {
                 MessageBox.Show(ex.Message, "Not a valid Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void Btn_NewLedger_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

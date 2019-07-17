@@ -175,7 +175,7 @@
             this.lbl_date.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.lbl_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_date.ForeColor = System.Drawing.Color.Navy;
-            this.lbl_date.Location = new System.Drawing.Point(2382, 190);
+            this.lbl_date.Location = new System.Drawing.Point(2382, 183);
             this.lbl_date.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_date.Name = "lbl_date";
             this.lbl_date.Size = new System.Drawing.Size(258, 42);
