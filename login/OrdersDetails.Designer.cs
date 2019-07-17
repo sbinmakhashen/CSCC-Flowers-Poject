@@ -161,7 +161,7 @@
             this.btn_SetComplete.TabIndex = 30;
             this.btn_SetComplete.Text = "Set Processed (Ready for Delivery)";
             this.btn_SetComplete.UseVisualStyleBackColor = false;
-            this.btn_SetComplete.Click += new System.EventHandler(this.Btn_SetComplete_Click);
+            this.btn_SetComplete.Click += new System.EventHandler(this.btn_SetProcessed_Click);
             // 
             // btn_Processing
             // 
@@ -174,7 +174,7 @@
             this.btn_Processing.TabIndex = 20;
             this.btn_Processing.Text = "Set Recieved (Claim Order)";
             this.btn_Processing.UseVisualStyleBackColor = false;
-            this.btn_Processing.Click += new System.EventHandler(this.Btn_Processing_Click);
+            this.btn_Processing.Click += new System.EventHandler(this.btn_SetRecieved_Click);
             // 
             // btn_outDel
             // 
@@ -187,7 +187,7 @@
             this.btn_outDel.TabIndex = 40;
             this.btn_outDel.Text = "Set Out for Delivery";
             this.btn_outDel.UseVisualStyleBackColor = false;
-            this.btn_outDel.Click += new System.EventHandler(this.Btn_outDel_Click);
+            this.btn_outDel.Click += new System.EventHandler(this.btn_SetOutForDelivery_Click);
             // 
             // btn_Cancel
             // 
@@ -200,7 +200,7 @@
             this.btn_Cancel.TabIndex = 50;
             this.btn_Cancel.Text = "Cancel Order";
             this.btn_Cancel.UseVisualStyleBackColor = false;
-            this.btn_Cancel.Click += new System.EventHandler(this.Btn_Cancel_Click);
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_SetCancel_Click);
             // 
             // btn_Unclaim
             // 
@@ -213,7 +213,7 @@
             this.btn_Unclaim.TabIndex = 10;
             this.btn_Unclaim.Text = "Unclaim Order";
             this.btn_Unclaim.UseVisualStyleBackColor = false;
-            this.btn_Unclaim.Click += new System.EventHandler(this.Btn_Unclaim_Click);
+            this.btn_Unclaim.Click += new System.EventHandler(this.btn_SetUnClaimed_Click);
             // 
             // lbl_empClaimed
             // 

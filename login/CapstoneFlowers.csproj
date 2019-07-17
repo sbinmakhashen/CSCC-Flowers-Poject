@@ -84,6 +84,12 @@
     <Compile Include="AcctDetails.Designer.cs">
       <DependentUpon>AcctDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddLedger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddLedger.Designer.cs">
+      <DependentUpon>AddLedger.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChangePW.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AcctDetails.resx">
       <DependentUpon>AcctDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddLedger.resx">
+      <DependentUpon>AddLedger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangePW.resx">
       <DependentUpon>ChangePW.cs</DependentUpon>

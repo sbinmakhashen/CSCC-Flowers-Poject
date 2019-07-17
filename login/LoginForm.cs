@@ -74,9 +74,24 @@ namespace login
                     {
                         if (SQL.PwCorrect)
                         {
-                            this.Hide();
-                            MainForm mainform = new MainForm();
-                            mainform.Show();
+                            if(SQL.ChkOldPW())
+                            {
+                                
+                                MainForm mainform = new MainForm();
+                                mainform.Show();
+                                this.Hide();
+                            } else
+                            {
+                                DialogResult result = MessageBox.Show("It has been more than 90 days since you last changed your password. You will be redirected to the change password form now.", "Out of Date Password", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                if(result == DialogResult.OK)
+                                {
+                                    var oldPw = new ChangePW();
+                                    oldPw.Show();
+                                    this.Hide();
+                                }
+                            }
+                            
                         }
                     }
                     else

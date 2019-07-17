@@ -864,7 +864,9 @@ namespace login
 
         private void Btn_NewLedger_Click(object sender, EventArgs e)
         {
-
+            var newItem = new AddLedger();
+            newItem.Show();
+            this.Hide();
         }
     }
 }
