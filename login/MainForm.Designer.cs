@@ -61,9 +61,9 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(3144, 1540);
+            this.panel1.Size = new System.Drawing.Size(1572, 795);
             this.panel1.TabIndex = 0;
             // 
             // btn_Update_Employee
@@ -72,10 +72,10 @@
             this.btn_Update_Employee.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Update_Employee.Font = new System.Drawing.Font("Arial", 30F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Update_Employee.ForeColor = System.Drawing.Color.Peru;
-            this.btn_Update_Employee.Location = new System.Drawing.Point(0, 1081);
-            this.btn_Update_Employee.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.btn_Update_Employee.Location = new System.Drawing.Point(0, 558);
+            this.btn_Update_Employee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.btn_Update_Employee.Name = "btn_Update_Employee";
-            this.btn_Update_Employee.Size = new System.Drawing.Size(1554, 221);
+            this.btn_Update_Employee.Size = new System.Drawing.Size(777, 114);
             this.btn_Update_Employee.TabIndex = 50;
             this.btn_Update_Employee.Text = "Update Employee Information";
             this.btn_Update_Employee.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -90,10 +90,10 @@
             this.lbl_forgotPW.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbl_forgotPW.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_forgotPW.ForeColor = System.Drawing.Color.Peru;
-            this.lbl_forgotPW.Location = new System.Drawing.Point(816, 1422);
-            this.lbl_forgotPW.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_forgotPW.Location = new System.Drawing.Point(408, 734);
+            this.lbl_forgotPW.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_forgotPW.Name = "lbl_forgotPW";
-            this.lbl_forgotPW.Size = new System.Drawing.Size(1486, 97);
+            this.lbl_forgotPW.Size = new System.Drawing.Size(760, 51);
             this.lbl_forgotPW.TabIndex = 70;
             this.lbl_forgotPW.Text = "Click here to Change Your Password";
             this.lbl_forgotPW.Click += new System.EventHandler(this.Lbl_forgotPW_Click);
@@ -106,10 +106,10 @@
             this.btn_reports.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_reports.Font = new System.Drawing.Font("Arial", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_reports.ForeColor = System.Drawing.Color.Peru;
-            this.btn_reports.Location = new System.Drawing.Point(1674, 1081);
-            this.btn_reports.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.btn_reports.Location = new System.Drawing.Point(837, 558);
+            this.btn_reports.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.btn_reports.Name = "btn_reports";
-            this.btn_reports.Size = new System.Drawing.Size(1470, 221);
+            this.btn_reports.Size = new System.Drawing.Size(735, 114);
             this.btn_reports.TabIndex = 60;
             this.btn_reports.Text = "Reports";
             this.btn_reports.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -123,10 +123,10 @@
             this.btn_accounting.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_accounting.Font = new System.Drawing.Font("Arial", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_accounting.ForeColor = System.Drawing.Color.Peru;
-            this.btn_accounting.Location = new System.Drawing.Point(1670, 661);
-            this.btn_accounting.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.btn_accounting.Location = new System.Drawing.Point(835, 341);
+            this.btn_accounting.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.btn_accounting.Name = "btn_accounting";
-            this.btn_accounting.Size = new System.Drawing.Size(1474, 221);
+            this.btn_accounting.Size = new System.Drawing.Size(737, 114);
             this.btn_accounting.TabIndex = 40;
             this.btn_accounting.Text = "Accounting Information";
             this.btn_accounting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -140,10 +140,10 @@
             this.btn_orders.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_orders.Font = new System.Drawing.Font("Arial", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_orders.ForeColor = System.Drawing.Color.Peru;
-            this.btn_orders.Location = new System.Drawing.Point(0, 229);
-            this.btn_orders.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.btn_orders.Location = new System.Drawing.Point(0, 118);
+            this.btn_orders.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.btn_orders.Name = "btn_orders";
-            this.btn_orders.Size = new System.Drawing.Size(1554, 221);
+            this.btn_orders.Size = new System.Drawing.Size(777, 114);
             this.btn_orders.TabIndex = 10;
             this.btn_orders.Text = "Order Review";
             this.btn_orders.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -157,10 +157,10 @@
             this.btn_inventory.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_inventory.Font = new System.Drawing.Font("Arial", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_inventory.ForeColor = System.Drawing.Color.Peru;
-            this.btn_inventory.Location = new System.Drawing.Point(1670, 229);
-            this.btn_inventory.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.btn_inventory.Location = new System.Drawing.Point(835, 118);
+            this.btn_inventory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.btn_inventory.Name = "btn_inventory";
-            this.btn_inventory.Size = new System.Drawing.Size(1474, 221);
+            this.btn_inventory.Size = new System.Drawing.Size(737, 114);
             this.btn_inventory.TabIndex = 20;
             this.btn_inventory.Text = "Inventory Management";
             this.btn_inventory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -174,10 +174,10 @@
             this.btn_employee_setup.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_employee_setup.Font = new System.Drawing.Font("Arial", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_employee_setup.ForeColor = System.Drawing.Color.Peru;
-            this.btn_employee_setup.Location = new System.Drawing.Point(-6, 661);
-            this.btn_employee_setup.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.btn_employee_setup.Location = new System.Drawing.Point(-3, 341);
+            this.btn_employee_setup.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.btn_employee_setup.Name = "btn_employee_setup";
-            this.btn_employee_setup.Size = new System.Drawing.Size(1554, 221);
+            this.btn_employee_setup.Size = new System.Drawing.Size(777, 114);
             this.btn_employee_setup.TabIndex = 30;
             this.btn_employee_setup.Text = "New Employee Setup";
             this.btn_employee_setup.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -194,9 +194,9 @@
             this.panel2.Controls.Add(this.icon_Logo);
             this.panel2.Controls.Add(this.lbl_titlePage);
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(3144, 229);
+            this.panel2.Size = new System.Drawing.Size(1572, 118);
             this.panel2.TabIndex = 0;
             // 
             // Close_pic
@@ -204,10 +204,9 @@
             this.Close_pic.BackColor = System.Drawing.Color.MediumPurple;
             this.Close_pic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Close_pic.Image = global::login.Properties.Resources.close;
-            this.Close_pic.Location = new System.Drawing.Point(3068, 0);
-            this.Close_pic.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Close_pic.Location = new System.Drawing.Point(1534, 0);
             this.Close_pic.Name = "Close_pic";
-            this.Close_pic.Size = new System.Drawing.Size(76, 78);
+            this.Close_pic.Size = new System.Drawing.Size(38, 40);
             this.Close_pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Close_pic.TabIndex = 46;
             this.Close_pic.TabStop = false;
@@ -219,10 +218,10 @@
             this.lbl_date.BackColor = System.Drawing.Color.MediumPurple;
             this.lbl_date.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_date.ForeColor = System.Drawing.Color.White;
-            this.lbl_date.Location = new System.Drawing.Point(2298, 182);
-            this.lbl_date.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_date.Location = new System.Drawing.Point(1149, 94);
+            this.lbl_date.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_date.Name = "lbl_date";
-            this.lbl_date.Size = new System.Drawing.Size(258, 42);
+            this.lbl_date.Size = new System.Drawing.Size(129, 24);
             this.lbl_date.TabIndex = 8;
             this.lbl_date.Text = "Today\'s Date: ";
             this.lbl_date.MouseEnter += new System.EventHandler(this.lbl_date_MouseEnter);
@@ -234,10 +233,10 @@
             this.lbl_username.BackColor = System.Drawing.Color.MediumPurple;
             this.lbl_username.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_username.ForeColor = System.Drawing.Color.White;
-            this.lbl_username.Location = new System.Drawing.Point(350, 0);
-            this.lbl_username.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.lbl_username.Location = new System.Drawing.Point(175, 0);
+            this.lbl_username.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_username.Name = "lbl_username";
-            this.lbl_username.Size = new System.Drawing.Size(248, 42);
+            this.lbl_username.Size = new System.Drawing.Size(127, 24);
             this.lbl_username.TabIndex = 5;
             this.lbl_username.Text = "Logged In As:";
             this.lbl_username.MouseEnter += new System.EventHandler(this.lbl_username_MouseEnter);
@@ -248,9 +247,9 @@
             this.icon_Logo.BackColor = System.Drawing.Color.PapayaWhip;
             this.icon_Logo.Image = global::login.Properties.Resources.logo;
             this.icon_Logo.Location = new System.Drawing.Point(0, 0);
-            this.icon_Logo.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.icon_Logo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.icon_Logo.Name = "icon_Logo";
-            this.icon_Logo.Size = new System.Drawing.Size(336, 229);
+            this.icon_Logo.Size = new System.Drawing.Size(168, 118);
             this.icon_Logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.icon_Logo.TabIndex = 4;
             this.icon_Logo.TabStop = false;
@@ -262,21 +261,21 @@
             this.lbl_titlePage.Font = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_titlePage.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.lbl_titlePage.Location = new System.Drawing.Point(0, 0);
-            this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.lbl_titlePage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_titlePage.Name = "lbl_titlePage";
-            this.lbl_titlePage.Size = new System.Drawing.Size(3144, 229);
+            this.lbl_titlePage.Size = new System.Drawing.Size(1572, 118);
             this.lbl_titlePage.TabIndex = 0;
             this.lbl_titlePage.Text = "Landing Page";
             this.lbl_titlePage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(3144, 1540);
+            this.ClientSize = new System.Drawing.Size(1572, 795);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";

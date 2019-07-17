@@ -84,7 +84,7 @@ namespace login
                 reason = cmb_Detail.SelectedItem.ToString();
                 particular += "(" + reason + ")";
             }
-            
+
             double.TryParse(txt_Amt.Text, out double amount);
 
 
@@ -92,20 +92,40 @@ namespace login
 
             try
             {
-                /* Error Checking needed here
-                 * 
-                 * check that all combo boxes SelectedIndex >-1
-                 * (error message: Please fill out all fields.)
-                 * 
-                 * remember that Reason may not be visible!!
-                 * 
-                 * make sure that txt_amt is a valid double
-                 * (error: That is not a valid amount)
-                 * 
-                 * just like with the other field, use IF statements that Throw new Exception("Message") and no else statements
-                 */
 
-                SQL.NewLedgerEntry(type, particular, amount);
+                 if (cmb_Particular.SelectedIndex >-1)
+                {
+                    throw new Exception("Please fill out all fields");
+                }
+
+                if (cmb_Detail.SelectedIndex >-1)
+                {
+                    throw new Exception("Please fill out all fileds");
+                }
+
+                if (cmb_Type.SelectedIndex >-1)
+                {
+                    throw new Exception("Please fill out all fileds");
+                }
+
+                if (txt_Amt.Text.ToLower() == "amount" || txt_Amt.Text.Length == 0)
+                {
+                    throw new Exception("Amount field must be entered to continue.");
+
+                }
+                else if (double.TryParse(txt_Amt.Text, out amount))
+
+                {
+                    Console.WriteLine(amount);
+
+                }
+                else
+                {
+                    throw new Exception("That is not a valid number");
+                }
+
+
+        SQL.NewLedgerEntry(type, particular, amount);
 
             } catch (Exception ex)
             {
