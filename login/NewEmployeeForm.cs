@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using CcnSession;
+﻿using CcnSession;
 using login.Resources;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace login
 {
@@ -67,8 +60,6 @@ namespace login
                 textBoxLastname.ForeColor = Color.Gray;
             }
         }
-
-
 
         private void textBoxPassword_Enter(object sender, EventArgs e)
         {
@@ -201,15 +192,6 @@ namespace login
 
         //Text Boxes Enter and Leave Methods Ends Here
 
-        private void labelClose_Click(object sender, EventArgs e)
-        {
-            SQL.Cleanup();
-            this.Hide();
-            LoginForm login = new LoginForm();
-            login.Show();
-        }
-
-
         private void buttonCreateAccount_Click(object sender, EventArgs e)
         {
             // add a new user
@@ -302,25 +284,16 @@ namespace login
             {
                 MessageBox.Show(ex.Message, "Incorrect Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-
-
         }
-
-
-
 
         // check if the textboxes or dropdowns contains the default values
         public Boolean checkTextBoxesValues()
         {
 
-
             if (textBoxFirstname.Text.ToLower().Equals("first name") || textBoxLastname.Text.ToLower().Equals("last name")
                 || textBoxPassword.Text.ToLower().Equals("password") || textBoxStreet.Text.ToLower().Equals("street")
                 || textBoxCity.Text.ToLower().Equals("City") || comboBoxState == null || textBoxZip.Text.ToLower().Equals("zip"))
             {
-
 
                 return true;
             }
@@ -329,15 +302,6 @@ namespace login
                 return false;
             }
 
-        }
-
-
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            MainForm MainForm = new MainForm();
-            MainForm.Show();
         }
 
         private void Close_pic_Click(object sender, EventArgs e)

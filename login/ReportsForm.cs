@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CcnSession;
+using System;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CcnSession;
 
 /* To whomever looks at this code:
  * 
@@ -29,14 +23,13 @@ namespace login
     public partial class ReportsForm : Form
     {
         DataTable balance = new DataTable();
-        
 
         public ReportsForm()
         {
             DateTime now = DateTime.Today;
             InitializeComponent();
-            string date =  now.Year+ "-" + now.Month + "-01";
-            
+            string date = now.Year + "-" + now.Month + "-01";
+
             txt_Year.Text = now.Year.ToString();
             cmBx_Month.SelectedIndex = now.Month - 1;
             lbl_StoreName.Text = SQL.DefaultStore;
@@ -72,30 +65,30 @@ namespace login
             title_Taxes.Text = "Taxes";
             title_totalLiable.Hide();
             lbl_totalLiable.Hide();
-
             lbl_ReportName.Text = "Profit / Loss Report";
             dgv_reports.Hide();
             grp_StatementDisplay.Show();
             grp_StatementDisplay.Text = "Profit / Loss Report";
 
-            if(statement.Month !=0 && statement.Year !=0)
+            if (statement.Month != 0 && statement.Year != 0)
             {
                 lbl_StateDate.Text = "Report for " + statement.LongMonth + " " + statement.Year;
-            } else if (statement.Month == 0 && statement.Year != 0)
+            }
+            else if (statement.Month == 0 && statement.Year != 0)
             {
                 if (statement.Year == DateTime.Today.Year)
                 {
-                    lbl_StateDate.Text = "Report for the year of "+statement.Year+ " through the month of "+DateTime.Today.ToString("MMMM");
+                    lbl_StateDate.Text = "Report for the year of " + statement.Year + " through the month of " + DateTime.Today.ToString("MMMM");
                 }
                 else
                 {
                     lbl_StateDate.Text = "Report for the year of " + statement.Year;
                 }
-            } else if (statement.Month == 0  && statement.Year == 0)
+            }
+            else if (statement.Month == 0 && statement.Year == 0)
             {
                 lbl_StateDate.Text = "Full Life of Store (From Jan 2010 to Now)";
             }
-
 
             lbl_acctRec.Show();
             title_ActRec.Show();
@@ -105,7 +98,6 @@ namespace login
             title_OperProf.Show();
             lbl_Taxes.Show();
             title_Taxes.Show();
-
             lbl_acctRec.Text = statement.Receivable.ToString("c2");
             lbl_revenue.Text = statement.Sales.ToString("c2");
             lbl_inventory.Text = statement.Inventory.ToString("c2");
@@ -116,17 +108,15 @@ namespace login
             lbl_expenses.Text = statement.Expenses.ToString("c2");
             lbl_actPay.Text = statement.Vendor.ToString("c2");
             lbl_Marketing.Text = statement.Marketing.ToString("c2");
-
-            double totalExpense = statement.Payroll + statement.Utilities + statement.Expenses +statement.Marketing +statement.Vendor;
+            double totalExpense = statement.Payroll + statement.Utilities + statement.Expenses + statement.Marketing + statement.Vendor;
             lbl_TotalExpense.Text = totalExpense.ToString("c2");
             double operatingProfit = grossProft + totalExpense;
             lbl_operatingProfit.Text = operatingProfit.ToString("c2");
-            double taxes = statement.Sales * -.055;  
+            double taxes = statement.Sales * -.055;
             lbl_Taxes.Text = taxes.ToString("c2");
             double net = operatingProfit + taxes;
             lbl_NetIncome.Text = net.ToString("c2");
             title_NetIncome.Text = "Net Income";
-
 
         }
 
@@ -152,7 +142,6 @@ namespace login
             yearPL = SQL.ProfitLossReport(year);
             ProftLossFormat(yearPL);
         }
-
 
         public void CashFlowFormat(PLState statement)
         {
@@ -181,8 +170,6 @@ namespace login
             title_Taxes.Text = "Taxes";
             title_totalLiable.Hide();
             lbl_totalLiable.Hide();
-
-
             lbl_ReportName.Text = "Cash Flow Report";
             dgv_reports.Hide();
             grp_StatementDisplay.Show();
@@ -220,13 +207,11 @@ namespace login
             lbl_actPay.Hide();
             title_AcctPay.Hide();
             lbl_Marketing.Text = statement.Marketing.ToString("c2");
-
             double totalExpense = statement.Payroll + statement.Utilities + statement.Expenses + statement.Marketing;
             lbl_TotalExpense.Text = totalExpense.ToString("c2");
             double operatingProfit = grossProft + totalExpense;
             lbl_operatingProfit.Hide();
             title_OperProf.Hide();
-
             double taxes = statement.Sales * -.055;
             lbl_Taxes.Hide();
             title_Taxes.Hide();
@@ -234,9 +219,7 @@ namespace login
             lbl_NetIncome.Text = net.ToString("c2");
             title_NetIncome.Text = "Cash Flow";
 
-
         }
-
 
         public void CashFlowDisplay()
         {
@@ -261,15 +244,10 @@ namespace login
             CashFlowFormat(yearPL);
         }
 
-
-
-
         public void GeneralFormat()
         {
             lbl_ReportName.Text = "General Ledger";
             grp_StatementDisplay.Text = "";
-
-
             dgv_reports.Show();
             btn_NewLedger.Show();
             dgv_reports.Columns[0].HeaderText = "Transaction ID";
@@ -286,7 +264,7 @@ namespace login
 
             int.TryParse(txt_Year.Text, out int year);
 
-            if (cmBx_Month.SelectedIndex != -1 &&  year != 0)
+            if (cmBx_Month.SelectedIndex != -1 && year != 0)
             {
                 lbl_StateDate.Text = "Report for " + cmBx_Month.Text + " " + year;
             }
@@ -310,7 +288,7 @@ namespace login
         {
             dgv_reports.DataSource = SQL.GeneralLedger();
             GeneralFormat();
-            
+
         }
         public void GeneralDisplay(string date)
         {
@@ -323,24 +301,14 @@ namespace login
             dgv_reports.DataSource = SQL.GeneralLedger(year);
             GeneralFormat();
         }
-
-
-
-
         public void BalanceFormat()
         {
-
-
             btn_NewLedger.Hide();
             dgv_reports.Show();
             lbl_ReportName.Text = "Balance Sheet Full List";
             grp_StatementDisplay.Text = "";
 
         }
-
-        
-
-
 
         public void BalanceDisplay()
         {
@@ -356,20 +324,14 @@ namespace login
 
         public void BalanceDisplay(int year)
         {
-           dgv_reports.DataSource = SQL.BalanceSheetReport(year);
+            dgv_reports.DataSource = SQL.BalanceSheetReport(year);
             BalanceFormat();
         }
-
 
         public void BalanceSheetFormat(string date, DataTable data)
         {
 
-            
-
-
             var b = new balanceData();
-
-            
 
             b = SQL.BalanceCompile(data);
             double futureRec = SQL.FutureRec(date);
@@ -377,7 +339,6 @@ namespace login
             dgv_reports.Hide();
             lbl_ReportName.Text = "Balance Sheet Report";
             grp_StatementDisplay.Text = "Balance Sheet";
-
 
             int.TryParse(txt_Year.Text, out int y);
 
@@ -444,7 +405,6 @@ namespace login
             lbl_totalAssets.Show();
             title_OperProf.Text = "Total Intangible Assets";
             lbl_operatingProfit.Text = b.TotalIntang().ToString("c2");
-            
             title_NetIncome.Text = "Other Assets";
             lbl_NetIncome.Text = b.Other.ToString("c2");
             title_TotalPositive.Show();
@@ -466,34 +426,28 @@ namespace login
             lbl_Taxes.Text = futureRec.ToString("c2");
             title_totalLiable.Show();
             lbl_totalLiable.Show();
-            
-
 
         }
 
-
-
         public void BalanceSheetDisplay()
         {
-            
+
             string date = DateTime.Today.ToString("yyyy-MM-dd");
             BalanceSheetFormat(date, SQL.BalanceSheetReport());
 
         }
         public void BalanceSheetDisplay(string date)
         {
-            
+
             BalanceSheetFormat(date, SQL.BalanceSheetReport(date));
         }
 
         public void BalanceSheetDisplay(int year)
         {
-            
+
             string date = year + "-01-01";
             BalanceSheetFormat(date, SQL.BalanceSheetReport(year));
         }
-
-
 
 
         /*
@@ -513,7 +467,7 @@ namespace login
                 // - no month selected, no year selected - show whole ledger.
                 int.TryParse(txt_Year.Text, out int selectedYear);
 
-                
+
                 // month empty, 
                 if (cmBx_Month.SelectedIndex == -1)
                 {
@@ -521,12 +475,11 @@ namespace login
                     if (txt_Year.Text.Trim().ToLower() == "year")
                     {
                         GeneralDisplay();
-
                     }
                     // outside of year values
-                    else if (selectedYear < 2016 || selectedYear > curYear)
+                    else if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("That year is outside the valid range (2016 through now).");
+                        throw new Exception("That year is outside the valid range (2018 through now).");
                     }
                     else// month is empty, but year is acceptable
                     {
@@ -535,19 +488,19 @@ namespace login
 
 
                 } // if there is a value in month
-                else if(cmBx_Month.SelectedIndex >= 0)
+                else if (cmBx_Month.SelectedIndex >= 0)
                 {
                     //year outside of acceptable range
-                    if (selectedYear < 2016 || selectedYear > curYear)
+                    if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("Please enter a valid year (2016 through now).");
+                        throw new Exception("Please enter a valid year (2018 through now).");
                     }// last combo box option, Full Year
-                    else if (cmBx_Month.SelectedIndex >=12)
+                    else if (cmBx_Month.SelectedIndex >= 12)
                     {
                         GeneralDisplay(selectedYear);
                     }
                     // month to far in the future
-                    else if (selecteMonth+1>= curMonth && selectedYear == curYear)
+                    else if (selecteMonth + 1 >= curMonth && selectedYear == curYear)
                     {
                         throw new Exception("Please select a month in the past");
                     }
@@ -558,14 +511,13 @@ namespace login
                         GeneralDisplay(date);
                     }
                 }
-                
-
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Not a valid Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
-            
+
+
         }
 
         private void Btn_ProfitLoss_Click(object sender, EventArgs e)
@@ -580,7 +532,6 @@ namespace login
                 // - no month selected, no year selected - show whole ledger.
                 int.TryParse(txt_Year.Text, out int selectedYear);
 
-
                 // month empty, 
                 if (cmBx_Month.SelectedIndex == -1)
                 {
@@ -591,26 +542,25 @@ namespace login
 
                     }
                     // outside of year values
-                    else if (selectedYear < 2016 || selectedYear > curYear)
+                    else if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("That year is outside the valid range (2016 through now).");
+                        throw new Exception("That year is outside the valid range (2018 through now).");
                     }
                     else// month is empty, but year is acceptable
                     {
                         ProfitDisplay(selectedYear);
                     }
-
-
+                    
                 } // if there is a value in month
                 else if (cmBx_Month.SelectedIndex >= 0)
                 {
                     //year outside of acceptable range
-                    if (selectedYear < 2016 || selectedYear > curYear)
+                    if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("Please enter a valid year (2016 through now).");
+                        throw new Exception("Please enter a valid year (2018 through now).");
                     }
                     // Month box is set to the last entry, the 'Full Year'
-                    else if (cmBx_Month.SelectedIndex>=12)
+                    else if (cmBx_Month.SelectedIndex >= 12)
                     {
                         ProfitDisplay(selectedYear);
                     }
@@ -622,14 +572,12 @@ namespace login
                     // finally, month is acceptable + year is acceptable
                     else
                     {
-                        
-                            string date = selectedYear + "-" + (selecteMonth + 1) + "-01";
-                            ProfitDisplay(date);
-                        
-                        
+
+                        string date = selectedYear + "-" + (selecteMonth + 1) + "-01";
+                        ProfitDisplay(date);
+
                     }
                 }
-
 
             }
             catch (Exception ex)
@@ -637,11 +585,9 @@ namespace login
                 MessageBox.Show(ex.Message, "Not a valid Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-
-
         }
 
-      
+
 
         private void Close_pic_Click_1(object sender, EventArgs e)
         {
@@ -680,23 +626,22 @@ namespace login
 
                     }
                     // outside of year values
-                    else if (selectedYear < 2016 || selectedYear > curYear)
+                    else if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("That year is outside the valid range (2016 through now).");
+                        throw new Exception("That year is outside the valid range (2018 through now).");
                     }
                     else// month is empty, but year is acceptable
                     {
                         CashFlowDisplay(selectedYear);
                     }
 
-
                 } // if there is a value in month
                 else if (cmBx_Month.SelectedIndex >= 0)
                 {
                     //year outside of acceptable range
-                    if (selectedYear < 2016 || selectedYear > curYear)
+                    if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("Please enter a valid year (2016 through now).");
+                        throw new Exception("Please enter a valid year (2018 through now).");
                     }
                     // Month box is set to the last entry, the 'Full Year'
                     else if (cmBx_Month.SelectedIndex >= 12)
@@ -715,10 +660,8 @@ namespace login
                         string date = selectedYear + "-" + (selecteMonth + 1) + "-01";
                         CashFlowDisplay(date);
 
-
                     }
                 }
-
 
             }
             catch (Exception ex)
@@ -750,9 +693,9 @@ namespace login
 
                     }
                     // outside of year values
-                    else if (selectedYear < 2016 || selectedYear > curYear)
+                    else if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("That year is outside the valid range (2016 through now).");
+                        throw new Exception("That year is outside the valid range (2018 through now).");
                     }
                     else// month is empty, but year is acceptable
                     {
@@ -764,9 +707,9 @@ namespace login
                 else if (cmBx_Month.SelectedIndex >= 0)
                 {
                     //year outside of acceptable range
-                    if (selectedYear < 2016 || selectedYear > curYear)
+                    if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("Please enter a valid year (2016 through now).");
+                        throw new Exception("Please enter a valid year (2018 through now).");
                     }
                     // Month box is set to the last entry, the 'Full Year'
                     else if (cmBx_Month.SelectedIndex >= 12)
@@ -785,10 +728,8 @@ namespace login
                         string date = selectedYear + "-" + (selecteMonth + 1) + "-01";
                         BalanceDisplay(date);
 
-
                     }
                 }
-
 
             }
             catch (Exception ex)
@@ -809,7 +750,6 @@ namespace login
                 // - no month selected, no year selected - show whole ledger.
                 int.TryParse(txt_Year.Text, out int selectedYear);
 
-
                 // month empty, 
                 if (cmBx_Month.SelectedIndex == -1)
                 {
@@ -817,27 +757,25 @@ namespace login
                     if (txt_Year.Text.Trim().ToLower() == "year")
                     {
                         BalanceSheetDisplay();
-                        
 
                     }
                     // outside of year values
-                    else if (selectedYear < 2016 || selectedYear > curYear)
+                    else if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("That year is outside the valid range (2016 through now).");
+                        throw new Exception("That year is outside the valid range (2018 through now).");
                     }
                     else// month is empty, but year is acceptable
                     {
                         BalanceSheetDisplay(selectedYear);
                     }
 
-
                 } // if there is a value in month
                 else if (cmBx_Month.SelectedIndex >= 0)
                 {
                     //year outside of acceptable range
-                    if (selectedYear < 2016 || selectedYear > curYear)
+                    if (selectedYear < 2018 || selectedYear > curYear)
                     {
-                        throw new Exception("Please enter a valid year (2016 through now).");
+                        throw new Exception("Please enter a valid year (2018 through now).");
                     }
                     // Month box is set to the last entry, the 'Full Year'
                     else if (cmBx_Month.SelectedIndex >= 12)
@@ -856,10 +794,8 @@ namespace login
                         string date = selectedYear + "-" + (selecteMonth + 1) + "-01";
                         BalanceSheetDisplay(date);
 
-
                     }
                 }
-
 
             }
             catch (Exception ex)

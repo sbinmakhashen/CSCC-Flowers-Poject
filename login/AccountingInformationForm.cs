@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CcnSession;
+using System;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using CcnSession;
 
 
 namespace login
 {
     public partial class AccountingInformationForm : Form
     {
-
-        bool receiving = false, payable=false;
-
+        bool receiving = false, payable = false;
         public AccountingInformationForm()
         {
             InitializeComponent();
@@ -34,68 +26,58 @@ namespace login
             lbl_TableViewing.Text = "";
             lbl_Date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
 
-            if(flag == 1)
+            if (flag == 1)
             {
                 DisplayPayableData();
             }
-            if(flag == 2)
+            if (flag == 2)
             {
                 DisplayRecievableData();
             }
-
         }
-
-
-        private void labelClose_Click(object sender, EventArgs e)
-        {
-            SQL.Cleanup();
-            var login = new LoginForm();
-            this.Hide();
-            login.Show();
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            MainForm MainForm = new MainForm();
-            MainForm.Show();
-        }
-
-        
-
-       
-        
 
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
-           
+            if (payable)
+            {
+                int.TryParse(dgv_accounting.CurrentRow.Cells[0].Value.ToString(), out int payID);
+                var acctDetails = new AcctDetails(payID, true);
+                acctDetails.Show();
+                this.Hide();
+
+            }
+            else if (receiving)
+            {
+                int.TryParse(dgv_accounting.CurrentRow.Cells[0].Value.ToString(), out int recID);
+                var acctDetails = new AcctDetails(recID, false);
+                acctDetails.Show();
+                this.Hide();
+
+            }
+            else
+            {
+                MessageBox.Show("Select Accounts Payable or Accounts Receivable before attempting to view items.", "No Data Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
         {
-            if(receiving)
+            if (receiving)
             {
                 dgv_accounting.DataSource = null;
                 DisplayRecievableData();
-            } else if(payable)
+            }
+            else if (payable)
             {
                 dgv_accounting.DataSource = null;
                 DisplayPayableData();
             }
-            
 
         }
 
         private void AccountingInformationForm_Load(object sender, EventArgs e)
         {
-            
-           
-        }
 
-
-        private void textBoxSearch_TextChanged(object sender, EventArgs e)
-        {
 
         }
 
@@ -103,16 +85,10 @@ namespace login
         {
             DisplayPayableData();
         }
-
-
-
-       
-
         private void Btn_AcctRec_Click(object sender, EventArgs e)
         {
             DisplayRecievableData();
         }
-
         private void Dgv_accounting_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (payable)
@@ -122,18 +98,19 @@ namespace login
                 acctDetails.Show();
                 this.Hide();
 
-            } else if (receiving)
+            }
+            else if (receiving)
             {
                 int.TryParse(dgv_accounting.CurrentRow.Cells[0].Value.ToString(), out int recID);
                 var acctDetails = new AcctDetails(recID, false);
                 acctDetails.Show();
                 this.Hide();
 
-            } else
+            }
+            else
             {
                 MessageBox.Show("Select Accounts Payable or Accounts Receivable before attempting to view items.", "No Data Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
         }
 
         public void DisplayRecievableData()
@@ -156,16 +133,11 @@ namespace login
             dgv_accounting.Columns[8].HeaderText = "Paid On";
             dgv_accounting.Sort(dgv_accounting.Columns[7], ListSortDirection.Descending);
 
-
             //flags for what table we are in to know what the buttons should do.
             receiving = true;
             payable = false;
         }
 
-        private void Close_pic_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Close_pic_Click_1(object sender, EventArgs e)
         {

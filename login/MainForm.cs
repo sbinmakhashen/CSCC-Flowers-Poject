@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using CcnSession;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CcnSession;
 
 namespace login
 {
@@ -29,13 +24,13 @@ namespace login
             if (string.IsNullOrEmpty(fname))
             {
                 fname = "User";
-            }else
+            }
+            else
             {
                 fname = char.ToUpper(fname[0]) + fname.Substring(1);
             }
             // Return char and concat substring.  
-            
-         
+
             if (!SQL.IsManager)
             {
                 lbl_username.Text = "Logged In As: Employee " + SQL.Username + ". Welcome, " + fname;
@@ -43,21 +38,21 @@ namespace login
                 btn_accounting.Hide();
                 btn_reports.Hide();
                 btn_Update_Employee.Hide();
-                
+
             }
             else
             {
-                lbl_username.Text = "Logged In As: Manager " + SQL.Username + ". Welcome, " +fname;
+                lbl_username.Text = "Logged In As: Manager " + SQL.Username + ". Welcome, " + fname;
             }
-            
+
         }
-        
+
         //Landing Page Go To Labels 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             SQL.Cleanup();
             Application.Exit();
-            
+
         }
 
         private void Btn_Employee_Setup_Click(object sender, EventArgs e)
@@ -76,8 +71,6 @@ namespace login
         {
             btn_employee_setup.ForeColor = Color.White;
         }
-        
-        
         private void Btn_New_Employee_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -85,23 +78,6 @@ namespace login
             updateForm.Show();
         }
 
-        private void Btn_New_Employee_MouseEnter(object sender, EventArgs e)
-        {
-            btn_employee_setup.ForeColor = Color.Yellow;
-        }
-
-        private void Btn_New_Employee_MouseLeave(object sender, EventArgs e)
-        {
-            btn_employee_setup.ForeColor = Color.White;
-        }
-
-        private void Btn_Close_Click(object sender, EventArgs e)
-        {
-            SQL.Cleanup();
-            this.Hide();
-            LoginForm login = new LoginForm();
-            login.Show();
-        }
         private void Btn_Inventory_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -136,7 +112,7 @@ namespace login
         private void lbl_forgotPW_MouseEnter(object sender, EventArgs e)
         {
             lbl_forgotPW.ForeColor = Color.Red;
-            
+
         }
 
         private void lbl_forgotPW_MouseLeave(object sender, EventArgs e)

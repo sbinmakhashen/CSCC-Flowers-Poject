@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using CcnSession;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CcnSession;
 
 namespace login
 {
@@ -27,10 +21,7 @@ namespace login
             orderNum = oN;
             InitializeComponent();
             DisplayData();
-            lbl_date.Text = "Today's Date is: " +DateTime.Today.ToString("dddd, dd MMMM yyyy");
-
-
-
+            lbl_date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
 
         }
 
@@ -41,9 +32,6 @@ namespace login
             InitializeComponent();
             DisplayData();
             lbl_date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
-
-
-
 
         }
 
@@ -57,7 +45,7 @@ namespace login
 
         private void Lbl_previous_Click(object sender, EventArgs e)
         {
-            if(acctID != 0)
+            if (acctID != 0)
             {
                 this.Hide();
                 var acctDet = new AcctDetails(acctID, false);
@@ -69,7 +57,7 @@ namespace login
                 var orderHistory = new OrderReviewForm();
                 orderHistory.Show();
             }
-            
+
         }
 
 
@@ -95,11 +83,12 @@ namespace login
              */
             DialogResult result;
 
-            if(claimedEmpNum == SQL.LoggedInEmpNum)
+            if (claimedEmpNum == SQL.LoggedInEmpNum)
             {
                 result = MessageBox.Show("You already have claimed this order. Do you want it set it back to just Received?.", "Already Claimed", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            
-            } else if (curStatus =="Received" && claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum != 0)
+
+            }
+            else if (curStatus == "Received" && claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum != 0)
             {
                 result = MessageBox.Show("This order is already claimed by " + claimedUName + ". Are you sure you want to claim it?", "Already Claimed", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -115,8 +104,9 @@ namespace login
                 result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 ReAddQty();
-                
-            } else if(curStatus == "Canceled" )
+
+            }
+            else if (curStatus == "Canceled")
             {
                 result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -130,30 +120,25 @@ namespace login
             SetNewStatus(result, "Received");
         }
 
-
-
-
-
-        
-
         private void btn_SetUnClaimed_Click(object sender, EventArgs e)
         {
             DialogResult result;
-            if (claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum !=0)
+            if (claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum != 0)
             {
                 result = MessageBox.Show("You do not have this order. Do you want to remove the current claim?", "Already Claimed", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
-            else if (curStatus == "Ordered"  || claimedEmpNum == 0)
+            else if (curStatus == "Ordered" || claimedEmpNum == 0)
             {
                 result = MessageBox.Show("This order is not yet claimed. There is no need to Unclaim it.", "Not Yet Claimed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
-            else if (curStatus == "Received" ||  curStatus == "Canceled" )
+            else if (curStatus == "Received" || curStatus == "Canceled")
             {
                 result = MessageBox.Show("This order currently has the status of " + curStatus + ".\nThis will return the status to Unclaimed and Not Yet Recieved.\nAre you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            }else if(curStatus == "Processed" || curStatus == "Out For Delivery")
+            }
+            else if (curStatus == "Processed" || curStatus == "Out For Delivery")
             {
                 result = MessageBox.Show("This order currently has the status of " + curStatus + ".\nThis will return the status to Unclaimed and Not Yet Recieved.\nAre you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 ReAddQty();
@@ -173,7 +158,7 @@ namespace login
             if (claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum != 0)
             {
                 result = MessageBox.Show("You are not the Processor of this Order. Do you want to set its status as Ready for delivery?", "Already Claimed", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                
+
 
             }
             else if (curStatus == "Ordered" || claimedEmpNum == 0)
@@ -186,10 +171,10 @@ namespace login
                 result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 DeductQty();
             }
-            else if(curStatus == "Out For Delivery")
+            else if (curStatus == "Out For Delivery")
             {
                 result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
             }
             else
             {
@@ -199,7 +184,7 @@ namespace login
             }
 
             SetNewStatus(result, "Processed");
-            
+
         }
 
         private void btn_SetOutForDelivery_Click(object sender, EventArgs e)
@@ -208,7 +193,6 @@ namespace login
             if (claimedEmpNum != SQL.LoggedInEmpNum && claimedEmpNum != 0)
             {
                 result = MessageBox.Show("You do not have this order. Do you want to set its status as On the Truck?", "Already Claimed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
 
             }
             else if (curStatus == "Ordered" || claimedEmpNum == 0)
@@ -216,15 +200,16 @@ namespace login
                 result = MessageBox.Show("This order is not yet claimed. Please claim it before continuing.", "Not Yet Claimed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
-            else if (curStatus == "Received" )
+            else if (curStatus == "Received")
             {
                 result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 DeductQty();
 
-            }else if (curStatus == "Processed" || curStatus == "Canceled")
+            }
+            else if (curStatus == "Processed" || curStatus == "Canceled")
             {
                 result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Order Status", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
             }
             else
             {
@@ -252,7 +237,7 @@ namespace login
             {
                 result = MessageBox.Show("This Order is already canceled", "No Change", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else 
+            else
             {
                 result = MessageBox.Show("This order currently has the status of " + curStatus + ". Are you sure you want to change that?", "Cancel Order", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -261,10 +246,6 @@ namespace login
             SetNewStatus(result, "Canceled");
         }
 
-
-
-
-
         private void SetNewStatus(DialogResult result, string newStatus)
         {
             if (result == DialogResult.Yes)
@@ -272,7 +253,7 @@ namespace login
 
                 try
                 {
-                    if(newStatus == "Ordered")
+                    if (newStatus == "Ordered")
                     {
                         UnClaim(DialogResult.Yes, 0);
                         SQL.ChangeStatus(orderNum, 0);
@@ -283,7 +264,7 @@ namespace login
                         MessageBox.Show("Order Status updated to " + newStatus + ".", "Order Status Changed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         DisplayData();
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -306,19 +287,20 @@ namespace login
                 {
                     SQL.ChangeStatus(orderNum, emp);
 
-                    if(emp == 0)
+                    if (emp == 0)
                     {
                         MessageBox.Show("Order status reverted to unclaimed.", "Order Status Changed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         lbl_OrderStatus.Text = "Ordered";
-                    }else
+                    }
+                    else
                     {
                         var data = new DataTable();
                         data = SQL.GetEmployee(emp);
                         string empFName = data.Rows[0]["first_name"].ToString();
                         string empUName = data.Rows[0]["username"].ToString();
-                        MessageBox.Show("Order Status assigned to "+empUName+", "+empFName+".", "Order Status Changed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Order Status assigned to " + empUName + ", " + empFName + ".", "Order Status Changed.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    
+
                     DisplayData();
                 }
                 catch (Exception ex)
@@ -358,14 +340,15 @@ namespace login
             {
                 int.TryParse(dgv_OrderItems.Rows[0].Cells["emp_num"].Value.ToString(), out claimedEmpNum);
 
-                if(claimedEmpNum!=0)//ie: the order is actually claimed
+                if (claimedEmpNum != 0)//ie: the order is actually claimed
                 {
                     var data = new DataTable();
                     data = SQL.GetEmployee(claimedEmpNum);
                     claimedFName = data.Rows[0]["first_name"].ToString();
                     claimedUName = data.Rows[0]["username"].ToString();
                     lbl_empClaimed.Text = "Claimed By: " + claimedFName + ", Username: " + claimedUName;
-                } else //order unclaimed, hence 0 emp_num
+                }
+                else //order unclaimed, hence 0 emp_num
                 {
                     lbl_empClaimed.Text = "Claimed By: Unclaimed";
                 }
@@ -377,7 +360,6 @@ namespace login
                 lbl_delAdd.Text = "Delivery Address:\n" + dgv_OrderItems.Rows[0].Cells["del_addy"].Value.ToString();
                 lbl_DelDate.Text = "Delivery Date: " + dgv_OrderItems.Rows[0].Cells["del_date"].Value.ToString();
                 lbl_OrderStatus.Text = "Order Status: " + dgv_OrderItems.Rows[0].Cells["order_status"].Value.ToString();
-                
 
             }
             catch (Exception ex)
@@ -410,7 +392,6 @@ namespace login
             }
         }
 
-
         private void DeductQty()
         {
             foreach (DataGridViewRow row in dgv_OrderItems.Rows)
@@ -420,7 +401,7 @@ namespace login
                 int curStock = SQL.CheckStock(productID);
                 try
                 {
-                    if(orderQty > curStock)
+                    if (orderQty > curStock)
                     {
                         throw new Exception("There is not enough stock to complete this item.");
                     }
@@ -429,13 +410,11 @@ namespace login
                         SQL.ChangeQty(productID, curStock - orderQty);
                     }
 
-                    
-
-                }catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
 
             }
         }
@@ -450,19 +429,16 @@ namespace login
                     int curStock = SQL.CheckStock(productID);
                     try
                     {
-                        
+
                         {
                             SQL.ChangeQty(productID, curStock + orderQty);
                         }
-
-
 
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
 
                 }
             }

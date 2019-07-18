@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CcnSession;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using CcnSession;
 
 
 namespace login
 {
     public partial class InventoryManagement : Form
     {
-
         int ProductID; // stores the ItemID being adjusted
         int tempQty; // for use in error checking against moving/deleting too much item
         string viewStore; // stores the store being currently viewed
@@ -27,13 +21,11 @@ namespace login
         {
             InitializeComponent();
             lbl_name.Text = "";
-            
+
             viewStore = SQL.DefaultStore;
             isHomeStore = true;
 
-
             var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
-            
 
             var data = new DataTable();
             data = SQL.GetEmployee(SQL.GetEmpNum(SQL.Username));
@@ -51,11 +43,9 @@ namespace login
                 fname = char.ToUpper(fname[0]) + fname.Substring(1);
             }
 
-            
-
             if (SQL.IsManager)
             {
-                lbl_loginInfo.Text = "Hello "+fname+". You are logged in as " + SQL.Username + ", a Manager.";
+                lbl_loginInfo.Text = "Hello " + fname + ". You are logged in as " + SQL.Username + ", a Manager.";
                 btn_IncreaseQty.Show();
                 lbl_product.Show();
                 lbl_stock.Show();
@@ -66,7 +56,8 @@ namespace login
                 btn_IncreaseQty.Show();
                 btn_Send2Store.Hide();
                 Store_DropDown.Show();
-            } else
+            }
+            else
             {
                 lbl_loginInfo.Text = "Hello " + fname + ". You are logged in as " + SQL.Username + ", a Employee. Todays Date is " + date + ".";
                 btn_IncreaseQty.Hide();
@@ -80,7 +71,6 @@ namespace login
                 btn_Send2Store.Hide();
                 Store_DropDown.Show();
             }
-
 
             DispData();
         }
@@ -103,36 +93,17 @@ namespace login
         }
 
 
-        private void labelClose_Click(object sender, EventArgs e)
-        {
-            SQL.Cleanup();
-            LoginForm login = new LoginForm();
-            this.Hide();
-            login.Show();
-        }
-
         private void InventoryManagement_Load(object sender, EventArgs e)
         {
             DispData();
             Clear();
         }
-       
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            MainForm MainForm = new MainForm();
-            MainForm.Show();
-        }
-
-
 
         private void buttonDisplay_Click(object sender, EventArgs e)
         {
             viewStore = Store_DropDown.Text;
-            
-            
-            if(viewStore == SQL.DefaultStore)
+
+            if (viewStore == SQL.DefaultStore)
             {
                 btn_IncreaseQty.Show();
                 btn_Send2Store.Hide();
@@ -149,19 +120,18 @@ namespace login
             DispData();
         }
 
-
         private void dataGridView1_DoubleClick(object sender, EventArgs e)
         {
             try
             {
                 if (dataGridView1.CurrentRow.Index != -1)
                 {
-                    if(!isHomeStore)
+                    if (!isHomeStore)
                     {
                         // don't let them manipulate qty's of stores not their own.
                         throw new InvalidOperationException("Cannot select an item from a store not your own.\nWould you like to view your home store now?");
                     }
-                    if(SQL.IsManager)
+                    if (SQL.IsManager)
                     {
                         ItemName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                         lbl_name.Text = ItemName;
@@ -171,17 +141,14 @@ namespace login
                         int.TryParse(textBoxStockQty.Text, out tempQty);
                         ProductID = SQL.GetItemId(ItemName);
                         btn_IncreaseQty.Show();
-                    }else
+                    }
+                    else
                     {
                         btn_IncreaseQty.Hide();
                         ItemName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                         lbl_name.Text = ItemName;
                         lbl_name.Show();
                     }
-
-                    
-
-
 
                 }
             }
@@ -190,9 +157,9 @@ namespace login
                 // if they double click in the grid when its not the default store, then error
                 // and ask if they want to view their default store
 
-                DialogResult result =  MessageBox.Show(ex.Message, "Not Home Store", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show(ex.Message, "Not Home Store", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     isHomeStore = true;
                     viewStore = SQL.DefaultStore;
@@ -214,7 +181,6 @@ namespace login
                 // we can do this because there should ALWAYS be inventory for each store, so
                 // yeah. we're cheating. Sorry.
 
-
                 dataGridView1.DataSource = inventoryData;
                 ItemName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 lbl_name.Text = ItemName;
@@ -224,8 +190,8 @@ namespace login
                 int.TryParse(textBoxStockQty.Text, out tempQty);
                 ProductID = SQL.GetItemId(ItemName);
                 btn_IncreaseQty.Show();
-            } 
-            
+            }
+
         }
         void Clear()
         {
@@ -244,7 +210,7 @@ namespace login
             }
         }
 
-       private void textBoxSearch_Leave(object sender, EventArgs e)
+        private void textBoxSearch_Leave(object sender, EventArgs e)
         {
             String searchTxt = textBoxSearch.Text;
             if (dataGridView1.DataSource == null)
@@ -252,17 +218,17 @@ namespace login
                 //safety catch. If user is moving to fast, reset the data whent hey leave the searchbox
                 dataGridView1.DataSource = inventoryData;
             }
-            
+
             if (searchTxt.ToLower().Trim().Equals("search here....") || searchTxt.Trim().Equals(""))
             {
                 textBoxSearch.Text = "Search Here....";
                 textBoxSearch.ForeColor = Color.MediumBlue;
                 dataGridView1.DataSource = inventoryData;
-               
+
             }
-            
+
         }
-        
+
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
 
@@ -283,23 +249,20 @@ namespace login
 
             // Out of Current Project Scope
 
-            
+
         }
 
         private void btn_IncreseQty(object sender, EventArgs e)
         {
 
-            
-
-
             int.TryParse(textBoxStockQty.Text, out int changedTotalQty);
             int.TryParse(txt_ChangeQty.Text, out int adjustQtyBy);
 
-            if(textBoxStockQty.Text.Trim().ToLower() == "")
+            if (textBoxStockQty.Text.Trim().ToLower() == "")
             {
                 MessageBox.Show("Please select an item to change first.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (tempQty == changedTotalQty && tempQty+adjustQtyBy > 0 && adjustQtyBy != 0)
+            else if (tempQty == changedTotalQty && tempQty + adjustQtyBy > 0 && adjustQtyBy != 0)
             {
                 /* this part looks to see if the Qty box is still the same as when the item was selected
                  * and if the adjustment is still above 0 qty (can't have negitive stock). There also needs to be a non
@@ -307,7 +270,7 @@ namespace login
                  */
                 try
                 {
-                    SQL.ChangeQty(ProductID, tempQty+adjustQtyBy);
+                    SQL.ChangeQty(ProductID, tempQty + adjustQtyBy);
                     MessageBox.Show("Changed quantity by " + adjustQtyBy + ". New total quantity is " + (tempQty + adjustQtyBy) + ".", "Quantity Updated!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DispData();
                     tempQty += adjustQtyBy;
@@ -317,23 +280,25 @@ namespace login
                     textBoxStockQty.Text = "";
                     txt_ChangeQty.Text = "";
                     lbl_name.Text = "";
-                
-                } catch (Exception ex)
+
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error in Entry", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                     textBoxStockQty.Text = tempQty.ToString();
                     txt_ChangeQty.Text = "";
                 }
 
-            } else if (tempQty != changedTotalQty && changedTotalQty >= 0 && adjustQtyBy == 0)
+            }
+            else if (tempQty != changedTotalQty && changedTotalQty >= 0 && adjustQtyBy == 0)
             {
                 /* this looks to see if the Qty box is different than originally selected, and still greater
                  * than 0, and that the Adjust Qty box is also 0 (or blank)
                  */
                 try
                 {
-                    SQL.ChangeQty(ProductID, (tempQty+(changedTotalQty-tempQty)));
-                    MessageBox.Show("Changed quantity by "+ (changedTotalQty - tempQty)+". New total quantity is "+(tempQty+ (changedTotalQty - tempQty))+".", "Quantity Updated!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    SQL.ChangeQty(ProductID, (tempQty + (changedTotalQty - tempQty)));
+                    MessageBox.Show("Changed quantity by " + (changedTotalQty - tempQty) + ". New total quantity is " + (tempQty + (changedTotalQty - tempQty)) + ".", "Quantity Updated!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DispData();
                     tempQty = changedTotalQty;
                     btn_IncreaseQty.Hide();
@@ -349,40 +314,37 @@ namespace login
                     textBoxStockQty.Text = tempQty.ToString();
 
                 }
-            } else if( tempQty == changedTotalQty && adjustQtyBy == 0)
+            }
+            else if (tempQty == changedTotalQty && adjustQtyBy == 0)
             {
                 /* If the qty hasn't been changed and there is no qty adjustment value, then they need to enter before hitting button
                  */
                 MessageBox.Show("Please enter either a new total quantity or an amount to change by.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBoxStockQty.Text = tempQty.ToString();
                 txt_ChangeQty.Text = "";
-            } else if(changedTotalQty < 0 || (tempQty + adjustQtyBy) < 0)
+            }
+            else if (changedTotalQty < 0 || (tempQty + adjustQtyBy) < 0)
             {
                 /* if they try to enter a - total qty, or adjust by an amount that is more than the total, give an error
                  */
                 MessageBox.Show("Cannot have a negitive amount of stock.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBoxStockQty.Text = tempQty.ToString();
                 txt_ChangeQty.Text = "";
-            } else if (tempQty != changedTotalQty && adjustQtyBy > 0)
+            }
+            else if (tempQty != changedTotalQty && adjustQtyBy > 0)
             {
                 /* if they try to change both the total qty and the adjustQty, ask them to pick one
                  */
                 MessageBox.Show("Please choose either to adjust the total quantity or an amount to adjust, not both.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBoxStockQty.Text = tempQty.ToString();
                 txt_ChangeQty.Text = "";
-            } else
+            }
+            else
             {
                 MessageBox.Show("Something went wrong. Quantity not changed.", "Quantity Not Changed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBoxStockQty.Text = tempQty.ToString();
                 txt_ChangeQty.Text = "";
             }
-
-
-            
-        }
-
-        private void Previous_pic_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -440,11 +402,7 @@ namespace login
                     throw new Exception("Can't Send more than in current Inventory");
                 }
 
-                if (int.TryParse(txt_ChangeQty.Text, out xferAmt))
-                {
-                    Console.WriteLine(xferAmt);
-                }
-                else
+                if (!int.TryParse(txt_ChangeQty.Text, out xferAmt))
                 {
                     throw new Exception("Please enter a valid Number");
                 }
@@ -453,11 +411,10 @@ namespace login
                 {
                     throw new Exception("Please only use the Adjust Quantity fieldz");
                 }
-                if(StoreDD != SQL.DefaultStore)
+                if (StoreDD != SQL.DefaultStore)
                 {
                     throw new Exception("Can't move items from your own store to your own store");
                 }
-            
 
                 SQL.ItemChgStore(ProductID, StoreDD, xferAmt);
                 DispData();
@@ -472,14 +429,11 @@ namespace login
                     DispData();
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-
-
-
         }
     }
 }

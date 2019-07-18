@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CcnSession;
+using System;
 using System.Windows.Forms;
-using CcnSession;
 
 namespace login
 {
@@ -15,7 +15,7 @@ namespace login
             lbl_date.Text = "Today's Date: " + date;
         }
 
-             private void textBoxPassword_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxPassword_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -30,7 +30,7 @@ namespace login
                 buttonLogin.PerformClick();
             }
         }
- 
+
         private void Close_pic_Click_1(object sender, EventArgs e)
         {
             //this.Close();
@@ -47,8 +47,7 @@ namespace login
             //Set up the username and the Permission level for if Employee or Manager.
             // Only needs to be done THIS ONE TIME - doesn't need to be done again.
 
-            // needs (better) exception handling!!!!
-
+            //Needs Try Catch
 
             if (username.Trim().Equals(""))
             {
@@ -57,7 +56,8 @@ namespace login
             else if (password.Trim().Equals(""))
             {
                 MessageBox.Show("Enter Your Password To Login", "Empty Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } else
+            }
+            else
             {
                 try
                 {
@@ -74,24 +74,24 @@ namespace login
                     {
                         if (SQL.PwCorrect)
                         {
-                            if(SQL.ChkOldPW())
+                            if (SQL.ChkOldPW())
                             {
-                                
+
                                 MainForm mainform = new MainForm();
                                 mainform.Show();
                                 this.Hide();
-                            } else
+                            }
+                            else
                             {
                                 DialogResult result = MessageBox.Show("It has been more than 90 days since you last changed your password. You will be redirected to the change password form now.", "Out of Date Password", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                if(result == DialogResult.OK)
+                                if (result == DialogResult.OK)
                                 {
                                     var oldPw = new ChangePW();
                                     oldPw.Show();
                                     this.Hide();
                                 }
                             }
-                            
                         }
                     }
                     else
@@ -100,7 +100,7 @@ namespace login
                         MessageBox.Show("Our Records do not match this data. Please Try again.", "Wrong Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Wrong Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

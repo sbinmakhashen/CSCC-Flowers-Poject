@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using CcnSession;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CcnSession;
 
 namespace login
 {
@@ -18,7 +12,6 @@ namespace login
             InitializeComponent();
             lbl_StoreName.Text = SQL.DefaultStore;
             lbl_Date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
-
 
             lbl_entryParticular.Hide();
             cmb_Particular.Hide();
@@ -56,12 +49,14 @@ namespace login
             if (index == 0)
             {
                 particular = "Cash Sales for " + monthYr;
-            } else if (index == 1)
+            }
+            else if (index == 1)
             {
 
                 particular = cmb_Particular.SelectedItem.ToString();
 
-            } else if (index == 2)
+            }
+            else if (index == 2)
             {
                 particular = "Utilities for " + monthYr;
             }
@@ -77,9 +72,8 @@ namespace login
             {
                 particular = "Correction: " + txt_Correction.Text;
             }
-     
 
-            if(cmb_Particular.SelectedIndex==1)
+            if (cmb_Particular.SelectedIndex == 1)
             {
                 reason = cmb_Detail.SelectedItem.ToString();
                 particular += "(" + reason + ")";
@@ -87,44 +81,33 @@ namespace login
 
             double.TryParse(txt_Amt.Text, out double amount);
 
-
-
-
             try
             {
 
-                 if (cmb_Particular.SelectedIndex >-1)
+                if (cmb_Type.SelectedIndex == -1)
                 {
-                    throw new Exception("Please fill out all fields");
+                    throw new Exception("Please fill out all feilds");
                 }
-
-                if (cmb_Detail.SelectedIndex >-1)
-                {
-                    throw new Exception("Please fill out all fileds");
-                }
-
-                if (cmb_Type.SelectedIndex >-1)
-                {
-                    throw new Exception("Please fill out all fileds");
-                }
-
                 if (txt_Amt.Text.ToLower() == "amount" || txt_Amt.Text.Length == 0)
                 {
                     throw new Exception("Amount field must be entered to continue.");
 
                 }
-                else if (double.TryParse(txt_Amt.Text, out amount))
-
-                {
-                    Console.WriteLine(amount);
-
-                }
-                else
+                if (!double.TryParse(txt_Amt.Text, out amount))
                 {
                     throw new Exception("That is not a valid number");
+
                 }
 
-                ///Catching multiple exceptions
+                if (index==1 && cmb_Particular.SelectedIndex == -1)
+                {
+                    throw new Exception("Please fill out all fields");
+                }
+
+                if (cmb_Particular.SelectedIndex==1 && cmb_Detail.SelectedIndex == -1)
+                {
+                    throw new Exception("Please fill out all fields");
+                }
 
                 var data = new DataTable();
                 SQL.NewLedgerEntry(type, particular, amount);
@@ -136,18 +119,12 @@ namespace login
                 txt_Amt.Text = data.Rows[0]["amount"].ToString();
                 txt_Correction.Text = data.Rows[0]["correction_reason"].ToString();
 
-
-
-
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            
         }
-
-   
 
         private void Cmb_Particular_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -161,7 +138,7 @@ namespace login
                 lbl_entryDetail.Hide();
                 cmb_Detail.Hide();
             }
-            
+
         }
 
         private void Cmb_Type_SelectedIndexChanged(object sender, EventArgs e)
@@ -188,8 +165,6 @@ namespace login
                 txt_Correction.Show();
                 lbl_entryCorrection.Show();
             }
-
-
         }
     }
 }

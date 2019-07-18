@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using CcnSession;
+﻿using CcnSession;
 using login.Resources;
+using System;
+using System.Windows.Forms;
 
 namespace login
 {
@@ -20,17 +13,16 @@ namespace login
             lbl_username.Text = SQL.Username;
             lbl_date.Text = "Today's Date is: " + DateTime.Today.ToString("dddd, dd MMMM yyyy");
         }
-
         private void Btn_ChgPW_Click(object sender, EventArgs e)
         {
             try
             {
                 if (SQL.ChkPasswordNoFail(txt_CurrentPW.Text))
                 {
-                    
-                    if(txt_NewPW.Text == txt_CurrentPW.Text)
+
+                    if (txt_NewPW.Text == txt_CurrentPW.Text)
                     {
-                       
+
                         throw new Exception("New Password must be different than current.");
                     }
                     if (!uF.CheckPWValid(txt_NewPW.Text))
@@ -46,43 +38,43 @@ namespace login
                          * 
                          * not changed less than 24 hours ago
                          * 
+                         * not changed in the last 90 days
                          */
 
                         SQL.ChangePassword(txt_NewPW.Text);
-                        
+
                         DialogResult result = MessageBox.Show("Your password has been succesfully changed", "Password Changed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        if(result == DialogResult.OK)
+                        if (result == DialogResult.OK)
                         {
                             SQL.Cleanup();
                             this.Hide();
                             LoginForm login = new LoginForm();
                             login.Show();
                         }
-                    } else
+                    }
+                    else
                     {
                         throw new Exception("New Password and Confirm Password do not match.");
                     }
 
-                } else
+                }
+                else
                 {
                     throw new Exception("Your current password is incorrect");
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
         private void txt_ConfirmNewPW_Leave(object sender, EventArgs e)
         {
             if (txt_ConfirmNewPW.Text != txt_NewPW.Text)
             {
                 MessageBox.Show("Passwords Do Not Match", "Wrong Password", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-          
-
         }
 
         private void Btn_NotYou_Click(object sender, EventArgs e)
@@ -91,21 +83,6 @@ namespace login
             SQL.Cleanup();
             LoginForm login = new LoginForm();
             login.Show();
-        }
-
-        private void Lbl_logout_Click(object sender, EventArgs e)
-        {
-            SQL.Cleanup();
-            this.Hide();
-            var login = new LoginForm();
-            login.Show();
-        }
-
-        private void Lbl_Previous_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            var main = new MainForm();
-            main.Show();
         }
 
         private void txt_CurrentPW_KeyDown(object sender, KeyEventArgs e)
@@ -144,10 +121,10 @@ namespace login
             }
             else
             {
-                  txt_CurrentPW.UseSystemPasswordChar = true;
-                  txt_NewPW.UseSystemPasswordChar = true;
-                  txt_ConfirmNewPW.UseSystemPasswordChar = true;
-              
+                txt_CurrentPW.UseSystemPasswordChar = true;
+                txt_NewPW.UseSystemPasswordChar = true;
+                txt_ConfirmNewPW.UseSystemPasswordChar = true;
+
             }
         }
 
@@ -165,10 +142,7 @@ namespace login
             var main = new MainForm();
             main.Show();
         }
-
-
-        
     }
 }
-    
+
 

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using CcnSession;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CcnSession;
 
 namespace login
 {
@@ -19,8 +13,6 @@ namespace login
         double remainder;
         int orderNum = 0;
         string vendor, invoice;
-
-        
 
         public AcctDetails(int iN, bool flag)
         {
@@ -47,16 +39,12 @@ namespace login
                 lbl_recAddy.Show();
                 lbl_recName.Show();
             }
-
-
         }
-
         public void DisplayPayData()
         {
             var data = new DataTable();
 
             data = SQL.AcctPay(idNum);
-
 
             double.TryParse(data.Rows[0]["remainder"].ToString(), out remainder);
 
@@ -70,10 +58,6 @@ namespace login
 
             vendor = data.Rows[0]["vendor"].ToString();
             invoice = data.Rows[0]["invoice_num"].ToString();
-            
-
-
-
 
             DateTime.TryParse(data.Rows[0]["due_date"].ToString(), out DateTime dueDate);
             DateTime.TryParse(data.Rows[0]["paid_Date"].ToString(), out DateTime paidDate);
@@ -84,11 +68,11 @@ namespace login
                 lbl_lateWarning.Show();
             }
 
-            if(remainder == 0)
+            if (remainder == 0)
             {
                 lbl_lateWarning.Hide();
                 lbl_paidOff.Show();
-                lbl_due.Text = "Due Date: " + dueDate.ToString("yyyy-MM-dd")+ ".\nPaid Off On: " + paidDate.ToString("yyyy-MM-dd");
+                lbl_due.Text = "Due Date: " + dueDate.ToString("yyyy-MM-dd") + ".\nPaid Off On: " + paidDate.ToString("yyyy-MM-dd");
             }
             txt_payment.Text = remainder.ToString();
 
@@ -99,13 +83,11 @@ namespace login
             var data = new DataTable();
 
             data = SQL.GetAcRecDetail(idNum);
-            int.TryParse(data.Rows[0]["order_num"].ToString(), out  orderNum);
+            int.TryParse(data.Rows[0]["order_num"].ToString(), out orderNum);
             DateTime.TryParse(data.Rows[0]["due_date"].ToString(), out DateTime dueDate);
             DateTime.TryParse(data.Rows[0]["paid_Date"].ToString(), out DateTime paidDate);
             DateTime.TryParse(data.Rows[0]["trans_date"].ToString(), out DateTime transDate);
             double.TryParse(data.Rows[0]["remainder"].ToString(), out remainder);
-
-
 
             //order_status, pay_type, trans_date, 
 
@@ -116,14 +98,9 @@ namespace login
             lbl_paid.Text = "Amount paid to date: $" + data.Rows[0]["amt_paid"].ToString();
             lbl_remain.Text = "Amount remaining: $" + remainder;
             lbl_invoice.Text = "Recievable Account Information For Order Number: " + orderNum;
-            
-            
             lbl_recName.Text = "Name ( #Account Number ): " + data.Rows[0]["first_name"].ToString() + " " + data.Rows[0]["last_name"].ToString() + " ( #" + data.Rows[0]["acct_num"].ToString() + " )";
             lbl_recAddy.Text = "Address:\n\n\t\t" + data.Rows[0]["street"].ToString() + "\n\t\t" + data.Rows[0]["city"].ToString() + ", " + data.Rows[0]["state"].ToString() + " " + data.Rows[0]["zip"].ToString();
-            lbl_recEmail.Text = "Email: " + data.Rows[0]["email"].ToString(); 
-
-
-
+            lbl_recEmail.Text = "Email: " + data.Rows[0]["email"].ToString();
             lbl_due.Text = "Due Date: " + dueDate.ToString("yyyy-MM-dd");
 
             if (dueDate <= DateTime.Now)
@@ -143,7 +120,6 @@ namespace login
         private void Lbl_previous_Click(object sender, EventArgs e)
         {
 
-           
             if (typeFlag) // flag : true = Payable, false = receivable
             {
                 var accts = new AccountingInformationForm(1); // 1 is a flag for the Overload, to auto put up AcctPayable
@@ -162,43 +138,32 @@ namespace login
                 accts.Show();
                 this.Hide();
             }
-
-            
-
-
-
         }
 
-        private void Lbl_close_Click(object sender, EventArgs e)
-        {
-            SQL.Cleanup();
-        
-            var login = new LoginForm();
-            login.Show();
-            this.Hide();
-        }
 
         private void Btn_Payment_Click(object sender, EventArgs e)
         {
-         
+
             if (!double.TryParse(txt_payment.Text, out double payAmt))
             {
                 MessageBox.Show("Payment must be a valid number.", "Incorrect Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } else if(Math.Round(payAmt, 2) != payAmt)
+            }
+            else if (Math.Round(payAmt, 2) != payAmt)
             {
                 MessageBox.Show("Cannot process fractions of a cent.", "Incorrect Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
 
-            else if (payAmt <0)
+            else if (payAmt < 0)
             {
                 MessageBox.Show("Payment cannot be negative. If the balance must be changed, contact Accounting", "Incorrect Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            }else if (typeFlag) // flag: true = Accounts Payable
+            }
+            else if (typeFlag) // flag: true = Accounts Payable
             {
                 try
                 {
-                    
+
                     SQL.AcctPayPmt(idNum, payAmt);
                     string type = "Inventory";
                     //sorry. I cheated here. Its the end of the project and we didnt get any deeper into the AcctPayables
@@ -207,13 +172,14 @@ namespace login
 
                     MessageBox.Show("Payment of " + payAmt.ToString("$#.##") + " accepted.", "Payment Recorded", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DisplayPayData();
-                    
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            } else if (!typeFlag) // flag : false = Accounts Rec
+            }
+            else if (!typeFlag) // flag : false = Accounts Rec
             {
                 try
                 {
@@ -230,11 +196,12 @@ namespace login
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            } else // shouldn't be possible? But just in case something funky happens...
+            }
+            else // shouldn't be possible? But just in case something funky happens...
             {
                 throw new Exception("Error: Contact IT (Error Code: NotPayRecFlag)");
             }
-            
+
         }
 
         private void Btn_viewOrder_Click(object sender, EventArgs e)
@@ -256,8 +223,6 @@ namespace login
 
         private void Previous_pic_Click(object sender, EventArgs e)
         {
-
-
             if (typeFlag) // flag : true = Payable, false = receivable
             {
                 var accts = new AccountingInformationForm(1); // 1 is a flag for the Overload, to auto put up AcctPayable

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using CcnSession;
+using login.Resources;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using CcnSession;
-using login.Resources;
-using MySql.Data.MySqlClient;
 
 namespace login
 {
@@ -18,7 +12,7 @@ namespace login
         int accountNum = 0;
         public UpdateEmployee()
         {
-            
+
             InitializeComponent();
             lbl_terminated.Hide();
             var date = DateTime.Today.ToString("dddd, dd MMMM yyyy");
@@ -52,26 +46,22 @@ namespace login
                     lbl_username.Text = "Username: " + data.Rows[0]["username"].ToString();
                     lbl_hired.Text = "Hire Date: " + data.Rows[0]["hired"].ToString();
                     lbl_type.Text = "Type: " + data.Rows[0]["type"].ToString();
-                    if (data.Rows[0]["terminated"].ToString().Substring(0,1) == "0")
+                    if (data.Rows[0]["terminated"].ToString().Substring(0, 1) == "0")
                     {
                         lbl_terminated.Hide();
-                    } else
+                    }
+                    else
                     {
                         lbl_terminated.Show();
                         lbl_terminated.ForeColor = Color.Red;
                         lbl_terminated.Text = "Terminated: " + data.Rows[0]["terminated"].ToString();
                     }
-                    
-                    
-
 
                 }
                 catch
                 {
                     MessageBox.Show("No User by that username. Please Try Again.", "Enter Username", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                 }
-
-
             }
         }
 
@@ -89,7 +79,7 @@ namespace login
                 data = SQL.GetEmployee(accountNum);
                 bool fNameFlag = false, lNameFlag = false, streetFlag = false, cityFlag = false, zipFlag = false, stateFlag = false, storeFlag = false, payFlag = false;
 
-                string whatUpdated="";
+                string whatUpdated = "";
 
                 /* make sure the fields are not their default values AND the value in the field is DIFFERENT
                  * from the value stored in the database that we just pulled from, then go ahead and update.
@@ -100,11 +90,10 @@ namespace login
                  */
 
                 //easiest way to figure out if there is a date in terminated or if its 0. if 0, still a current employee.
-                if(data.Rows[0]["terminated"].ToString().Substring(0, 1) == "0")
+                if (data.Rows[0]["terminated"].ToString().Substring(0, 1) == "0")
                 {
                     try
                     {
-
 
                         if (txt_FName.Text.ToLower() == "first name" || txt_FName.Text.Length == 0)
                         {
@@ -226,7 +215,7 @@ namespace login
                         }
                         else if (drpd_store.SelectedIndex != drpd_store.FindStringExact(data.Rows[0]["location"].ToString()))
                         {
-                            if(text_Username.Text == SQL.Username)
+                            if (text_Username.Text == SQL.Username)
                             {
                                 throw new Exception("You cannot change your own store. Please contact HR to do so");
                             }
@@ -235,7 +224,7 @@ namespace login
                                 SQL.Changestore(accountNum, drpd_store.Text);
                                 storeFlag = true;
                             }
-                            
+
                         }
                         else
                         {
@@ -266,17 +255,11 @@ namespace login
                                 throw new Exception("Pay Rate is not a valid number.");
                             }
 
-
                         }
                         else
                         {
                             payFlag = false;
                         }
-
-
-
-
-
 
                     }
 
@@ -334,13 +317,6 @@ namespace login
                 {
                     MessageBox.Show("This Employee is currently Terminated. Please contact HR to update any records.", "No Changes", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                
-
-
-                
-
-                
-
             }
             catch
             {
@@ -353,16 +329,16 @@ namespace login
             try
             {
                 accountNum = SQL.GetEmpNum(text_Username.Text);
-                
 
                 var data = new DataTable();
                 data = SQL.GetEmployee(accountNum);
 
-                if(accountNum == SQL.LoggedInEmpNum )
+                if (accountNum == SQL.LoggedInEmpNum)
                 {
                     MessageBox.Show("You Cannot terminate yourself", "Illegal Action", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
-                    
-                }else if (data.Rows[0]["terminated"].ToString().Substring(0, 1) == "0")
+
+                }
+                else if (data.Rows[0]["terminated"].ToString().Substring(0, 1) == "0")
                 {
                     DialogResult result = MessageBox.Show("Are you sure you wish to terminate employee " + data.Rows[0]["username"].ToString() + ": " + data.Rows[0]["first_name"].ToString() + " " + data.Rows[0]["last_name"].ToString() + "? Only HR can reverse this.", "Terminate Employee", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -376,32 +352,17 @@ namespace login
                     {
                         MessageBox.Show("Employee not Terminated.", "No Termination", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                } else
+                }
+                else
                 {
                     MessageBox.Show("That Employee is Already Terminated. Please Contact HR to make any changes.", "No Termination", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                    
             }
             catch
             {
                 MessageBox.Show("No User by that username. Please Try Again.", "Enter Username", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
             }
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            MainForm MainForm = new MainForm();
-            MainForm.Show();
-        }
-
-        private void labelClose_Click(object sender, EventArgs e)
-        {
-            SQL.Cleanup();
-            this.Hide();
-            LoginForm LoginForm = new LoginForm();
-            LoginForm.Show();
         }
 
         //text boxes show effect
@@ -584,11 +545,11 @@ namespace login
             {
                 txt_Pay.Text = "pay rate";
                 txt_Pay.ForeColor = Color.LightSeaGreen;
-            } else if (pay == 0)
+            }
+            else if (pay == 0)
             {
                 MessageBox.Show("Pay must be a proper number.", "Pay Rate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
 
         }
 

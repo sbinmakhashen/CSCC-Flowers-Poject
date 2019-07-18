@@ -211,7 +211,6 @@
   <ItemGroup>
     <Content Include="images\lock.png" />
     <Content Include="images\user.png" />
-    <Content Include="MySql.Data.dll" />
     <None Include="Resources\Loginbackground1.png" />
     <None Include="Resources\Loginbackground.png" />
     <None Include="Resources\Pass.png" />
