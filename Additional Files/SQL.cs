@@ -117,7 +117,7 @@ namespace CcnSession
                     CurEmp = false;
                     PwCorrect = false;
                     LoggedInEmpNum = 0;
-                    throw new Exception("Those records do not match our database. \nThis was attempt #"+FailPWAttempts+" of 3.");
+                    throw new Exception("Those records do not match our database. \nThis was attempt #"+(FailPWAttempts+1)+" of 3.");
                 }
             }
             catch (Exception ex)
@@ -163,6 +163,7 @@ namespace CcnSession
          */
         public static bool ChkPassword(string pw)
         {
+            
 
             try
             {
@@ -254,6 +255,33 @@ namespace CcnSession
          * 
          * if this errors out in some way, it will should return null - check when using that username !null.
          */
+         public static bool ChkOldPW()
+        {
+            try
+            {
+
+                // no user inputed data in this string, so we dont need to worry about injection attacks, and dateTime is finicky.
+
+                string sql = "SELECT COUNT(id) FROM pw_history WHERE emp_num = '"+LoggedInEmpNum+"' AND change_date < now() -interval 90 day";
+
+                var data = SelectQry(sql);
+
+                int.TryParse(data.Rows[0][0].ToString(), out int i);
+                if(i == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public static string CreateUser(string fName, string lName, string pw)
         {
@@ -1142,6 +1170,73 @@ namespace CcnSession
             }
         }
 
+        /*CheckStock(itemNum)
+         * 
+         * returns either an int of the current stock in a store, or with an overload of a store name, an array of 2 ints
+         * where index 0= DefaultStore stock and 1= dest store stock
+         */
+
+        public static int[] CheckStock(int itemNum, string store)
+        {
+            int[] stock = new int[2];
+            try
+            {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT qty FROM store_inventory WHERE location=@store AND item_id =@item"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
+                cmd.Parameters.AddWithValue("@item", itemNum);
+
+
+                var data = SelectQry(cmd);
+
+                int.TryParse(data.Rows[0]["qty"].ToString(), out stock[0]);
+                Console.WriteLine("Get Stock from default store | amt is " + stock[0]);
+
+
+                cmd.Parameters["@store"].Value = store;
+
+                data = SelectQry(cmd);
+
+                int.TryParse(data.Rows[0]["qty"].ToString(), out stock[1]);
+                Console.WriteLine("Get Stock from dest store | amt is " + stock[1]);
+                return stock;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public static int CheckStock(int itemNum)
+        {
+            int stock;
+            try
+            {
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "SELECT qty FROM store_inventory WHERE location=@store AND item_id =@item"
+                };
+                cmd.Parameters.AddWithValue("@store", DefaultStore);
+                cmd.Parameters.AddWithValue("@item", itemNum);
+
+
+                var data = SelectQry(cmd);
+
+                int.TryParse(data.Rows[0]["qty"].ToString(), out stock);
+                Console.WriteLine("Get Stock from default store | amt is " + stock);
+
+                return stock;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         /* SQL.ChangeQty(itemNum, qty)
          * 
          * this updates the item qty at the store - positive or negative - and spits out an error message if the
@@ -1166,10 +1261,8 @@ namespace CcnSession
            
             try
             {
-                if (SendQry(cmd))
-                {
-                    Console.WriteLine("Command sent, Qty Updated.");
-                }
+                SendQry(cmd);
+                
             } catch (Exception ex)
             {
                 throw ex;
@@ -1183,8 +1276,37 @@ namespace CcnSession
          * 
          */
 
-        public static void ItemChgStore(int itemName, string store, int amt)
+        public static void ItemChgStore(int itemNum, string store, int amt)
         {
+            int[] stock = new int[2];
+            //get current value of item qty in Default Store
+
+
+            stock = CheckStock(itemNum, store);
+
+
+            try
+            {
+                //remove an amount of item from default store
+                Console.WriteLine("Removing " + amt + " of item " + itemNum + " from " + DefaultStore);
+                ChangeQty(itemNum, stock[0]-amt);
+
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE store_inventory SET qty = @qty WHERE item_id=@itemNum AND location = @store;"
+                };
+
+                cmd.Parameters.AddWithValue("@qty", amt+ stock[1]);
+                cmd.Parameters.AddWithValue("@itemNum", itemNum);
+                cmd.Parameters.AddWithValue("@store", store);
+
+                Console.WriteLine("Adding " + amt + " of item " + itemNum + " to " + store);
+                SendQry(cmd);
+
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
@@ -1766,7 +1888,7 @@ namespace CcnSession
         public static void NewLedgerEntry(string type, string particular, double amt)
         {
             /* Valid Types:
-             * ENUM('Payroll', 'Inventory', 'Utilities', 'Sales', 'Depreciation', 'Expense')
+             * ENUM('Payroll', 'Inventory', 'Utilities', 'Sales', 'Depreciation', 'Expense', 'Correction')
              * 
              * will be passed from a drop down menu, so will be proper
              */
@@ -1865,6 +1987,8 @@ namespace CcnSession
 
         /*Private Internal Functions */
 
+
+        
 
         /* PWProtocol(empNum, newPW)
          * 
