@@ -426,33 +426,38 @@ namespace login
             string StoreDD = Store_DropDown.Text;
             viewStore = StoreDD;
             int.TryParse(txt_ChangeQty.Text, out int xferAmt);
+            int.TryParse(textBoxStockQty.Text, out int Stockqty);
 
             try
             {
+                if (ProductID != -1)
+                {
+                    throw new Exception("Please select an item while viewing your store first");
+                }
 
-            /* Error Checking Requirements - put them here and delete this comment when you're done.
-             *
-             * Check that ProductId != -1 (what we set it to if no item is selected)
-             * (error message: "Please select an item while viewing your store first"
-             * 
-             * Check that txt_ChangeQty <= tempQty 
-             * (error: Can't Send more than in current Inventory.)
-             * 
-             * Check that txt_ChangeQty has a number in it and it is not negative
-             * (error: Please enter a valid Number.)
-             * 
-             * Check that textBoxStockQty is still the same as tempQty
-             * (Please only use the Adjust Quantity field.)
-             * 
-             * Check to make sure StoreDD != SQL.DefaultStore
-             * (Can't move items from your own store to your own store)
-             * 
-             * use individual If statements with a Throw in each one
-             * 
-             * Throw new Exception("Error Message Here)
-             * 
-             * no else statements
-             */
+                if (xferAmt <= tempQty)
+                {
+                    throw new Exception("Can't Send more than in current Inventory");
+                }
+
+                if (int.TryParse(txt_ChangeQty.Text, out xferAmt))
+                {
+                    Console.WriteLine(xferAmt);
+                }
+                else
+                {
+                    throw new Exception("Please enter a valid Number");
+                }
+
+                if (Stockqty == tempQty)
+                {
+                    throw new Exception("Please only use the Adjust Quantity fieldz");
+                }
+                if(StoreDD != SQL.DefaultStore)
+                {
+                    throw new Exception("Can't move items from your own store to your own store");
+                }
+            
 
                 SQL.ItemChgStore(ProductID, StoreDD, xferAmt);
                 DispData();
