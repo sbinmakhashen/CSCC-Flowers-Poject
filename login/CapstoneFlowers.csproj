@@ -209,7 +209,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CcnSession.dll" />
     <Content Include="images\lock.png" />
     <Content Include="images\user.png" />
     <Content Include="MySql.Data.dll" />
