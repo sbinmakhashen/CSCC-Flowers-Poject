@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CcnSession
+﻿namespace CcnSession
 {
-
     /* This custom class is for holding the data for the Accounting Reports from the General Ledger
      * 
      */
-    public class  PLState : SQL
+    public class PLState : SQL
     {
         public double Sales { get; set; }
         public double Utilities { get; set; }
@@ -20,15 +13,9 @@ namespace CcnSession
         public double Marketing { get; set; }
         public double Vendor { get; set; }
         public double Receivable { get; set; }
-
-
         public int Year { get; set; }
         public int Month { get; set; }
-
         public string LongMonth { get; set; }
-
-
-
         public PLState()
         {
             Sales = 0;
@@ -42,11 +29,7 @@ namespace CcnSession
             Marketing = 0;
             Vendor = 0;
             Receivable = 0;
-
-
-
         }
-
         public void SetMonth(int m)
         {
             switch (m)
@@ -103,10 +86,7 @@ namespace CcnSession
                     LongMonth = "";
                     Month = 0;
                     break;
-
-
             }
         }
-
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CcnSession
+﻿namespace CcnSession
 {
     public class balanceData : SQL
     {
@@ -12,20 +6,14 @@ namespace CcnSession
         public double Receivable { get; set; }
         public double Payable { get; set; }
         public double Inventory { get; set; }
-
         public double Trademark { get; set; }
         public double Taxes { get; set; }
-
         public double Payroll { get; set; }
         public double Insurance { get; set; }
         public double Other { get; set; }
-
-
         public int Year { get; set; }
         public int Month { get; set; }
-
         public string LongMonth { get; set; }
-
         public balanceData()
         {
             Cash = 0;
@@ -97,31 +85,23 @@ namespace CcnSession
                     LongMonth = "";
                     Month = 0;
                     break;
-
-
             }
         }
-
         public double TotalIntang()
         {
             return Trademark;
         }
-
         public double TotalPhysAsset()
         {
             return Cash + Inventory + Insurance;
         }
-
         public double TotalAsset()
         {
-            return TotalIntang() + TotalPhysAsset() +Other;
+            return TotalIntang() + TotalPhysAsset() + Other;
         }
-
         public double CurrLiab()
         {
             return Payroll + Receivable + Payable + Taxes;
         }
-        
-
     }
 }

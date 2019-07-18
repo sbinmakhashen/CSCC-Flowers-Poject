@@ -18,10 +18,10 @@
  * For: Columbus State Community College, CSCI-2999 capstone, su2019.
  */
 
+using CcnSession.Properties;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
-using MySql.Data.MySqlClient;
-using CcnSession.Properties;
 
 namespace CcnSession
 {
@@ -36,9 +36,7 @@ namespace CcnSession
         public static string Username { get; set; }
         public static bool CurEmp { get; set; }
         public static int FailPWAttempts { get; set; }
-
         public static int LoggedInEmpNum { get; set; }
-
 
         //Private properties, variables
 
@@ -48,9 +46,8 @@ namespace CcnSession
 
         private static MySqlConnectionStringBuilder cnnStr = new MySqlConnectionStringBuilder
         {
-           
-        };
 
+        };
         /* Public Functions */
 
         /* Housekeeping Functions
@@ -79,7 +76,6 @@ namespace CcnSession
 
         static public void Setup(string user, string password)
         {
-
             try
             {
                 SetupConnection();
@@ -88,15 +84,11 @@ namespace CcnSession
                 if (CheckUsername(user))
                 {
                     Username = user;
-                } else
+                }
+                else
                 {
                     throw new Exception("Those records do not match our database.");
                 }
-
-
-
-
-
 
                 Console.WriteLine("Calling ChkPassword");
                 if (ChkPassword(password))
@@ -109,7 +101,7 @@ namespace CcnSession
                     Console.WriteLine("Calling GetEmpNum");
                     LoggedInEmpNum = GetEmpNum(Username);
                     Console.WriteLine("PWCorrect: " + PwCorrect + " | isManager: " + IsManager + " | DefaultStore: " + DefaultStore + "| empNum: " + LoggedInEmpNum + " | username: " + Username);
-                       
+
                 }
                 else
                 {
@@ -117,14 +109,13 @@ namespace CcnSession
                     CurEmp = false;
                     PwCorrect = false;
                     LoggedInEmpNum = 0;
-                    throw new Exception("Those records do not match our database. \nThis was attempt #"+(FailPWAttempts+1)+" of 3.");
+                    throw new Exception("Those records do not match our database. \nThis was attempt #" + (FailPWAttempts + 1) + " of 3.");
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            
         }
 
         /* SQL.Cleanup() - No overloads.
@@ -135,7 +126,6 @@ namespace CcnSession
          * its better to be safe and call this.
          * 
          */
-
         static public void Cleanup()
         {
             Username = null;
@@ -163,11 +153,9 @@ namespace CcnSession
          */
         public static bool ChkPassword(string pw)
         {
-            
-
             try
             {
-                if(PwAttempts(GetEmpNum(Username)) >=3)
+                if (PwAttempts(GetEmpNum(Username)) >= 3)
                 {
                     throw new Exception("Exceeded Login Attempts. Please wait at least 15 mins before trying again.");
                 }
@@ -188,16 +176,14 @@ namespace CcnSession
                 }
                 else
                 {
-                   
                     PWAttemptFail(GetEmpNum(Username));
                     return false;
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
-
         }
 
         /* ChkPasswordNoFail(password) - no overloads
@@ -207,11 +193,9 @@ namespace CcnSession
 
         public static bool ChkPasswordNoFail(string pw)
         {
-
             try
             {
-                
-                byte[] salt,hash;
+                byte[] salt, hash;
                 var saltData = new DataTable();
                 var hashData = new DataTable();
                 Console.WriteLine("Getting Salt.");
@@ -219,7 +203,6 @@ namespace CcnSession
 
                 Console.WriteLine("Getting Hash.");
                 hashData = GetColumn("employee", "password", "username", Username);
-
 
                 salt = Convert.FromBase64String(saltData.Rows[0]["salt"].ToString());
                 hash = Convert.FromBase64String(hashData.Rows[0]["password"].ToString());
@@ -236,10 +219,7 @@ namespace CcnSession
             {
                 throw ex;
             }
-
-
         }
-
 
         /* SQL.CreateUser(fname, lname, desiredPW) - no overloads
          * 
@@ -255,19 +235,18 @@ namespace CcnSession
          * 
          * if this errors out in some way, it will should return null - check when using that username !null.
          */
-         public static bool ChkOldPW()
+        public static bool ChkOldPW()
         {
             try
             {
 
                 // no user inputed data in this string, so we dont need to worry about injection attacks, and dateTime is finicky.
-
-                string sql = "SELECT COUNT(id) FROM pw_history WHERE emp_num = '"+LoggedInEmpNum+"' AND change_date < now() -interval 90 day";
+                string sql = "SELECT COUNT(id) FROM pw_history WHERE emp_num = '" + LoggedInEmpNum + "' AND change_date < now() -interval 90 day";
 
                 var data = SelectQry(sql);
 
                 int.TryParse(data.Rows[0][0].ToString(), out int i);
-                if(i == 0)
+                if (i == 0)
                 {
                     return true;
                 }
@@ -275,7 +254,6 @@ namespace CcnSession
                 {
                     return false;
                 }
-                
             }
             catch (Exception ex)
             {
@@ -285,9 +263,10 @@ namespace CcnSession
 
         public static string CreateUser(string fName, string lName, string pw)
         {
-
-            
-
+            //remove whitespace from last name
+            lName = lName.Trim();
+            //remove possible special characters
+            lName = lName.Trim(new Char[] { '\'', '.', '>', '<', '/', '\\', '"', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '"', '`', '~', '|', ',', ':', ';' } );
             // automatically create the username as first initial, last name - all lowercase
             string username = fName[0] + lName;
             username = username.ToLower();
@@ -332,7 +311,6 @@ namespace CcnSession
             string hashString = Convert.ToBase64String(passwordHash);
 
             //setup the sql string for insertion
-
             try
             {
                 var cmd = new MySqlCommand
@@ -348,9 +326,6 @@ namespace CcnSession
                 cmd.Parameters.Add("@hired", MySqlDbType.Timestamp).Value = DateTime.Now;
                 cmd.Parameters.AddWithValue("@location", DefaultStore);
 
-
-                //string sql = "INSERT INTO employee (first_name, last_name, username, password, salt, hired, location) VALUES ('" + fName + "','" + lName + "','" + username + "','" + hashString + "','" + saltString + "','" + today + "', '" + DefaultStore + "')";
-
                 if (SendQry(cmd))
                 {
                     return username;
@@ -364,8 +339,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-            
-
         }
 
         /* SQL.CheckUsername(username) - no overloads
@@ -385,11 +358,11 @@ namespace CcnSession
                 {
                     return false;
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
         }
 
         /* SQL.ChangePassword(newPW) - no overloads
@@ -413,7 +386,6 @@ namespace CcnSession
             string saltString = Convert.ToBase64String(salt);
             string hashString = Convert.ToBase64String(hash);
 
-
             try
             {
                 // this method throws errors upward, so if we get one it will exit out without finishing the rest
@@ -422,7 +394,7 @@ namespace CcnSession
 
                 var cmd = new MySqlCommand()
                 {
-                    CommandText = "UPDATE employee SET password = @hash, salt = @salt WHERE username = @username;"+
+                    CommandText = "UPDATE employee SET password = @hash, salt = @salt WHERE username = @username;" +
                     "INSERT pw_history (`emp_num`, `hash`, `salt`) VALUES (@empNum, @hash, @salt);"
                 };
 
@@ -439,15 +411,13 @@ namespace CcnSession
                 {
                     throw new Exception("Error connecting to the Database. Please contact IT.");
                 }
-                
-
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-
         }
-       
+
         /* SQL.GetEmpNumber(username)
          * 
          * returns an employee number. 
@@ -458,18 +428,17 @@ namespace CcnSession
          *
          * 
          */
-
         public static int GetEmpNum(string user)
         {
             try
             {
                 int.TryParse(GetColumn("employee", "emp_num", "username", user).Rows[0]["emp_num"].ToString(), out int empNum);
 
-                
-                if (empNum ==0)
+                if (empNum == 0)
                 {
                     throw new Exception("No employee found.");
-                } else
+                }
+                else
                 {
                     return empNum;
                 }
@@ -478,8 +447,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-
-            
         }
 
         /* Update Functions
@@ -493,10 +460,9 @@ namespace CcnSession
          */
         public static void UpdateFname(int empNum, string fname)
         {
-            
+
             try
             {
-
                 var cmd = new MySqlCommand()
                 {
                     CommandText = "UPDATE employee SET first_name = @fname WHERE emp_num = @empNum;"
@@ -504,8 +470,6 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@fname", fname);
                 cmd.Parameters.AddWithValue("@empNum", empNum);
 
-
-                //string sql = "UPDATE employee SET first_name = '" + fname + "' WHERE emp_num = '" + empNum + "';";
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -515,7 +479,6 @@ namespace CcnSession
         }
         public static void UpdateLname(int empNum, string lname)
         {
-            
             try
             {
                 var cmd = new MySqlCommand()
@@ -525,8 +488,6 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@lname", lname);
                 cmd.Parameters.AddWithValue("@empNum", empNum);
 
-
-                //string sql = "UPDATE employee SET last_name = '" + lname + "' WHERE emp_num = '" + empNum + "';";
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -536,7 +497,6 @@ namespace CcnSession
         }
         public static void UpdateStreet(int empNum, string street)
         {
-            
             try
             {
                 var cmd = new MySqlCommand()
@@ -547,7 +507,6 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@street", street);
                 cmd.Parameters.AddWithValue("@empNum", empNum);
 
-                //string sql = "UPDATE employee SET street = '" + street + "' WHERE emp_num = '" + empNum + "';";
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -557,7 +516,6 @@ namespace CcnSession
         }
         public static void UpdateCity(int empNum, string city)
         {
-            
             try
             {
                 var cmd = new MySqlCommand()
@@ -568,7 +526,6 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@city", city);
                 cmd.Parameters.AddWithValue("@empNum", empNum);
 
-                //string sql = "UPDATE employee SET city = '" + city + "' WHERE emp_num = '" + empNum + "';";
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -578,17 +535,17 @@ namespace CcnSession
         }
         public static void UpdateState(int empNum, string st)
         {
-            
+
             try
             {
                 var cmd = new MySqlCommand()
-                { CommandText= "UPDATE employee SET state = @state WHERE emp_num = @empNum; "
+                {
+                    CommandText = "UPDATE employee SET state = @state WHERE emp_num = @empNum; "
 
                 };
                 cmd.Parameters.AddWithValue("@state", st);
                 cmd.Parameters.AddWithValue("@empNum", empNum);
 
-                //string sql = "UPDATE employee SET state = '" + st + "' WHERE emp_num = '" + empNum + "';";
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -598,7 +555,6 @@ namespace CcnSession
         }
         public static void UpdateZip(int empNum, int zip)
         {
-           
             try
             {
                 var cmd = new MySqlCommand()
@@ -608,7 +564,6 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@zip", zip);
                 cmd.Parameters.AddWithValue("@empNum", empNum);
 
-                //string sql = "UPDATE employee SET zip = '" + zip + "' WHERE emp_num = '" + empNum + "';";
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -618,7 +573,6 @@ namespace CcnSession
         }
         public static void Promote(int empNum)
         {
-            
             try
             {
                 var cmd = new MySqlCommand()
@@ -627,7 +581,7 @@ namespace CcnSession
                 };
                 cmd.Parameters.AddWithValue("@empNum", empNum);
 
-               // string sql = "UPDATE employee SET type = 'Manager' WHERE emp_num = '" + empNum + "';";
+
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -637,7 +591,6 @@ namespace CcnSession
         }
         public static void Demote(int empNum)
         {
-            
             try
             {
                 var cmd = new MySqlCommand()
@@ -645,7 +598,7 @@ namespace CcnSession
 
                 cmd.Parameters.AddWithValue("@empNum", empNum);
 
-                //string sql = "UPDATE employee SET type = 'Employee' WHERE emp_num = '" + empNum + "';";
+
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -655,7 +608,6 @@ namespace CcnSession
         }
         public static void Changestore(int empNum, string store)
         {
-            
             try
             {
                 var cmd = new MySqlCommand()
@@ -663,8 +615,7 @@ namespace CcnSession
 
                 cmd.Parameters.AddWithValue("@store", store);
                 cmd.Parameters.AddWithValue("@empNum", empNum);
-                   
-                //string sql = "UPDATE employee SET location = '" + store + "' WHERE emp_num = '" + empNum + "';";
+
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -674,17 +625,15 @@ namespace CcnSession
         }
         public static void ChangePay(int empNum, double newPay)
         {
-            
             try
             {
                 var cmd = new MySqlCommand()
-                { CommandText= "UPDATE employee SET pay = @newPay WHERE emp_num = @empNum;"
-            };
+                {
+                    CommandText = "UPDATE employee SET pay = @newPay WHERE emp_num = @empNum;"
+                };
                 cmd.Parameters.AddWithValue("@newPay", newPay);
                 cmd.Parameters.AddWithValue("@empNum", empNum);
 
-
-                //string sql = "UPDATE employee SET pay = '" + newPay + "' WHERE emp_num = '" + empNum + "';";
                 SendQry(cmd);
             }
             catch (Exception ex)
@@ -694,8 +643,6 @@ namespace CcnSession
         }
         public static void Terminate(int empNum)
         {
-            
-            
             try
             {
                 /*
@@ -733,7 +680,6 @@ namespace CcnSession
          */
         public static DataTable GetEmployee(int empNum)
         {
-            
             try
             {
                 var data = GetTable("employee", "emp_num", empNum.ToString());
@@ -751,7 +697,6 @@ namespace CcnSession
          * 
          */
 
-
         /* SQL.GetOrders( ... several overloads)
          * 
          * at its basic returns orders for the default store of the user.
@@ -759,10 +704,9 @@ namespace CcnSession
          * overloads can return for a different store, or for specific customers, or even specific orders
          */
 
-
-            /*Default version - defaults to ALL orders from USERS DEFAULT STORE
-             * 
-             */
+        /*Default version - defaults to ALL orders from USERS DEFAULT STORE
+         * 
+         */
         public static DataTable GetOrders()
         {
             try
@@ -774,14 +718,12 @@ namespace CcnSession
 
                 cmd.Parameters.AddWithValue("@store", DefaultStore);
 
-                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num  FROM order_history WHERE location = '" + DefaultStore + "' ORDER BY del_date DESC;";
                 return SelectQry(cmd);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
-
         }
 
         /* Overload 1 - Allows to select ALL orders from a SPECIFIC STORE
@@ -797,17 +739,12 @@ namespace CcnSession
 
                 cmd.Parameters.AddWithValue("@store", store);
 
-                
-                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, pay_rec, total, order_status, order_num FROM order_history WHERE location = '" + store + "' ORDER BY del_date DESC;";
                 return SelectQry(cmd);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            
-
-
         }
 
         /* Overload 2 - All of a single users orders (by email address) from a specific store
@@ -825,16 +762,12 @@ namespace CcnSession
             {
                 throw ex;
             }
-            
-
-
         }
 
         /* Overload 3 ALL of a users orders (by acct_num) in ANY store
          */
         public static DataTable GetOrders(int custNum)
         {
-
             try
             {
                 var cmd = new MySqlCommand()
@@ -844,7 +777,6 @@ namespace CcnSession
 
                 cmd.Parameters.AddWithValue("@acctNum", custNum);
 
-                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE acct_num = '" + custNum + "'ORDER BY del_date DESC;";
                 return SelectQry(cmd);
             }
             catch (Exception ex)
@@ -867,15 +799,13 @@ namespace CcnSession
 
                 cmd.Parameters.AddWithValue("@store", store);
                 cmd.Parameters.AddWithValue("@custNum", custNum);
-                
-                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE location = '" + store + "' AND acct_num = '"+custNum+ "'ORDER BY del_date DESC;";
+
                 return SelectQry(cmd);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
 
         /* Overload 5  - all of a customers order, for a specific store, after a certain date
@@ -892,15 +822,12 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@store", store);
                 cmd.Parameters.Add("@date", MySqlDbType.Timestamp).Value = date;
 
-                //string sql = "SELECT acct_num, del_addy, trans_date, del_date, total, pay_rec, order_status, order_num FROM order_history WHERE DATE(trans_date) > '@date' AND  location = '" + store + "' AND acct_num = '" + custNum + "' ORDER BY del_date DESC;";
-
                 return SelectQry(cmd);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
 
         /* GetOrderItems(ordernum) - no overloads - for pulling up the items from an order to the new window.
@@ -914,22 +841,22 @@ namespace CcnSession
 
         public static DataTable GetOrderItems(int orderNum)
         {
-
             try
             {
                 var cmd = new MySqlCommand()
-                { CommandText = "SELECT h.order_num, v.item_name, i.qty, h.total, h.pay_rec, h.del_date, h.order_status, h.del_addy, h.emp_num FROM order_history h JOIN order_items i ON i.order_num = h.order_num AND h.order_num = @orderNum JOIN items v ON v.item_id = i.item_id ORDER by h.order_num"
-                 };
+                {
+                    CommandText = "SELECT h.order_num, v.item_name, i.qty, h.total, h.pay_rec, h.del_date, h.order_status, h.del_addy, h.emp_num FROM order_history h JOIN order_items i ON i.order_num = h.order_num AND h.order_num = @orderNum JOIN items v ON v.item_id = i.item_id ORDER by h.order_num"
+                };
 
                 cmd.Parameters.AddWithValue("@orderNum", orderNum);
                 //string sql = "SELECT h.order_num, v.item_name, i.qty, h.total, h.pay_rec, h.del_date, h.order_status, h.del_addy FROM order_history h JOIN order_items i ON i.order_num = h.order_num AND h.order_num = "+orderNum+" JOIN items v ON v.item_id = i.item_id ORDER by h.order_num";
 
                 return SelectQry(cmd);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
         }
 
         /*
@@ -943,45 +870,41 @@ namespace CcnSession
         {
             try
             {
-                
-                
-                    var cmd = new MySqlCommand()
-                    {
-                        CommandText = "UPDATE order_history SET order_status = @status, emp_num=@empNum WHERE order_num = @orderNum;"
-                    };
 
-                    cmd.Parameters.AddWithValue("@status", status);
-                    cmd.Parameters.AddWithValue("@orderNum", orderNum);
-                    cmd.Parameters.AddWithValue("@empNum", LoggedInEmpNum);
+                var cmd = new MySqlCommand()
+                {
+                    CommandText = "UPDATE order_history SET order_status = @status, emp_num=@empNum WHERE order_num = @orderNum;"
+                };
 
-                    SendQry(cmd);
-                
-                
+                cmd.Parameters.AddWithValue("@status", status);
+                cmd.Parameters.AddWithValue("@orderNum", orderNum);
+                cmd.Parameters.AddWithValue("@empNum", LoggedInEmpNum);
 
-            } catch(Exception ex)
+                SendQry(cmd);
+
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
-
         }
 
         public static void ChangeStatus(int orderNum, int empNum)
         {
-            if(empNum == 0)
+            if (empNum == 0)
             {
                 //order number is not user inputed on the top app, so this is a safe string.
                 //this is if a user is unclaiming the order, so emp_num is set back to 0.
                 string sql = "UPDATE order_history SET order_status = 'Ordered', emp_num='0' WHERE order_num = " + orderNum + ";";
                 SendQry(sql);
-            } else
+            }
+            else
             {
                 //order number is not user inputed on the top app, so this is a safe string.
                 // the empNum is generated from a username or firstname, and not directly entered by the user so not a problem for SQL injection attacks either.
-                string sql = "UPDATE order_history SET order_status = 'Received', emp_num="+empNum+" WHERE order_num = " + orderNum + ";";
+                string sql = "UPDATE order_history SET order_status = 'Received', emp_num=" + empNum + " WHERE order_num = " + orderNum + ";";
                 SendQry(sql);
             }
-            
         }
 
         public static void ChangeDate(int orderNum, string date)
@@ -1056,7 +979,6 @@ namespace CcnSession
             }
         }
 
-
         /* Store Inventory Functions
          * 
          * these functions deal with the inventory database. 
@@ -1084,15 +1006,10 @@ namespace CcnSession
 
                 return SelectQry(cmd);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
-
-
-           
-
         }
 
         public static DataTable GetInventory(string store)
@@ -1112,9 +1029,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-            
-
-
         }
 
         public static DataTable GetInventory(string store, int itemNum)
@@ -1127,16 +1041,13 @@ namespace CcnSession
                 };
                 cmd.Parameters.AddWithValue("@store", store);
                 cmd.Parameters.AddWithValue("@itemNum", itemNum);
-                
+
                 return SelectQry(cmd);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            
-            
-
         }
 
         public static int GetItemId(string itemName)
@@ -1157,14 +1068,15 @@ namespace CcnSession
                 {
                     data = SelectQry(cmd);
                 }
-                catch 
+                catch
                 {
                     throw new Exception("No item found with that name");
                 }
                 int.TryParse(data.Rows[0]["item_id"].ToString(), out int item_id);
 
                 return item_id;
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1175,7 +1087,6 @@ namespace CcnSession
          * returns either an int of the current stock in a store, or with an overload of a store name, an array of 2 ints
          * where index 0= DefaultStore stock and 1= dest store stock
          */
-
         public static int[] CheckStock(int itemNum, string store)
         {
             int[] stock = new int[2];
@@ -1188,12 +1099,10 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@store", DefaultStore);
                 cmd.Parameters.AddWithValue("@item", itemNum);
 
-
                 var data = SelectQry(cmd);
 
                 int.TryParse(data.Rows[0]["qty"].ToString(), out stock[0]);
                 Console.WriteLine("Get Stock from default store | amt is " + stock[0]);
-
 
                 cmd.Parameters["@store"].Value = store;
 
@@ -1222,7 +1131,6 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@store", DefaultStore);
                 cmd.Parameters.AddWithValue("@item", itemNum);
 
-
                 var data = SelectQry(cmd);
 
                 int.TryParse(data.Rows[0]["qty"].ToString(), out stock);
@@ -1235,7 +1143,6 @@ namespace CcnSession
                 throw ex;
             }
         }
-
 
         /* SQL.ChangeQty(itemNum, qty)
          * 
@@ -1256,14 +1163,12 @@ namespace CcnSession
             cmd.Parameters.AddWithValue("@itemNum", itemNum);
             cmd.Parameters.AddWithValue("@store", DefaultStore);
 
-
-           //string sql= "UPDATE store_inventory SET qty = '"+qty+"' WHERE item_id='"+itemNum+"' AND location = '"+DefaultStore+"';";
-           
             try
             {
                 SendQry(cmd);
-                
-            } catch (Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -1281,37 +1186,32 @@ namespace CcnSession
             int[] stock = new int[2];
             //get current value of item qty in Default Store
 
-
             stock = CheckStock(itemNum, store);
-
 
             try
             {
                 //remove an amount of item from default store
                 Console.WriteLine("Removing " + amt + " of item " + itemNum + " from " + DefaultStore);
-                ChangeQty(itemNum, stock[0]-amt);
+                ChangeQty(itemNum, stock[0] - amt);
 
                 var cmd = new MySqlCommand()
                 {
                     CommandText = "UPDATE store_inventory SET qty = @qty WHERE item_id=@itemNum AND location = @store;"
                 };
 
-                cmd.Parameters.AddWithValue("@qty", amt+ stock[1]);
+                cmd.Parameters.AddWithValue("@qty", amt + stock[1]);
                 cmd.Parameters.AddWithValue("@itemNum", itemNum);
                 cmd.Parameters.AddWithValue("@store", store);
 
                 Console.WriteLine("Adding " + amt + " of item " + itemNum + " to " + store);
                 SendQry(cmd);
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-
         }
-
-
-
         /* Accounting methods
          * 
          * these methods handle the Accts Rec, Accts Payable, and basic financial reporting tools for the
@@ -1338,7 +1238,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-
         }
         public static DataTable GetAcRecDetail(int invoiceNum)
         {
@@ -1356,7 +1255,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-
         }
         public static void AccRecPmt(int invoiceNum, double pmt)
         {
@@ -1371,20 +1269,14 @@ namespace CcnSession
                 };
                 cmd.Parameters.AddWithValue("id", invoiceNum);
 
-
                 data = SelectQry(cmd);
                 double.TryParse(data.Rows[0]["remainder"].ToString(), out double remain);
                 double.TryParse(data.Rows[0]["amt_paid"].ToString(), out double amtPaid);
                 int.TryParse(data.Rows[0]["order_num"].ToString(), out int orderNum);
 
-
                 totalPaid = pmt + amtPaid;
 
-
-
-                Console.WriteLine("Remainder: " + remain + " | Already Paid: " + amtPaid + " | Payment: " + pmt + " | TotalPaid: " + totalPaid + " | OrderNum: "+orderNum);
-
-
+                Console.WriteLine("Remainder: " + remain + " | Already Paid: " + amtPaid + " | Payment: " + pmt + " | TotalPaid: " + totalPaid + " | OrderNum: " + orderNum);
 
                 if (remain == 0)
                 {
@@ -1428,22 +1320,12 @@ namespace CcnSession
                 {
                     throw new Exception("Error. Contact IT (code NegPay) ");
                 }
-
-
-
-
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-
-        public static void NewAcRec(int acctNum, int orderNum, int owed)
-        {
-
-        }
-
 
 
         public static DataTable AcctPay()
@@ -1462,7 +1344,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-
         }
         public static DataTable AcctPay(int id)
         {
@@ -1480,7 +1361,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-
         }
         public static void AcctPayPmt(int idNum, double pmt)
         {
@@ -1495,62 +1375,53 @@ namespace CcnSession
                 };
                 cmd.Parameters.AddWithValue("id", idNum);
 
-
                 data = SelectQry(cmd);
                 double.TryParse(data.Rows[0]["remainder"].ToString(), out double remain);
                 double.TryParse(data.Rows[0]["amt_paid"].ToString(), out double amtPaid);
 
-
-                
                 totalPaid = pmt + amtPaid;
 
-
-
                 Console.WriteLine("Remainder: " + remain + " | Already Paid: " + amtPaid + " | Payment: " + pmt + " | TotalPaid: " + totalPaid);
-
 
                 if (remain == 0)
                 {
                     throw new Exception("This invoice is already paid off.");
                 }
 
-                if (remain-pmt < 0)
+                if (remain - pmt < 0)
                 {
                     throw new Exception("You are attempting to record a payment of more than what is owed. Please contact Accounting to approve this.");
                 }
 
-                if(remain == pmt)
+                if (remain == pmt)
                 {
-
                     var cmd2 = new MySqlCommand()
                     {
                         CommandText = "UPDATE acct_pay SET amt_paid = @paid, paid_date = NOW() WHERE id=@id;"
                     };
                     cmd2.Parameters.AddWithValue("id", idNum);
                     cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
-                    
+
                     Console.WriteLine("Sending Command: {0}", cmd.CommandText);
                     SendQry(cmd2);
 
-                } else if(remain-pmt > 0)
+                }
+                else if (remain - pmt > 0)
                 {
                     var cmd2 = new MySqlCommand()
                     {
                         CommandText = "UPDATE acct_pay SET amt_paid = @paid WHERE id=@id;"
                     };
-                    
+
                     cmd2.Parameters.AddWithValue("id", idNum);
                     cmd2.Parameters.AddWithValue("paid", totalPaid.ToString());
                     Console.WriteLine("Sending Command: {0}", cmd.CommandText);
                     SendQry(cmd2);
-                } else // um. Should be caught but... if remain-totalPaid < 0
+                }
+                else // um. Should be caught but... if remain-totalPaid < 0
                 {
                     throw new Exception("Error. Contact IT (code NegPay) ");
                 }
-                
-
-                
-
             }
             catch (Exception ex)
             {
@@ -1569,30 +1440,24 @@ namespace CcnSession
         {
             try
             {
-
                 var cmd = new MySqlCommand()
                 {
                     CommandText = "SELECT * FROM financials WHERE location = @store"
                 };
                 cmd.Parameters.AddWithValue("@store", DefaultStore);
 
-
                 return SelectQry(cmd);
 
-
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-
-
-
         }
         public static DataTable GeneralLedger(string date)
         {
             try
             {
-
                 var cmd = new MySqlCommand()
                 {
                     CommandText = "SELECT * FROM financials WHERE location = @store AND entry_date >= @date AND entry_date < @date +interval 1 month ORDER BY entry_date;"
@@ -1600,18 +1465,13 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@store", DefaultStore);
                 cmd.Parameters.AddWithValue("@date", date);
 
-
                 return SelectQry(cmd);
-
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
-
-
         }
         public static DataTable GeneralLedger(int year)
         {
@@ -1625,18 +1485,13 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@store", DefaultStore);
                 cmd.Parameters.AddWithValue("@date", date);
 
-
                 return SelectQry(cmd);
-
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
-
-
         }
 
         //returns current month as default
@@ -1648,77 +1503,65 @@ namespace CcnSession
             };
             cmd.Parameters.AddWithValue("@store", DefaultStore);
 
-            
+            try
+            {
+                return ProfitRead(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-                try
-                {
-                    return ProfitRead(cmd);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                
-            
         }
         public static PLState ProfitLossReport(string date, int month)
         {
+            var profitLoss = new PLState();
 
-            
-                var profitLoss = new PLState();
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "SELECT trans_type, amt, particular FROM financials WHERE location = @store AND entry_date >= @date AND entry_date < @date +interval 1 month ORDER BY entry_date;"
+            };
+            cmd.Parameters.AddWithValue("@store", DefaultStore);
+            cmd.Parameters.AddWithValue("@date", date);
+            try
+            {
+                profitLoss = ProfitRead(cmd);
+                string trimDate = date.Trim(new char[] { ' ', '-' });
 
-                
-
-                
-                var cmd = new MySqlCommand()
-                {
-                    CommandText = "SELECT trans_type, amt, particular FROM financials WHERE location = @store AND entry_date >= @date AND entry_date < @date +interval 1 month ORDER BY entry_date;"
-                };
-                cmd.Parameters.AddWithValue("@store", DefaultStore);
-                cmd.Parameters.AddWithValue("@date", date);
-                try
-                {
-                    profitLoss =  ProfitRead(cmd);
-                    string trimDate = date.Trim(new char[] { ' ', '-' });
-
-
-                    int.TryParse(trimDate.Substring(0, 4), out int year);
-                    profitLoss.SetMonth(month);
-                    profitLoss.Year = year;
-                    return profitLoss;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            
+                int.TryParse(trimDate.Substring(0, 4), out int year);
+                profitLoss.SetMonth(month);
+                profitLoss.Year = year;
+                return profitLoss;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         public static PLState ProfitLossReport(int year)
         {
+            var profitLoss = new PLState();
 
-            
-                var profitLoss = new PLState();
+            string date = year + "-01-01";
+            profitLoss.Year = year;
+            var cmd = new MySqlCommand()
+            {
+                CommandText = "SELECT trans_type, amt, particular FROM financials WHERE location = @store AND entry_date >= @date AND entry_date < @date +interval 1 year ORDER BY entry_date;"
+            };
+            cmd.Parameters.AddWithValue("@store", DefaultStore);
+            cmd.Parameters.AddWithValue("@date", date);
+            try
+            {
+                profitLoss = ProfitRead(cmd);
 
-                string date = year + "-01-01";
                 profitLoss.Year = year;
-                var cmd = new MySqlCommand()
-                {
-                    CommandText = "SELECT trans_type, amt, particular FROM financials WHERE location = @store AND entry_date >= @date AND entry_date < @date +interval 1 year ORDER BY entry_date;"
-                };
-                cmd.Parameters.AddWithValue("@store", DefaultStore);
-                cmd.Parameters.AddWithValue("@date", date);
-                try
-                {
-                    profitLoss = ProfitRead(cmd);
-                    
-                    profitLoss.Year = year;
-                    return profitLoss;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            
+                return profitLoss;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         /* CashFlowReport 
@@ -1732,44 +1575,33 @@ namespace CcnSession
         public static PLState CashFlowReport()
         {
             return ProfitLossReport();
-            
-
         }
         public static PLState CashFlowReport(string date, int month)
         {
             return ProfitLossReport(date, month);
-
-
         }
         public static PLState CashFlowReport(int year)
         {
             return ProfitLossReport(year);
-
-
         }
 
 
 
         public static DataTable BalanceSheetReport()
         {
-            
-
             var cmd = new MySqlCommand()
             {
                 CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND trans_type - 'Sales' OR trans_type = 'Payroll';" +
-                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount,  due_date As 'Entry Date' FROM acct_rec WHERE location = @Store;"+
+                "SELECT 'AcctRec' As 'Transaction Type', CONCAT('Account Receving, Order # ', order_num) AS 'Detail',  amt_paid AS Amount,  due_date As 'Entry Date' FROM acct_rec WHERE location = @Store;" +
                 "SELECT 'AcctPay' AS 'Transaction Type', CONCAT('Acct Payable, to ', vendor, ' Invoice #, ', invoice_num) AS Detail, amt_paid*-1 AS Amount ,  due_date as 'EntryDate' FROM capstoneFlowers.acct_pay WHERE location =@Store;"
             };
             cmd.Parameters.AddWithValue("@Store", DefaultStore);
 
-      
             return BalanceReader(cmd);
 
         }
         public static DataTable BalanceSheetReport(string date)
         {
-
-
             var cmd = new MySqlCommand()
             {
                 CommandText = "Select trans_type AS 'Transaction Type', particular AS Detail, amt AS Amount, entry_date As 'Date Entered' from financials WHERE location = @Store AND (trans_type = 'Sales' OR trans_type = 'Payroll') AND (entry_date >= @date AND entry_date < @date + interval 1 month);" +
@@ -1779,13 +1611,11 @@ namespace CcnSession
             cmd.Parameters.AddWithValue("@Store", DefaultStore);
             cmd.Parameters.AddWithValue("@date", date);
 
-
             return BalanceReader(cmd);
 
         }
         public static DataTable BalanceSheetReport(int year)
         {
-
             string date = year + "-01-01";
             var cmd = new MySqlCommand()
             {
@@ -1796,9 +1626,7 @@ namespace CcnSession
             cmd.Parameters.AddWithValue("@Store", DefaultStore);
             cmd.Parameters.AddWithValue("@date", date);
 
-
             return BalanceReader(cmd);
-
         }
 
         /* FutureRec(Date)
@@ -1810,8 +1638,8 @@ namespace CcnSession
         public static double FutureRec(string date)
         {
             var cmd = new MySqlCommand()
-                {
-                
+            {
+
                 CommandText = "SELECT SUM(remainder) AS total FROM acct_rec WHERE paid_date = 0 AND due_date >= @date + interval 1 month AND location = @store;"
             };
 
@@ -1838,19 +1666,15 @@ namespace CcnSession
 
             foreach (DataRow row in dt.Rows)
             {
-                if(row[1].ToString()=="Sales")
+                if (row[1].ToString() == "Sales")
                 {
-                    
                     double.TryParse(row[3].ToString(), out double d);
                     b.Cash += d;
-     
                 }
                 if (row[1].ToString() == "Payroll")
                 {
-
                     double.TryParse(row[3].ToString(), out double d);
                     b.Payroll += -d;
-
                 }
                 if (row[1].ToString() == "AcctRec")
                 {
@@ -1883,8 +1707,6 @@ namespace CcnSession
             return b;
         }
 
-
-
         public static void NewLedgerEntry(string type, string particular, double amt)
         {
             /* Valid Types:
@@ -1906,14 +1728,11 @@ namespace CcnSession
 
                 SendQry(cmd);
 
-
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
-
         }
 
         /* LedgerUpdate--x--
@@ -1933,11 +1752,11 @@ namespace CcnSession
                 cmd.Parameters.AddWithValue("@id", id);
 
                 SendQry(cmd);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
         }
 
         public static void LedgerUpdateAmt(int id, double amt)
@@ -1977,18 +1796,7 @@ namespace CcnSession
             }
         }
 
-
-
-
-
-
-
-
-
         /*Private Internal Functions */
-
-
-        
 
         /* PWProtocol(empNum, newPW)
          * 
@@ -2003,7 +1811,7 @@ namespace CcnSession
          */
         private static void PWProtocol(int empNum, string newPW)
         {
-            
+
 
             try
             {
@@ -2021,7 +1829,7 @@ namespace CcnSession
 
 
                 byte[] prevSalt, prevHash;
-                
+
                 var pwData = new DataTable();
                 var lastPWDate = new DateTime();
                 var now = DateTime.Now;
@@ -2029,12 +1837,12 @@ namespace CcnSession
                 Console.WriteLine("Getting Previous 15 Hashes");
                 // get the Table pw_history of all values where empNum is the employee number
                 pwData = GetTable("pw_history", "emp_num", empNum.ToString());
-                
+
                 int rows = pwData.Rows.Count;
 
-                if (rows !=0) // if there is any data in the table that is returned - 
+                if (rows != 0) // if there is any data in the table that is returned - 
                 {
-                    DateTime.TryParse(pwData.Rows[rows - 1]["change_date"].ToString(), out  lastPWDate);
+                    DateTime.TryParse(pwData.Rows[rows - 1]["change_date"].ToString(), out lastPWDate);
 
                     /* Another lazy hack. Server time is 4 hours ahead of where we are using this.
                      * 
@@ -2044,13 +1852,13 @@ namespace CcnSession
 
                     Console.WriteLine("Row Count: " + rows + " | 24 Hours ago (servertime):  " + past24 + " | Last PW Change (servertime): " + lastPWDate);
 
-                    if (lastPWDate >= past24 )
+                    if (lastPWDate >= past24)
                     {
                         // if the last pw change was less than 24 hours ago, throw an error
                         throw new Exception("You must wait at least 24 hours before changing your password again");
                     }
                 } // else, there has not been any pw changes for this empNum, and we don't have to check last 24hrs
-                
+
                 if (rows > 15)
                 {
                     for (int i = 1; i <= 15; i++)
@@ -2067,8 +1875,8 @@ namespace CcnSession
                         // convert the salt and hash into a Byte for the pwHash functions
                         prevSalt = Convert.FromBase64String(pwData.Rows[rows - i]["salt"].ToString());
                         prevHash = Convert.FromBase64String(pwData.Rows[rows - i]["hash"].ToString());
-                      
-                        
+
+
 
                         if (PasswordHash.VerifyPassword(newPW, prevSalt, prevHash))
                         {
@@ -2079,7 +1887,7 @@ namespace CcnSession
 
                             DateTime.TryParse(pwData.Rows[rows - i]["change_date"].ToString(), out DateTime prevPWDate);
 
-                            throw new Exception("You cannot use a pw you have used within the last 15 password changes.\n You last used that password on " + prevPWDate.ToString("yyyy-MM-dd") +".");
+                            throw new Exception("You cannot use a pw you have used within the last 15 password changes.\n You last used that password on " + prevPWDate.ToString("yyyy-MM-dd") + ".");
                         }
 
                     }
@@ -2101,11 +1909,11 @@ namespace CcnSession
                         var prevSaltString = pwData.Rows[rows - i]["salt"].ToString();
                         var prevHashString = pwData.Rows[rows - i]["hash"].ToString();
 
-                        Console.WriteLine("Row#: "+(rows-i)+" | Prev Hash: " + prevHashString + " | Prev Salt: " + prevSaltString + " | New PW: " + newPW  );
+                        Console.WriteLine("Row#: " + (rows - i) + " | Prev Hash: " + prevHashString + " | Prev Salt: " + prevSaltString + " | New PW: " + newPW);
 
 
 
-                        
+
 
                         // convert the salt and hash into a Byte for the pwHash functions
                         prevSalt = Convert.FromBase64String(pwData.Rows[rows - i]["salt"].ToString());
@@ -2116,9 +1924,9 @@ namespace CcnSession
 
                         if (PasswordHash.VerifyPassword(newPW, prevSalt, prevHash))
                         {
-                            
+
                             Console.WriteLine("Match Found");
-                            
+
                             /* if the two hashs (one created with this row's salt and the new pw, the other created from
                              * whatever that pw was + the same hash - so if they are the same, they are the same pw) are same
                              * throw an error
@@ -2133,9 +1941,9 @@ namespace CcnSession
                     /* if we get through the last 15 pw possiblities, and have not thrown an error, we can exit gracefully because the
                      * pw isn't in the system yet. 
                      */
-                    
+
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -2166,7 +1974,8 @@ namespace CcnSession
 
                 SendQry(cmd);
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -2183,24 +1992,19 @@ namespace CcnSession
         {
             try
             {
-
                 var now = DateTime.Now;
 
                 //the database server time is 4 hours ahead of EST. This is a hack. I should be checking against
                 // the server time, defining it as a global variable against DateTime.Now no matter where the program
                 // is run
 
-
                 var timePass = now.AddMinutes(-15).AddHours(4).ToString("yyyy-MM-dd HH:mm:ss");
-                Console.WriteLine("15 Mins ago (server time)  is: " + timePass +" | Current Failed Attempts before Check for more: "+FailPWAttempts);
-
-
-                
+                Console.WriteLine("15 Mins ago (server time)  is: " + timePass + " | Current Failed Attempts before Check for more: " + FailPWAttempts);
 
                 /* neither of these two parts of the string are being accepted from user input (so safe against SQL injection) and DateTime is so stupidly finicky
                  * that it is just so much easier to pass it as a string
                  */
-                string sql = "SELECT COUNT(`id`) FROM `pw_fail_attempts` WHERE emp_num = '" + GetEmpNum(Username) + "' AND fail_time >='"+timePass+"'";
+                string sql = "SELECT COUNT(`id`) FROM `pw_fail_attempts` WHERE emp_num = '" + GetEmpNum(Username) + "' AND fail_time >='" + timePass + "'";
                 var cmd = new MySqlCommand(sql);
 
 
@@ -2213,18 +2017,19 @@ namespace CcnSession
                 Console.WriteLine("Failed Attempts after checking Database " + FailPWAttempts);
                 return f; // return the value, not the property, just in case.
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
+
         /* BalanceReader - no overloads, internal use only
          * 
          * Takes the incoming command, which is a serious of SQL statements, and inputs them all into a 
          * unified table (so there are no blank spaces) that can be displayed in a datagridview
          * 
          */
-
         private static DataTable BalanceReader(MySqlCommand cmd)
         {
             var data = new DataTable("Balance Report");
@@ -2239,7 +2044,6 @@ namespace CcnSession
             // Add the Column to the DataColumnCollection.
             data.Columns.Add(column);
 
-
             // Create second column.
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.String");
@@ -2251,7 +2055,6 @@ namespace CcnSession
             // Add the column to the table.
             data.Columns.Add(column);
 
-            
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.String");
             column.ColumnName = "Details";
@@ -2270,8 +2073,6 @@ namespace CcnSession
             column.Unique = false;
             data.Columns.Add(column);
 
-            
-
             column = new DataColumn();
             column.DataType = System.Type.GetType("System.String");
             column.ColumnName = "EntryDate";
@@ -2280,8 +2081,6 @@ namespace CcnSession
             column.ReadOnly = false;
             column.Unique = false;
             data.Columns.Add(column);
-
-            
 
             // Make the ID column the primary key column.
             DataColumn[] PrimaryKeyColumns = new DataColumn[1];
@@ -2293,8 +2092,6 @@ namespace CcnSession
             using (var cnn = new MySqlConnection(cnnStr.ConnectionString))
             {
 
-
-
                 MySqlDataReader rdr = null;
                 try
                 {
@@ -2305,7 +2102,7 @@ namespace CcnSession
                     Console.WriteLine("Sending Command: {0}", cmd.CommandText);
 
                     rdr = cmd.ExecuteReader();
-                    while(rdr.HasRows)
+                    while (rdr.HasRows)
                     {
                         while (rdr.Read())
                         {
@@ -2317,11 +2114,10 @@ namespace CcnSession
                             row[4] = rdr.GetString(3);
                             data.Rows.Add(row);
                             i++;
-                            
+
                         }
                         rdr.NextResult();
                     }
-                    
 
                     return data;
                 }
@@ -2330,9 +2126,7 @@ namespace CcnSession
                     throw ex;
                 }
             }
-
         }
-
 
         /* PorfitRead() No overloads, interal use only
          * 
@@ -2341,16 +2135,12 @@ namespace CcnSession
          * 
          */
 
-
         private static PLState ProfitRead(MySqlCommand cmd)
         {
             var profitLoss = new PLState();
 
             using (var cnn = new MySqlConnection(cnnStr.ConnectionString))
             {
-
-
-
                 MySqlDataReader rdr = null;
                 try
                 {
@@ -2381,32 +2171,32 @@ namespace CcnSession
                         }
                         else if (rdr.GetString(0) == "Expense")
                         {
-                            if(rdr.GetString(2).Substring(0,5)== "Vendo")
+                            if (rdr.GetString(2).Substring(0, 5) == "Vendo")
                             {
                                 profitLoss.Vendor += rdr.GetDouble(1);
-                            } else if (rdr.GetString(2).Substring(0, 5) == "Marke" || rdr.GetString(2).Substring(0, 5) == "Addit")
+                            }
+                            else if (rdr.GetString(2).Substring(0, 5) == "Marke" || rdr.GetString(2).Substring(0, 5) == "Addit")
                             {
                                 profitLoss.Marketing += rdr.GetDouble(1);
 
-                            } else if (rdr.GetString(2).Substring(0, 5) == "Petty")
+                            }
+                            else if (rdr.GetString(2).Substring(0, 5) == "Petty")
                             {
                                 profitLoss.Expenses += rdr.GetDouble(1);
-                            } else
+                            }
+                            else
                                 profitLoss.Expenses += rdr.GetDouble(1);
 
                         }
                         else if (rdr.GetString(0) == "Sales")
                         {
-                            if(rdr.GetString(2).Substring(0, 4) == "Acct")
+                            if (rdr.GetString(2).Substring(0, 4) == "Acct")
                             {
                                 profitLoss.Receivable += rdr.GetDouble(1);
-                            } else
+                            }
+                            else
                                 profitLoss.Sales += rdr.GetDouble(1);
-
                         }
-
-
-
                     }
 
                     return profitLoss;
@@ -2417,7 +2207,6 @@ namespace CcnSession
                 }
             }
         }
-
 
         /* GetStore() - no overloads - private - internal use Only
          * 
@@ -2433,13 +2222,13 @@ namespace CcnSession
                 string store = data.Rows[0]["location"].ToString();
                 return store;
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
         }
-        
+
         /* SetupConnection() - Internal, Private, No Overloads
          * 
          * This function reads in the connection data from the file in the resources and adds its information to the 
@@ -2461,7 +2250,6 @@ namespace CcnSession
             database = rows[1];
             userid = rows[2];
             password = rows[3];
-            
 
             MySqlConnectionStringBuilder cnn = new MySqlConnectionStringBuilder
             {
@@ -2523,9 +2311,6 @@ namespace CcnSession
                         i++;
                         // this bit is just in case the command somehow draws back more than one username of the same name. 
                         // the username col in this table is set to unique, so this shouldn't happen. 
-                        // unless - where the username is similar like: abcd and abcde - 
-                        // check into this!!!!
-
 
                         if (rdr.GetString(0) == "Manager")
                         {
@@ -2533,7 +2318,8 @@ namespace CcnSession
                             IsManager = true;
                             CurEmp = true;
 
-                        } else if (rdr.GetString(0) == "Terminated")
+                        }
+                        else if (rdr.GetString(0) == "Terminated")
                         {
                             CurEmp = false;
                             IsManager = false;
@@ -2543,12 +2329,8 @@ namespace CcnSession
                             IsManager = false;
                             CurEmp = true;
                         }
-                        
-
-
-
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -2560,19 +2342,8 @@ namespace CcnSession
                     if (cnn != null) cnn.Close();
                 }
 
-
-
             }
-
-
         }
-
-
-
-
-
-
-
         /* Generic SQL functions to Follow
          * 
          * The goal is to not use these functions outside of the class. Because these are some of the generic connection
@@ -2608,13 +2379,11 @@ namespace CcnSession
             {
                 string sql = "SELECT * FROM " + tableName;
                 return SelectQry(sql);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
-
-
         }
         static public DataTable GetTable(string tableName, string orderBy)
         {
@@ -2627,7 +2396,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-            
         }
         static public DataTable GetTable(string tableName, string whCol, string whVal)
         {
@@ -2635,10 +2403,10 @@ namespace CcnSession
             {
                 var cmd = new MySqlCommand()
                 {
-                    CommandText = "SELECT * FROM "+tableName+" WHERE "+whCol+" = @value;"
+                    CommandText = "SELECT * FROM " + tableName + " WHERE " + whCol + " = @value;"
                 };
 
-                
+
                 cmd.Parameters.AddWithValue("@value", whVal);
 
                 //string sql = "SELECT * FROM " + tableName + " WHERE " + whCol + "=" + whVal + ";";
@@ -2648,7 +2416,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-            
         }
 
         /* same as GetTable, except takes the table name and the column name as arguments, and only returns
@@ -2680,9 +2447,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-            
-
-
         }
         static public DataTable GetColumn(string tableName, string colName, string whereVal)
         {
@@ -2690,10 +2454,10 @@ namespace CcnSession
             {
                 var cmd = new MySqlCommand()
                 {
-                    CommandText = "SELECT "+colName+" FROM "+tableName+" WHERE "+colName+"= @value ;"
+                    CommandText = "SELECT " + colName + " FROM " + tableName + " WHERE " + colName + "= @value ;"
                 };
 
-                
+
                 cmd.Parameters.AddWithValue("@value", whereVal);
                 //string sql = "SELECT " + colName + " FROM " + tableName + " WHERE " + colName + "= '" + whereVal + "' ;";
                 return SelectQry(cmd);
@@ -2702,9 +2466,6 @@ namespace CcnSession
             {
                 throw ex;
             }
-            
-
-
         }
 
         static public DataTable GetColumn(string tableName, string colName, string whereCol, string whereVal)
@@ -2718,15 +2479,13 @@ namespace CcnSession
                 };
 
                 cmd.Parameters.AddWithValue("@value", whereVal);
-                
+
                 return SelectQry(cmd);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            
-
         }
 
         /* SendQry(2 overloads)
@@ -2764,17 +2523,9 @@ namespace CcnSession
                 try
                 {
 
-
-                    //logging
-                    Console.WriteLine("Connecting... ");
-
                     // assigns the connection to the command, so when executeNonQry fires it knows what connection to use
                     cmd.Connection = cnn;
                     cnn.Open();
-
-                    //logging
-                    Console.WriteLine("Connection:  {0}", cnn.State);
-                    Console.WriteLine("Sending Command: {0}", cmd.CommandText) ;
 
                     //Sends the command, as defined by the string builder externally.
 
@@ -2800,9 +2551,7 @@ namespace CcnSession
                 {
                     if (cnn != null) cnn.Close();
                 }
-
             }
-
         }
 
         static public bool SendQry(string sql)
@@ -2814,17 +2563,9 @@ namespace CcnSession
                 try
                 {
 
-
-                    //logging
-                    Console.WriteLine("Connecting... ");
-
                     // assigns the connection to the command, so when executeNonQry fires it knows what connection to use
                     var cmd = new MySqlCommand(sql, cnn);
                     cnn.Open();
-
-                    //logging
-                    Console.WriteLine("Connection:  {0}", cnn.State);
-                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
 
                     //Sends the command, as defined by the string builder externally.
                     if (cmd.ExecuteNonQuery() >= 1)
@@ -2847,11 +2588,8 @@ namespace CcnSession
                 {
                     if (cnn != null) cnn.Close();
                 }
-
             }
-
         }
-
 
         /* SelectQry( ... 2 overloads
          * 
@@ -2862,7 +2600,6 @@ namespace CcnSession
          * this is public in case need something that doesn't fit in the GetTable, GetColumn overloads
          */
 
-
         static public DataTable SelectQry(MySqlCommand cmd)
         {
             var tableData = new DataTable();
@@ -2872,15 +2609,8 @@ namespace CcnSession
                 try
                 {
 
-
-                    //logging
-                    Console.WriteLine("Connecting... ");
-
                     cmd.Connection = cnn;
                     cnn.Open();
-                    //logging
-                    Console.WriteLine("Connection:  {0}", cnn.State);
-                    Console.WriteLine("Sending Command: {0}", cmd.CommandText);
 
                     using (MySqlDataAdapter data = new MySqlDataAdapter(cmd))
                     {
@@ -2911,17 +2641,10 @@ namespace CcnSession
 
                 try
                 {
-                    
-
-                    //logging
-                    Console.WriteLine("Connecting... ");
 
                     var cmd = new MySqlCommand(sql, cnn);
                     cnn.Open();
-                    //logging
-                    Console.WriteLine("Connection:  {0}", cnn.State);
-                    Console.WriteLine("Sending Command: {0}", sql);
-
+                   
                     using (MySqlDataAdapter data = new MySqlDataAdapter(cmd))
                     {
                         data.Fill(tableData);
@@ -2939,13 +2662,8 @@ namespace CcnSession
                 {
                     if (cnn != null) cnn.Close();
                 }
-
             }
         }
-
     }
-
-
-
 }
 
