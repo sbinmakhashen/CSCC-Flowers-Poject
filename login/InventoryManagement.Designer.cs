@@ -30,6 +30,8 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
@@ -63,7 +65,7 @@
             this.pictureBox3.BackColor = System.Drawing.Color.PapayaWhip;
             this.pictureBox3.Image = global::login.Properties.Resources.logo;
             this.pictureBox3.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(6);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(322, 186);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -77,7 +79,7 @@
             this.dataGridView1.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             dataGridViewCellStyle1.NullValue = null;
             dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
@@ -88,7 +90,7 @@
             this.dataGridView1.BackgroundColor = System.Drawing.Color.Plum;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.CornflowerBlue;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
@@ -96,10 +98,27 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.Location = new System.Drawing.Point(460, 442);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(6);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.RowHeadersWidth = 102;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(2128, 1050);
@@ -111,7 +130,7 @@
             this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxSearch.ForeColor = System.Drawing.Color.MediumBlue;
             this.textBoxSearch.Location = new System.Drawing.Point(462, 331);
-            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxSearch.Multiline = true;
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(1436, 97);
@@ -127,7 +146,7 @@
             this.btn_IncreaseQty.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_IncreaseQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_IncreaseQty.Location = new System.Drawing.Point(2622, 1378);
-            this.btn_IncreaseQty.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btn_IncreaseQty.Margin = new System.Windows.Forms.Padding(6);
             this.btn_IncreaseQty.Name = "btn_IncreaseQty";
             this.btn_IncreaseQty.Size = new System.Drawing.Size(490, 140);
             this.btn_IncreaseQty.TabIndex = 50;
@@ -142,7 +161,7 @@
             this.buttonDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDisplay.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.buttonDisplay.Location = new System.Drawing.Point(20, 699);
-            this.buttonDisplay.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.buttonDisplay.Margin = new System.Windows.Forms.Padding(6);
             this.buttonDisplay.Name = "buttonDisplay";
             this.buttonDisplay.Size = new System.Drawing.Size(424, 140);
             this.buttonDisplay.TabIndex = 70;
@@ -167,7 +186,7 @@
             this.textBoxStockQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxStockQty.ForeColor = System.Drawing.Color.Purple;
             this.textBoxStockQty.Location = new System.Drawing.Point(2622, 467);
-            this.textBoxStockQty.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxStockQty.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxStockQty.Multiline = true;
             this.textBoxStockQty.Name = "textBoxStockQty";
             this.textBoxStockQty.Size = new System.Drawing.Size(490, 89);
@@ -190,7 +209,7 @@
             this.txt_ChangeQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_ChangeQty.ForeColor = System.Drawing.Color.Purple;
             this.txt_ChangeQty.Location = new System.Drawing.Point(2622, 942);
-            this.txt_ChangeQty.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txt_ChangeQty.Margin = new System.Windows.Forms.Padding(6);
             this.txt_ChangeQty.Multiline = true;
             this.txt_ChangeQty.Name = "txt_ChangeQty";
             this.txt_ChangeQty.Size = new System.Drawing.Size(490, 89);
@@ -260,7 +279,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.panel2.Margin = new System.Windows.Forms.Padding(8);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(3144, 1540);
             this.panel2.TabIndex = 1;
@@ -281,7 +300,7 @@
             "4000-Indy",
             "4001-Indy"});
             this.Store_DropDown.Location = new System.Drawing.Point(20, 1000);
-            this.Store_DropDown.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Store_DropDown.Margin = new System.Windows.Forms.Padding(6);
             this.Store_DropDown.Name = "Store_DropDown";
             this.Store_DropDown.Size = new System.Drawing.Size(424, 61);
             this.Store_DropDown.TabIndex = 60;
@@ -296,7 +315,7 @@
             this.btn_Send2Store.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Send2Store.ForeColor = System.Drawing.Color.MidnightBlue;
             this.btn_Send2Store.Location = new System.Drawing.Point(2626, 1190);
-            this.btn_Send2Store.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btn_Send2Store.Margin = new System.Windows.Forms.Padding(6);
             this.btn_Send2Store.Name = "btn_Send2Store";
             this.btn_Send2Store.Size = new System.Drawing.Size(490, 140);
             this.btn_Send2Store.TabIndex = 80;
@@ -310,7 +329,7 @@
             this.Previous_pic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Previous_pic.Image = global::login.Properties.Resources.previous_blue;
             this.Previous_pic.Location = new System.Drawing.Point(2942, 0);
-            this.Previous_pic.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Previous_pic.Margin = new System.Windows.Forms.Padding(6);
             this.Previous_pic.Name = "Previous_pic";
             this.Previous_pic.Size = new System.Drawing.Size(80, 78);
             this.Previous_pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -324,7 +343,7 @@
             this.Close_pic.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Close_pic.Image = global::login.Properties.Resources.close;
             this.Close_pic.Location = new System.Drawing.Point(3066, 0);
-            this.Close_pic.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Close_pic.Margin = new System.Windows.Forms.Padding(6);
             this.Close_pic.Name = "Close_pic";
             this.Close_pic.Size = new System.Drawing.Size(78, 78);
             this.Close_pic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -389,7 +408,7 @@
             this.ClientSize = new System.Drawing.Size(3144, 1540);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "InventoryManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "InventoryManagement Looby";

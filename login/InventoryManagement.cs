@@ -81,6 +81,8 @@ namespace login
             lbl_StoreName.Text = viewStore;
             dataGridView1.DataSource = inventoryData;
             dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.Sort(dataGridView1.Columns[1], ListSortDirection.Ascending);
+            dataGridView1.Columns[1].SortMode = DataGridViewColumnSortMode.Automatic;
             dataGridView1.Columns[0].HeaderText = "Type";
             dataGridView1.Columns[1].HeaderText = "Item Name";
             dataGridView1.Columns[2].HeaderText = "Purchase Cost";
@@ -102,13 +104,17 @@ namespace login
         private void buttonDisplay_Click(object sender, EventArgs e)
         {
             viewStore = Store_DropDown.Text;
-
+            if (Store_DropDown.SelectedIndex == -1)
+            {
+                viewStore = SQL.DefaultStore;
+            }
             if (viewStore == SQL.DefaultStore)
             {
                 btn_IncreaseQty.Show();
                 btn_Send2Store.Hide();
                 isHomeStore = true;
                 Clear();
+                
             }
             else
             {
@@ -126,11 +132,21 @@ namespace login
             {
                 if (dataGridView1.CurrentRow.Index != -1)
                 {
-                    if (!isHomeStore)
+                    if(!isHomeStore && SQL.IsManager)
                     {
-                        // don't let them manipulate qty's of stores not their own.
-                        throw new InvalidOperationException("Cannot select an item from a store not your own.\nWould you like to view your home store now?");
+                        if( lbl_name.Text == "")
+                        {
+                            throw new InvalidOperationException("Please select a item while viewing your own store before attempting to send\nReturning you to your home store view to select an item.");
+                        }
+                        ItemName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                        lbl_name.Text = ItemName;
+                        lbl_name.Show();
+                        int.TryParse(textBoxStockQty.Text, out tempQty);
+                        ProductID = SQL.GetItemId(ItemName);
+                        btn_Send2Store.Show();
+                        btn_IncreaseQty.Hide();
                     }
+                    
                     if (SQL.IsManager)
                     {
                         ItemName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
@@ -141,6 +157,7 @@ namespace login
                         int.TryParse(textBoxStockQty.Text, out tempQty);
                         ProductID = SQL.GetItemId(ItemName);
                         btn_IncreaseQty.Show();
+                        btn_Send2Store.Show();
                     }
                     else
                     {
@@ -154,22 +171,18 @@ namespace login
             }
             catch (InvalidOperationException ex)
             {
-                // if they double click in the grid when its not the default store, then error
-                // and ask if they want to view their default store
+                MessageBox.Show(ex.Message, "No Item Selected.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                viewStore = SQL.DefaultStore;
+                btn_IncreaseQty.Show();
+                btn_Send2Store.Hide();
+                isHomeStore = true;
 
-                DialogResult result = MessageBox.Show(ex.Message, "Not Home Store", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                Clear();
+                DispData();
 
-                if (result == DialogResult.Yes)
-                {
-                    isHomeStore = true;
-                    viewStore = SQL.DefaultStore;
-                    btn_Send2Store.Hide();
-                    btn_IncreaseQty.Show();
-
-                    Clear();
-                    DispData();
-                }
             }
+
+            
 
             catch
             {
@@ -213,6 +226,7 @@ namespace login
         private void textBoxSearch_Leave(object sender, EventArgs e)
         {
             String searchTxt = textBoxSearch.Text;
+
             if (dataGridView1.DataSource == null)
             {
                 //safety catch. If user is moving to fast, reset the data whent hey leave the searchbox
@@ -231,11 +245,18 @@ namespace login
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
+            try
+            {
+                var dv = new DataView(inventoryData);
+                dv.RowFilter = string.Format("item_name LIKE '%{0}%'", textBoxSearch.Text);
 
-            var dv = new DataView(inventoryData);
-            dv.RowFilter = string.Format("item_name LIKE '%{0}%'", textBoxSearch.Text);
-
-            dataGridView1.DataSource = dv;
+                dataGridView1.DataSource = dv;
+            }
+            catch
+            {
+                //Cheating!
+            }
+            
 
         }
 
@@ -389,32 +410,33 @@ namespace login
             viewStore = StoreDD;
             int.TryParse(txt_ChangeQty.Text, out int xferAmt);
             int.TryParse(textBoxStockQty.Text, out int Stockqty);
+            //int.TryParse(txt_ChangeQty.Text, out int xferAmt);
+            //int.TryParse(textBoxStockQty.Text, out int Stockqty);
 
             try
             {
-                if (ProductID != -1)
+                if (ProductID == -1)
                 {
-                    throw new Exception("Please select an item while viewing your store first");
+                    throw new Exception("Please select an item while viewing your store first.");
                 }
 
-                if (xferAmt <= tempQty)
+                if (xferAmt > tempQty)
                 {
-                    throw new Exception("Can't Send more than in current Inventory");
+                    throw new Exception("Can't Send more than in current Inventory.");
                 }
 
                 if (!int.TryParse(txt_ChangeQty.Text, out xferAmt))
                 {
-                    throw new Exception("Please enter a valid Number");
+                    throw new Exception("Please enter a valid Number.");
                 }
 
-                if (Stockqty == tempQty)
+                if (Stockqty != tempQty)
                 {
-                    throw new Exception("Please only use the Adjust Quantity fieldz");
+                    textBoxStockQty.Text = tempQty.ToString();
+                    throw new Exception("Please only use the Adjust Quantity field.");
+
                 }
-                if (StoreDD != SQL.DefaultStore)
-                {
-                    throw new Exception("Can't move items from your own store to your own store");
-                }
+                
 
                 SQL.ItemChgStore(ProductID, StoreDD, xferAmt);
                 DispData();
