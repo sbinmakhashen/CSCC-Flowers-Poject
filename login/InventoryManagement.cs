@@ -425,6 +425,11 @@ namespace login
                     throw new Exception("Can't Send more than in current Inventory.");
                 }
 
+                if (xferAmt < 0)
+                {
+                    throw new Exception("Cannot Send a Negative Quantity to ");
+                }
+
                 if (!int.TryParse(txt_ChangeQty.Text, out xferAmt))
                 {
                     throw new Exception("Please enter a valid Number.");
