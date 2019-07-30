@@ -157,7 +157,7 @@ namespace login
                         int.TryParse(textBoxStockQty.Text, out tempQty);
                         ProductID = SQL.GetItemId(ItemName);
                         btn_IncreaseQty.Show();
-                        btn_Send2Store.Show();
+                        btn_Send2Store.Hide();
                     }
                     else
                     {
