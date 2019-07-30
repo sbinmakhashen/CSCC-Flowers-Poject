@@ -427,7 +427,7 @@ namespace login
 
                 if (xferAmt < 0)
                 {
-                    throw new Exception("Cannot Send a Negative Quantity to ");
+                    throw new Exception("Cannot Send a Negative Quantity to another store.");
                 }
 
                 if (!int.TryParse(txt_ChangeQty.Text, out xferAmt))
