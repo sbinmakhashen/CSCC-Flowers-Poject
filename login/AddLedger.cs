@@ -96,11 +96,16 @@ namespace login
                     {
                         throw new Exception("Inventory Purchases should be Negative.");
                     }
+                    type = "Inventory";
                     particular = "Inventory Purchase of Item #" + txt_ItemID.Text;
                 }
                 else if (index == 5)
                 {
-                    particular = "Correction: " + txt_Correction.Text;
+                    if (txt_Correction.Text.Length == 0)
+                    {
+                        throw new Exception("Please enter the reason for the correction.");
+                    }
+                        particular = "Correction: " + txt_Correction.Text;
                 }
 
                 if (cmb_Particular.SelectedIndex == 1)
