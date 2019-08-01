@@ -500,7 +500,7 @@ namespace login
                         GeneralDisplay(selectedYear);
                     }
                     // month to far in the future
-                    else if (selecteMonth + 1 >= curMonth && selectedYear == curYear)
+                    else if (selecteMonth + 1 > curMonth && selectedYear == curYear)
                     {
                         throw new Exception("Please select a month in the past");
                     }
@@ -565,7 +565,7 @@ namespace login
                         ProfitDisplay(selectedYear);
                     }
                     // month to far in the future
-                    else if (selecteMonth + 1 >= curMonth && selectedYear == curYear)
+                    else if (selecteMonth + 1 > curMonth && selectedYear == curYear)
                     {
                         throw new Exception("Please select a month in the past");
                     }
@@ -649,7 +649,7 @@ namespace login
                         CashFlowDisplay(selectedYear);
                     }
                     // month to far in the future
-                    else if (selecteMonth + 1 >= curMonth && selectedYear == curYear)
+                    else if (selecteMonth + 1 > curMonth && selectedYear == curYear)
                     {
                         throw new Exception("Please select a month in the past");
                     }
@@ -717,7 +717,7 @@ namespace login
                         BalanceDisplay(selectedYear);
                     }
                     // month to far in the future
-                    else if (selecteMonth + 1 >= curMonth && selectedYear == curYear)
+                    else if (selecteMonth + 1 > curMonth && selectedYear == curYear)
                     {
                         throw new Exception("Please select a month in the past");
                     }
@@ -783,7 +783,7 @@ namespace login
                         BalanceSheetDisplay(selectedYear);
                     }
                     // month to far in the future
-                    else if (selecteMonth + 1 >= curMonth && selectedYear == curYear)
+                    else if (selecteMonth + 1 > curMonth && selectedYear == curYear)
                     {
                         throw new Exception("Please select a month in the past");
                     }
