@@ -50,6 +50,8 @@ namespace login
 
             try
             {
+                double.TryParse(txt_Amt.Text, out double amount);
+
                 if (index == 0)
                 {
                     particular = "Cash Sales for " + monthYr;
@@ -58,21 +60,42 @@ namespace login
                 {
                     if (cmb_Particular.SelectedIndex == -1)
                     {
-                        throw new Exception("Please Select a reason for the expense");
+                        throw new Exception("Please Select a reason for the expense.");
+                    }
+                    if (amount >=0)
+                    {
+                        throw new Exception("Expenses should be Negative.");
                     }
                     particular = cmb_Particular.SelectedItem.ToString();
 
                 }
                 else if (index == 2)
                 {
+                    if (amount >= 0)
+                    {
+                        throw new Exception("Utilities should be Negative.");
+                    }
                     particular = "Utilities for " + monthYr;
+                    
                 }
                 else if (index == 3)
                 {
+                    if (amount >= 0)
+                    {
+                        throw new Exception("Payroll should be Negative.");
+                    }
                     particular = "Payroll for " + monthYr;
                 }
                 else if (index == 4)
                 {
+                    if(txt_ItemID.Text.Length == 0)
+                    {
+                        throw new Exception("Please enter the item number of the item being purchased.");
+                    }
+                    if (amount >= 0)
+                    {
+                        throw new Exception("Inventory Purchases should be Negative.");
+                    }
                     particular = "Inventory Purchase of Item #" + txt_ItemID.Text;
                 }
                 else if (index == 5)
@@ -86,7 +109,7 @@ namespace login
                     particular += "(" + reason + ")";
                 }
 
-                double.TryParse(txt_Amt.Text, out double amount);
+                
 
                 if (cmb_Type.SelectedIndex == -1)
                 {
