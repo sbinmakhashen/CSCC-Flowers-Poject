@@ -115,16 +115,6 @@ namespace login
 
                 SQL.NewLedgerEntry(type, particular, amount);
 
-                /* what... was this for?
-                var data = new DataTable();
-                cmb_Type.SelectedIndex = cmb_Type.FindStringExact(data.Rows[0]["type"].ToString());
-                cmb_Particular.SelectedIndex = cmb_Particular.FindStringExact(data.Rows[0]["particular"].ToString());
-                txt_ItemID.Text = data.Rows[0]["inventory_item"].ToString();
-                cmb_Detail.SelectedIndex = cmb_Detail.FindStringExact(data.Rows[0]["detail"].ToString());
-                txt_Amt.Text = data.Rows[0]["amount"].ToString();
-                txt_Correction.Text = data.Rows[0]["correction_reason"].ToString();
-                */
-
                 MessageBox.Show("Succesfully added entry of:\n" + type + ", " + particular + ", for amount of " + amount + ".", "Entry Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
